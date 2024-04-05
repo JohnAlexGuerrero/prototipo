@@ -1,0 +1,14 @@
+{% extends "base/base-full-screen.html" %}
+
+{% load static %}
+
+{% block title %}
+Home Index
+{% endblock title %}
+
+{% block content %}
+<h1>Index</h1>
+
+<a href="{% url "login" %}">Sing in</a>
+<a href="{% url "signup" %}">Signup</a>
+{% endblock content %}

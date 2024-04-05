@@ -1,0 +1,22 @@
+{% extends "base/index.html" %}
+
+{% load static %}
+
+{% block title %}
+Dashboard Home
+{% endblock title %}
+
+
+{% block content %}
+    <h1>Dashboard</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <a href="{% url "logout" %}">Cerrar Sesión</a>
+    {% endif %}
+{% endblock content %}

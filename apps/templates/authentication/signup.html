@@ -1,0 +1,18 @@
+{% extends "base/base-full-screen.html" %}
+
+{% load static %}
+
+{% block title %}
+Register
+{% endblock title %}
+
+
+{% block content %}
+<h1>Register</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Guardar">
+</form>
+{% endblock content %}

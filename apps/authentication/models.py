@@ -35,18 +35,17 @@ class ProfessionCareer(models.IntegerChoices):
     SYSTEM_TECH = 3, "Tecnología en Sistemas"
     
 class Gender(models.IntegerChoices):
-    NOT_GENDER = 1, "Sin especificar" 
-    MAN = 2, "Hombre" 
-    WOMAN = 3, "Mujer"
+    MAN = 1, "Hombre" 
+    WOMAN = 2, "Mujer"
          
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to="avatars", default='no_picture.jpg')
-    gender = models.SmallIntegerField(choices=Gender.choices, default=Gender.NOT_GENDER)
+    gender = models.SmallIntegerField(choices=Gender.choices, blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
-    occupation = models.PositiveSmallIntegerField(choices=Rol.choices, default=Rol.STUDENT)
-    institution = models.PositiveSmallIntegerField(choices=Institute.choices, default=Institute.CESMAG)
-    profession_career = models.PositiveSmallIntegerField(choices=ProfessionCareer.choices, default=ProfessionCareer.SYSTEM_INGEENIER)
+    occupation = models.PositiveSmallIntegerField(choices=Rol.choices, blank=True, null=True)
+    institution = models.PositiveSmallIntegerField(choices=Institute.choices, blank=True, null=True)
+    profession_career = models.PositiveSmallIntegerField(choices=ProfessionCareer.choices, blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
 

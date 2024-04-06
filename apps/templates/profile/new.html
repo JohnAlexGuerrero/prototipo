@@ -1,0 +1,15 @@
+{% extends "base/index.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{user}} - Perfil
+{% endblock title %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Guardar">
+</form>
+{% endblock content %}

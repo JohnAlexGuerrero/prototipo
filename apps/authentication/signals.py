@@ -6,8 +6,5 @@ from django.dispatch import receiver
 
 @receiver(post_save, sender=CustomUser)
 def post_save_create_profile(sender, instance, created, **kwargs):
-  print(sender)
-  print(instance)
-  print(created)
   if created:
-    Profile.objects.create(user=instance)
+    Profile.objects.create(user=instance, slug=instance.username)

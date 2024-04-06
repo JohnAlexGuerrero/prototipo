@@ -9,4 +9,10 @@ Editar perfil . Accounts
 {% block content %}
 <h1>Editar perfil</h1>
 
+<form method="POST" actions="{% url "profile_edit" slug=user.username %}">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+</form>
+
 {% endblock content %}

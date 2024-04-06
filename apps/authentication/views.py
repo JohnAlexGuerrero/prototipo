@@ -38,6 +38,8 @@ class CustomUserCreateView(CreateView):
 class ProfileUpdateView(UpdateView):
     model = Profile
     template_name = "profile/edit.html"
+    fields = '__all__'
+    success_url = reverse_lazy('profile')
 
 class ProfileDetailView(DetailView):
     model = Profile

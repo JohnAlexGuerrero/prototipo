@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from django.views.generic import TemplateView
 from django.views.generic import CreateView
+from django.views.generic import UpdateView
+from django.views.generic import DetailView
 
-from authentication.models import CustomUser
+from authentication.models import CustomUser, Profile
 
 from authentication.forms import RegisterUserForm
 
@@ -30,6 +33,18 @@ class CustomUserCreateView(CreateView):
     model = CustomUser
     template_name = "authentication/signup.html"
     form_class = RegisterUserForm
+    success_url = reverse_lazy('login')
+
+class ProfileUpdateView(UpdateView):
+    model = Profile
+    template_name = "profile/edit.html"
+
+class ProfileDetailView(DetailView):
+    model = Profile
+    template_name = "profile/detail.html"
+
+
+
     
 def user_logout_view(request):
     logout(request)

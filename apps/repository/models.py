@@ -1,3 +1,6 @@
+from django.urls import reverse
+from django.utils.text import slugify
+
 from django.db import models
 from authentication.models import CustomUser
 
@@ -15,6 +18,8 @@ class Software(models.Model):
     license = models.PositiveSmallIntegerField(("tipo de licencia"), choices=License.choices, default=License.PROPERTY)
     slug = models.SlugField()
     user = models.ForeignKey(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now_add=True)
 
     class Meta:
         verbose_name = ("Software")
@@ -25,3 +30,8 @@ class Software(models.Model):
 
     def get_absolute_url(self):
         return reverse("Software_detail", kwargs={"pk": self.pk})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)

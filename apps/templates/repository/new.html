@@ -1,0 +1,25 @@
+{% extends "base/index.html" %}
+
+{% load static %}
+
+{% block title %}
+New repository
+{% endblock title %}
+
+{% block content %}
+<h1>Crea un nuevo repositorio</h1>
+<p>Un repositorio es un espacio donde se almacena, organiza y gestiona los recursos necesarios para la documentacion de tu Software.</p>
+
+<small><strong>Importante!</strong>Los campos requeridos con asterisco(*)</small>
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Crear repositorio">
+</form>
+
+<small><strong>Importante!</strong>
+    La licencia de software es la autorización que otorga un autor o autores que permite el derecho a terceras personas de utilizar su creación o recurso.
+    sin que se llegue a violar los derechos de autor.
+</small>
+
+{% endblock content %}

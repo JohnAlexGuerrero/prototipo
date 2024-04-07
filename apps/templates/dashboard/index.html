@@ -3,12 +3,12 @@
 {% load static %}
 
 {% block title %}
-Dashboard Home
+@{{user}} - Dashboard
 {% endblock title %}
 
 
 {% block content %}
-    <h1>Dashboard</h1>
+    <h1>Home</h1>
 
     {% if messages %}
         {% for message in messages %}
@@ -16,6 +16,8 @@ Dashboard Home
         {% endfor %}
     {% endif %}
 
+    <a href="{% url "dashboard" %}">Inicio</a>
+    <a href="{% url "repository_new" %}">New</a>
     <a href="{% url "profile" slug=user.username %}">Perfil</a>
 
     {% if user.is_authenticated %}

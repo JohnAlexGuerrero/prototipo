@@ -3,10 +3,11 @@
 {% load static %}
 
 {% block title %}
-@{{user}}/prototipo
+@{{user}}/{{software.title}}
 {% endblock title %}
 
 {% block content %}
-<h1>name_repository</h1>
+<h1>{{software.title}}</h1>
+<p><hr class="dropdown-divider"></p>
 
 {% endblock content %}

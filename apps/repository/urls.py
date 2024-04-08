@@ -4,5 +4,5 @@ from repository.views import SoftwareCreateView, SoftwareDetailView
 
 urlpatterns = [
     path('new/', SoftwareCreateView.as_view(), name='repository_new'),
-    path('<slug:slug_user>/<slug:slug_repo>/', SoftwareDetailView.as_view(), name='repository'),
+    path('<slug:slug>/', SoftwareDetailView.as_view(), name='repository'),
 ]

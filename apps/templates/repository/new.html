@@ -7,19 +7,79 @@ New repository
 {% endblock title %}
 
 {% block content %}
-<h1>Crea un nuevo repositorio</h1>
-<p>Un repositorio es un espacio donde se almacena, organiza y gestiona los recursos necesarios para la documentacion de tu Software.</p>
+<div class="d-flex justify-content-center flex-column p-5" style="width:50rem;">
+    <h1 class="h4">Crea un nuevo repositorio</h1>
+    <p>Un repositorio es un espacio donde se almacena, organiza y gestiona los recursos necesarios para la documentacion de tu Software.</p>
+    <hr>
 
-<small><strong>Importante!</strong>Los campos requeridos con asterisco(*)</small>
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Crear repositorio">
-</form>
+    <small class="mb-3 form-text"><strong>Importante! </strong>Los campos requeridos con asterisco(*)</small>
 
-<small><strong>Importante!</strong>
-    La licencia de software es la autorización que otorga un autor o autores que permite el derecho a terceras personas de utilizar su creación o recurso.
-    sin que se llegue a violar los derechos de autor.
-</small>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="basic-url" class="form-label m-0"><strong>Propietario</strong>* <strong class="ms-5">titúlo del software</strong>*</label>
+            <div class="input-group">
+                <span class="input-group-text bg-body-secondary">{{form.user}}</span>
+                {{form.title}}
+            </div>
+            <div class="form-text">Tu repositorio debe tener el mismo titulo de tu software.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label m-0"><strong>Descripción</strong>*</label>
+            {{form.description}}
+            <div class="form-text" style="max-width: 750px;">Indique únicamente las Funciones Técnicas realizadas por el soporte lógico software (ej. Compila, almacena, genera reportes, automatiza datos, procesa datos, organiza datos, gestiona y registra, controla, produce, crea reportes, etc.</div>
+        </div>
+        <div class="mb-3">
+            <label for="" class="col-form-label m-0"><strong>Versión</strong>*</label>
+            <div class="w-25">
+                {{form.version}}
+            </div>
+            <span id="passwordHelpInline" class="form-text">
+                Indica la versión de desarrollo de tu software.
+            </span>
+        </div>
+        <div class="mb-3">
+            <label for="" class="col-form-label m-0"><strong>Licencia</strong>*</label>
+            <div class="w-25">
+                {{form.license}}
+            </div>
+            <span id="passwordHelpInline" class="form-text">
+                <strong>Importante! </strong>
+                La licencia de software es la autorización que otorga un autor o autores que permite el derecho a terceras personas de utilizar su creación o recurso.
+                sin que se llegue a violar los derechos de autor.
+            </span>
+        </div>
+        <div class="mb-3">
+            <label for="" class="col-form-label m-0"><strong>Tipo de obra</strong>*</label>
+            <div class="w-25">
+                {{form.type_of_work}}
+            </div>
+            <span id="passwordHelpInline" class="form-text">
+                Obra que no ha sido divulgada con el consentimiento del autor o sus derechohabientes.
+            </span>
+        </div>
+        <div class="mb-3">
+            <label for="" class="col-form-label m-0"><strong>Fecha de creación</strong>*</label>
+            <div class="w-25">
+                {{form.date_created}}
+            </div>
+            <span id="passwordHelpInline" class="form-text">
+            </span>
+        </div>
+        <div class="mb-3">
+            <label for="" class="col-form-label m-0"><strong>Páis de origen</strong>*</label>
+            <div class="w-25">
+                {{form.origin_country}}
+            </div>
+            <span id="passwordHelpInline" class="form-text">
+            </span>
+        </div>
+
+        <input type="submit" value="Crear repositorio" class="btn btn-outline-success">
+    </form>
+
+    <small>
+    </small>
+</div>
 
 {% endblock content %}

@@ -17,20 +17,20 @@
     {% endif %}
 
     <div>
-        <a href="{% url "dashboard" %}">Inicio</a>
-        <a href="{% url "profile" slug=user.username %}">Perfil</a>
+        
+        
 
         {% if user.is_authenticated %}
-            <a href="{% url "logout" %}">Cerrar Sesión</a>
+
         {% endif %}
     </div>
     
     <div>
-        <div>
-            <h2>Top repositorios</h2>
-            <a href="{% url "repository_new" %}">New</a>
+        <div class="d-flex">
+            <h2 class="h2">Top repositorios</h2>
+            <a href="{% url "repository_new" %}" class="btn btn-success btn-sm">New</a>
         </div>
-        
+
         {% for repo in repositories %}
             <a href="{% url "repository" slug=repo.slug %}">{{user}}/{{repo.title}}</a>
         {% endfor %}

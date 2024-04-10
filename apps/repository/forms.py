@@ -4,6 +4,28 @@ from django_countries.widgets import CountrySelectWidget
 from django import forms
 
 from repository.models import Software
+from repository.models import Category
+from authentication.models import CustomUser
+
+class CategoryForm(forms.ModelForm):
+    
+    class Meta:
+        model = Category
+        fields = ("software","type_software","type_public","type_industry","os")
+        
+        widgets = {
+            "software": forms.Select(attrs={'class':'border-0 bg-body-secondary form-select form-select-sm'}),
+            "type_software": forms.RadioSelect(attrs={'class':'form-ckeck-input'}),
+            "type_public": forms.RadioSelect(attrs={'class':'form-ckeck-input'}),
+            "type_industry": forms.Select(attrs={
+                'class':'form-select form-select-sm js-example-basic-single',
+            }),
+            "os": forms.Select(attrs={
+                'class':'form-control js-example-basic-single',
+                'placeholder': 'Selecciona los sistemas operativos',
+            })
+        }
+
 
 class SoftwareNewForm(forms.ModelForm):
     origin_country = CountryField().formfield()

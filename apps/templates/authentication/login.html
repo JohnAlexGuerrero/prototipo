@@ -7,7 +7,7 @@ Accounts Login
 {% endblock title %}
 
 {% block content %}
-<h1>Login</h1>
+
 
 {% if messages %}
     {% for message in messages %}
@@ -15,14 +15,44 @@ Accounts Login
     {% endfor %}
 {% endif %}
 
-<form method="POST">
-    {% csrf_token %}
-    <label for="">Email</label>
-    <input type="email" name="email" id="id_email">
-    <label for="">Password</label>
-    <input type="password" name="password" id="id_password">
-    <input type="submit" value="Login">
-</form>
+<div class="d-flex justify-content-center align-middled mt-5">
+    <div class="card shadow p-3 mb-5 rounded bg-body" style="width: 30rem;">
+        <div class="card-head ">
+            <h1 class="mx-3 h2"><strong>Login</strong></h1>
+        </div>
+        <div class="card-body ">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="input-group has-validation mb-2">
+                    <span class="input-group-text">@</span>
+                    <div class="form-floating is-invalid">
+                    <input type="email" class="form-control form-control-sm " id="id_email" placeholder="Enter Email" required>
+                    <label for="floatingInputGroup2">Email</label>
+                    </div>
+                    <div class="invalid-feedback">
+                    Please choose a email.
+                    </div>
+                </div>
+                <div class="input-group has-validation mb-2">
+                    <span class="input-group-text">@</span>
+                    <div class="form-floating is-invalid">
+                        <input type="password" class="form-control form-control-sm" id="id_password" placeholder="Password">
+                        <label for="floatingPassword">Password</label>          
+                    </div>
+                    <div class="invalid-feedback">
+                    Please choose a username.
+                    </div>
+                </div>
+                <div class="mb-3 mt-2">
+                    no tengo cuenta,
+                    <a href="{% url "signup" %}"> Registrate!</a>
+                </div>
+                <div class="d-grid gap-2">
+                    <input type="submit" value="Login" class="btn btn-outline-dark btn-lg">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-<a href="{% url "signup" %}">no tengo cuenta, Registrarme</a>
 {% endblock content %}

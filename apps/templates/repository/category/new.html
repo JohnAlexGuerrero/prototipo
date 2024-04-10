@@ -1,0 +1,128 @@
+{% extends "base/index.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{user}} - categorización
+{% endblock title %}
+
+{% block cdn %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js" integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+{% endblock cdn %}
+
+{% block content %}
+<div class="d-flex justify-content-center flex-column p-5" style="width:50rem;">
+    <h1 class="h4">Categorización</h1>
+    <p>Ingresa la siguiente información para categorizar tu Software.</p>
+    <hr>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="basic-url" class="form-label m-0"><strong>Software</strong>* </label>
+            <div class="input-group">
+                <span class="input-group-text bg-body-secondary">{{form.software}}</span>
+            </div>
+            <div class="form-text"></div>
+        </div>
+        <div class="mb-3">
+            <label for="" class="col-form-label m-0"><strong>Tipo de software</strong>*</label>
+            <div class="row">
+                <div class="col form-check form-switch w-25 mt-2">
+                    {{form.type_software}}
+                </div>
+                <div class="col-sm w-25">
+                    <span id="passwordHelpInline" class="form-text">
+                        <strong>Importante! </strong>
+                        La licencia de software es la autorización que otorga un autor o autores que permite el derecho a terceras personas de utilizar su creación o recurso.
+                        sin que se llegue a violar los derechos de autor.
+                    </span>
+                </div>
+        </div>
+        <div class="mb-3">
+            <label for="" class="col-form-label m-0"><strong>Tipo de audiencia</strong>*</label>
+            <div class="row">
+                <div class="col form-check form-switch w-25 mt-2">
+                    {{form.type_public}}
+                </div>
+                <div class="col-sm w-25">
+                    <span id="passwordHelpInline" class="form-text">
+                        <strong>Importante! </strong>
+                        La licencia de software es la autorización que otorga un autor o autores que permite el derecho a terceras personas de utilizar su creación o recurso.
+                        sin que se llegue a violar los derechos de autor.
+                    </span>
+                </div>
+        </div>
+        <div class="mb-3">
+            <label for="" class="col-form-label m-0"><strong>Funcionalidades</strong>*</label>
+            <div class="w-100">
+                {{form.os}}
+            </div>
+            <div class="form-text" style="max-width: 750px;">Indique únicamente las Funciones Técnicas realizadas por el soporte lógico software (ej. Compila, almacena, genera reportes, automatiza datos, procesa datos, organiza datos, gestiona y registra, controla, produce, crea reportes, etc.</div>
+        </div>
+        <div class="mb-3">
+            <label for="" class="col-form-label m-0"><strong>Sistema Operativo</strong>*</label>
+            <div class="w-100">
+                {{form.os}}
+            </div>
+            <span id="passwordHelpInline" class="form-text">
+            </span>
+        </div>
+        <div class="mb-3">
+            <label for="" class="col-form-label m-0"><strong>Funcionalidad</strong>*</label>
+            <div class="w-100">
+                {{form.os}}
+            </div>
+            <span id="passwordHelpInline" class="form-text">
+            </span>
+        </div>
+        <div class="mb-3">
+            <label for="" class="col-form-label m-0"><strong>Plataforma</strong>*</label>
+            <div class="w-100">
+                {{form.os}}
+            </div>
+            <span id="passwordHelpInline" class="form-text">
+            </span>
+        </div>
+        <div class="mb-3">
+            <label for="" class="col-form-label m-0"><strong>Sector</strong>*</label>
+            <div class="w-100">
+                {{form.type_industry}}
+            </div>
+            <span id="passwordHelpInline" class="form-text">
+            </span>
+        </div>
+        <div class="mb-3">
+            <label for="" class="col-form-label m-0"><strong>Modelo de negocio</strong>*</label>
+            <div class="w-100">
+                {{form.os}}
+            </div>
+            <span id="passwordHelpInline" class="form-text">
+            </span>
+        </div>
+        <select class="js-example-basic-multiple form-control" name="states[]" multiple="multiple">
+            <option value="AL">Alabama</option>
+            <option value="AL">Alabama FGFG</option>
+              ...
+            <option value="WY">Wyoming</option>
+        </select>
+
+        <input type="submit" value="Guardar categorización" class="btn btn-outline-success">
+    </form>
+
+    <small>
+    </small>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+    });
+</script>
+{% endblock javascript %}

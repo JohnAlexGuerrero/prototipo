@@ -18,15 +18,36 @@ class TypeOfWork(models.IntegerChoices):
 
 class TypeFunctionSoftware(models.IntegerChoices):
     APPLICATION = 1, "Software de aplicación"
-    MANAGEMENT = 2, "Software de gestión"
-    PROGRAMMING = 3, "Software de desarrollo"
-    SYSTEM = 4, "Software de sistema"
+    PROGRAMMING = 2, "Software de programación"
+    SYSTEM = 3, "Software de sistema"
 
 class TypePublic(models.IntegerChoices):
     ALL_PUBLIC = 1, "Apto para todo público"
     TEENAGERS = 2, "Adolecentes"
     ADULT = 3, "Mayores de 17 años" 
-    
+
+class Sector(models.IntegerChoices):
+    HEALTH = 1,	"Salud"
+    EDUCATION = 2,	"Educación"
+    FINANCE = 3, "Finanzas"
+# 4	Manufactura
+# 5	Retail
+# 6	Transporte y logística
+# 7	Agricultura
+# 8	Gobierno
+# 9	Telecomunicaciones
+# 10	Energía
+# 11	Recursos Humanos
+# 12	Marketing
+# 13	Legal
+# 14	Construcción
+# 15	Turismo
+# 16	Bienes Raíces
+# 17	Entretenimiento
+# 18	Deportes
+# 19	Ciencia e investigación
+# 20	Servicios Públicos
+
 class Software(models.Model):
     title = models.CharField(("Software titulo"), max_length=150, null=False, unique=True)
     description = models.TextField(("descripción"), max_length=250, null=False)
@@ -58,8 +79,9 @@ class Software(models.Model):
 class Category(models.Model):
     software = models.OneToOneField(Software, verbose_name=("software"), on_delete=models.CASCADE)
     type_software = models.PositiveSmallIntegerField(("Tipo de software por funcionalidad"), choices=TypeFunctionSoftware.choices, default=TypeFunctionSoftware.APPLICATION)    
-    type_public = models.PositiveSmallIntegerField(("Tipo de audiencia"), choices=TypePublic.choices)
-    collection = models.CharField(("categoria"), max_length=250, blank=True, null=True)
+    type_public = models.PositiveSmallIntegerField(("Tipo de audiencia"), choices=TypePublic.choices, default=TypePublic.ALL_PUBLIC)
+    type_industry = models.PositiveSmallIntegerField(("sector"), choices=Sector.choices)
+    # functions = models.CharField("functions", max_length=250, choices=Sector.choices)
     os = models.CharField(("sistema operativo"), max_length=250, blank=False, null=False)
     
     class Meta:

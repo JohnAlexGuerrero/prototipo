@@ -47,6 +47,26 @@ class Sector(models.IntegerChoices):
 # 18	Deportes
 # 19	Ciencia e investigación
 # 20	Servicios Públicos
+# 1 Health
+# 2 Education
+# 3 Finance
+# 4 Manufacturing
+# 5 Retail
+# 6 Transportation and logistics
+# 7 Agriculture
+# 8 Government
+# 9 Telecommunications
+# 10 Energy
+# 11 Human Resources
+# 12 Marketing
+# 13 Legal
+# 14 Construction
+# 15 Tourism
+# 16 Real Estate
+# 17 Entertainment
+# 18 Sports
+# 19 Science and research
+# 20 Public Services
 
 class Software(models.Model):
     title = models.CharField(("Software titulo"), max_length=150, null=False, unique=True)

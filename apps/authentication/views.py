@@ -24,8 +24,11 @@ class UserLoginView(TemplateView):
         
         if user:
             login(request, user)
-            messages.success(request, 'You have been logged in.')
-            return redirect('dashboard')
+            if user.is_authenticated:
+                return redirect("profile_new", slug=user.profile.slug)
+            else:
+                messages.success(request, 'You have been logged in.')
+                return redirect('dashboard')
         else:
             messages.success(request, 'There was Error logging in, Please try again.')
             return redirect('login')
@@ -33,14 +36,22 @@ class UserLoginView(TemplateView):
 class CustomUserCreateView(TemplateView):
     model = CustomUser
     template_name = "authentication/signup.html"
-    # success_url = reverse_lazy('perfil')
     
     def post(self, request):
         if request.method == 'POST':
             form = RegisterUserForm(request.POST)
             if form.is_valid():
               form.save()
-              return redirect('profile_new', slug=request.POST.get('username'))
+              #Authentication and login
+              email = form.cleaned_data['email']
+              password = form.cleaned_data['password1']
+              user = authenticate(email=email, password=password)
+              login(request, user)
+              messages.success(request, 'You have successfull.')
+
+              if user.is_authenticated:
+                return redirect("profile_new", slug=user.profile.slug)
+            #   return redirect('dashboard')
         else:
             form = RegisterUserForm()
         return redirect('signup')
@@ -50,10 +61,16 @@ class CustomUserCreateView(TemplateView):
         context["form"] = RegisterUserForm
         return context
 
-class ProfileUpdateView(UpdateView):
+class ProfileView(CreateView):
     model = Profile
     template_name = "profile/edit.html"
     fields = '__all__'
+    success_url = reverse_lazy('login')
+
+class ProfileUpdateView(UpdateView):
+    model = Profile
+    template_name = "profile/edit.html"
+    form_class = UserProfileForm
     success_url = reverse_lazy('login')
 
 class ProfileDetailView(DetailView):

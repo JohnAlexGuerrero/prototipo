@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, User
 from django.urls import reverse
+from django.utils.text import slugify
 
 # Create your models here.
 class CustomUser(AbstractUser):
@@ -41,8 +42,8 @@ class Gender(models.IntegerChoices):
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to="avatars", default='no_picture.jpg')
-    gender = models.SmallIntegerField(choices=Gender.choices, blank=True, null=True)
-    slug = models.SlugField(blank=True, null=True)
+    gender = models.SmallIntegerField(choices=Gender.choices, default=Gender.MAN)
+    slug = models.SlugField()
     occupation = models.PositiveSmallIntegerField(choices=Rol.choices, blank=True, null=True)
     institution = models.PositiveSmallIntegerField(choices=Institute.choices, blank=True, null=True)
     profession_career = models.PositiveSmallIntegerField(choices=ProfessionCareer.choices, blank=True, null=True)
@@ -54,12 +55,12 @@ class Profile(models.Model):
         verbose_name_plural = ("Profiles")
 
     def __str__(self):
-        return self.slug
+        return self.user.username
 
     def get_absolute_url(self):
         return reverse("Profile_detail", kwargs={"slug": self.slug})
     
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = self.user
+            self.slug = slugify(self.user.username)
         return super().save(*args, **kwargs)

@@ -47,6 +47,7 @@ class UserProfileForm(forms.ModelForm):
         fields = ['occupation','institution','profession_career','gender','avatar']
 
         widgets = {
-            "avatar": forms.FileInput(attrs={'class':'d-none'}),
-            "gender": forms.RadioSelect(),
+            "avatar": forms.FileInput(attrs={'style':'display:none;color:red;'}),
+            "institution": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
+            "profession_career": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
         }

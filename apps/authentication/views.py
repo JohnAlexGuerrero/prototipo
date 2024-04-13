@@ -64,7 +64,7 @@ class CustomUserCreateView(TemplateView):
 class ProfileView(CreateView):
     model = Profile
     template_name = "profile/edit.html"
-    fields = '__all__'
+    form_class = UserProfileForm
     success_url = reverse_lazy('login')
 
 class ProfileUpdateView(UpdateView):

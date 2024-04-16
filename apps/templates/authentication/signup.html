@@ -6,9 +6,12 @@
 Register
 {% endblock title %}
 
+{% block cnd %}
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+{% endblock cnd %}
+
 
 {% block content %}
-
 <div class="d-flex justify-content-center align-middled mt-5">
     <div class="card shadow p-3 mb-5 rounded bg-body" style="width: 35rem;">
         <div class="card-head ">
@@ -100,3 +103,23 @@ Register
     </div>
 </div>
 {% endblock content %}
+
+{% block javascript %}
+<script>
+    const inputFirstName = document.getElementById("id_first_name")
+    const inputSecondName = document.getElementById("id_second_name")
+    const inputLastName = document.getElementById("id_last_name")
+    const inputUsername = document.getElementById("id_username")
+
+    const inputUpperCase = (e)=>{
+        let x = e.target
+        x.value = x.value.toUpperCase();
+    }
+
+    inputFirstName.addEventListener('keyup', e=> inputUpperCase(e))
+    inputSecondName.addEventListener('keyup', e => inputUpperCase(e))
+    inputLastName.addEventListener('keyup', e => inputUpperCase(e))
+    inputUsername.addEventListener('keyup', e => inputUpperCase(e))
+
+</script>
+{% endblock javascript %}

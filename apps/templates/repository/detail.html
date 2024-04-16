@@ -70,14 +70,14 @@
             <h4 id="list-item-2">Introducción</h4>
             <p class="text-xxl-end">
                 Bienvenido/a a la descripción del producto de software <strong>{{software.title.capitalize}}</strong>. Esta guía tiene como objetivo proporcionar una visión general detallada de las características, funcionalidades y beneficios que ofrece nuestro software <strong>{{software.title.capitalize}}</strong>.
-                En un mundo cada vez más digitalizado, la demanda de soluciones eficientes y fiables para abordar una amplia gama de necesidades esenciales en el ámbito profesional y personal ha crecido exponencialmente. Con este fin, nuestro equipo se enorgullece en presentar <strong>{{software.title.capitalize}}</strong>, una herramienta diseñada para [describir el propósito principal del software, por ejemplo, aumentar la productividad, gestionar datos, optimizar procesos, etc.].
+                En un mundo cada vez más digitalizado, la demanda de soluciones eficientes y fiables para abordar una amplia gama de necesidades esenciales en el ámbito profesional y personal ha crecido exponencialmente. Con este fin, nuestro equipo se enorgullece en presentar <strong>{{software.title.capitalize}}</strong>, una herramienta diseñada para <strong class="fw-light">{{ software.description }}</strong>.
                 Esta introducción proporcionará una visión general de alto nivel del software, su propósito y su audiencia prevista. A lo largo de este documento, exploraremos en detalle las características clave, los requisitos del usuario, la instalación y configuración, así como otros aspectos relevantes para garantizar una experiencia óptima para nuestros usuarios.
 
                 A medida que avanzamos, invitamos a los lectores a sumergirse en el mundo de <strong>{{software.title.capitalize}}</strong>, descubriendo cómo nuestras soluciones pueden satisfacer sus necesidades específicas y contribuir al logro de sus objetivos tanto profesionales como personales.
             </p>
             <h4 id="list-item-3">Resumen ejecutivo</h4>
             <p>
-                El software [Nombre del Software] es una solución innovadora diseñada para [describir el propósito principal del software]. Con una interfaz intuitiva y potentes características, [Nombre del Software] está diseñado para satisfacer las necesidades de [audiencia objetivo, por ejemplo, profesionales de negocios, equipos de desarrollo, estudiantes, etc.].
+                El software <strong>{{software.title.capitalize}}</strong> es una solución innovadora diseñada para {{ software.description }}. Con una interfaz intuitiva y potentes características, <strong>{{software.title.capitalize}}</strong> está diseñado para satisfacer las necesidades de [audiencia objetivo, por ejemplo, profesionales de negocios, equipos de desarrollo, estudiantes, etc.].
 
                 Características Clave:
 
@@ -99,7 +99,7 @@
                 <tbody>
                   <tr>
                     <th scope="row">Titúlo de Software</th>
-                    <td>Mark</td>
+                    <td>{{ software.title }}</td>
                   </tr>
                   <tr>
                     <th scope="row">Tipo de programa</th>
@@ -107,11 +107,13 @@
                   </tr>
                   <tr>
                     <th scope="row">Versión actual.</th>
-                    <td colspan="2">v1.0</td>
+                    <td colspan="2">{{ software.version }}</td>
                   </tr>
                   <tr>
                     <th scope="row">Licencia</th>
-                    <td colspan="2">{{ software.license }}</td>
+                    <td colspan="2">
+                        {{ software.license }}
+                    </td>
                   </tr>
                   <tr>
                     <th scope="row">Fecha de publicación o última actualización.</th>

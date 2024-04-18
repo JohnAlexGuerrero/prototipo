@@ -32,22 +32,38 @@ class RegisterUserForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter your second name'})
     )
     last_name = forms.CharField(
-        label="Apellidos",
+        label="Primer apellido",
+        max_length=150,
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter your last_name'})
+    )
+    second_last_name = forms.CharField(
+        label="Segundo apellido",
         max_length=150,
         widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter your last_name'})
     )
     
     class Meta:
         model = CustomUser
-        fields = ['email','username','password1','password2','first_name','second_name','last_name']
+        fields = ['email','username','password1','password2','first_name','second_name','last_name','second_last_name']
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['occupation','institution','profession_career','gender','avatar']
+        fields = ['gender','avatar']
 
         widgets = {
             "avatar": forms.FileInput(attrs={'style':'display:none;color:red;'}),
+            "gender": forms.RadioSelect(),
+        }
+
+class UserOccupationForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['user','occupation','institution','profession_career']
+        
+        widgets = {
+            "user": forms.TextInput(attrs={'style':'display:none;'}),
+            "occupation": forms.RadioSelect(),
             "institution": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
             "profession_career": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
         }

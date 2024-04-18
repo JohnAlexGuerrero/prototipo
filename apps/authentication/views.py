@@ -11,7 +11,7 @@ from django.views.generic import FormView
 
 from authentication.models import CustomUser, Profile
 
-from authentication.forms import RegisterUserForm, UserProfileForm
+from authentication.forms import RegisterUserForm, UserProfileForm, UserOccupationForm
 
 # Create your views here.
 class UserLoginView(TemplateView):
@@ -25,8 +25,8 @@ class UserLoginView(TemplateView):
         if user:
             login(request, user)
             if user.is_authenticated:
-                return redirect("profile_new", slug=user.profile.slug)
-            else:
+            #     return redirect("profile_new", slug=user.profile.slug)
+            # else:
                 messages.success(request, 'You have been logged in.')
                 return redirect('dashboard')
         else:
@@ -50,8 +50,8 @@ class CustomUserCreateView(TemplateView):
               messages.success(request, 'You have successfull.')
 
               if user.is_authenticated:
-                return redirect("profile_new", slug=user.profile.slug)
-            #   return redirect('dashboard')
+                # return redirect("profile_new", slug=user.profile.slug)
+                return redirect('login')
         else:
             form = RegisterUserForm()
         return redirect('signup')
@@ -66,6 +66,8 @@ class ProfileView(CreateView):
     template_name = "profile/edit.html"
     form_class = UserProfileForm
     success_url = reverse_lazy('login')
+
+
 
 class ProfileUpdateView(UpdateView):
     model = Profile
@@ -86,3 +88,19 @@ class UserProfileView(UpdateView):
 def user_logout_view(request):
     logout(request)
     return redirect('index')
+
+class ProfileOccupationUpdateView(UpdateView):
+    model = Profile
+    template_name = "profile/occupation.html"
+    success_url = reverse_lazy('dashboard')
+    form_class = UserOccupationForm
+
+def user_profession_view(request):
+    if request.POST == 'POST':
+        form = UserOccupationForm(request.POST)
+        if form.is_valid():
+            print(request.POST.get('user'))
+            # form.save()
+            return redirect('dashboard', user=request.POST.get('user'))
+        else:
+            return redirect('dashboard', user=request.user)

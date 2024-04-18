@@ -116,7 +116,7 @@ class Category(models.Model):
 
 class Requeriment(models.Model):
     software = models.ForeignKey(Software, verbose_name=("software"), on_delete=models.CASCADE)
-    description = models.CharField(("descripción"), max_length=250, null=False, blank=False)
+    description = models.TextField(("descripción"), null=True, blank=True)
     version = models.CharField(("versión"), max_length=50, null=False)
     priority = models.PositiveBigIntegerField(("prioridad"), max_length=50, choices=[(1,"Alta"),(2,"Media"),(3,"Baja")])
     created_at = models.DateField(auto_now_add=True)

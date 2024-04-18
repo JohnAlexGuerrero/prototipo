@@ -7,6 +7,7 @@ from django.utils.text import slugify
 class CustomUser(AbstractUser):
     email = models.EmailField(max_length=150, unique=True)
     second_name = models.CharField(max_length=50, blank=True, null=True)
+    second_last_name = models.CharField(max_length=50, blank=True, null=True)
     
     #campo identificador unico del User
     USERNAME_FIELD = 'email'
@@ -42,9 +43,9 @@ class Gender(models.IntegerChoices):
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to="avatars", default='no_picture.jpg')
-    gender = models.SmallIntegerField(choices=Gender.choices, default=Gender.MAN)
+    gender = models.SmallIntegerField(choices=Gender.choices, blank=True, null=True)
     slug = models.SlugField()
-    occupation = models.PositiveSmallIntegerField(choices=Rol.choices, blank=True, null=True)
+    occupation = models.PositiveSmallIntegerField(choices=Rol.choices, default=Rol.STUDENT)
     institution = models.PositiveSmallIntegerField(choices=Institute.choices, blank=True, null=True)
     profession_career = models.PositiveSmallIntegerField(choices=ProfessionCareer.choices, blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)

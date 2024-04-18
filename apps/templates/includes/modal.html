@@ -1,0 +1,34 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="{% url "profession" %}">
+                {% csrf_token %}
+                {{ form.user }}
+                <div class="mb-3">
+                    <p class="h4 fw-bold">¿Cual es tu ocupación?.</p>
+                    {{ form.occupation }}
+                </div>
+                <div class="mb-3">
+                    <p class="h4 fw-bold">¿Cual es tu institución?.</p>
+                    {{ form.institution }}
+                </div>
+                <div class="mb-3">
+                    <p class="h4 fw-bold">¿Cual es tu titulo profesional?.</p>
+                    {{ form.profession_career }}
+                </div>
+                <input type="submit" class="btn btn-sm btn-dark mt-2" value="Guardar" >
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+</div>
+  

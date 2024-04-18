@@ -42,12 +42,26 @@ Register
                         </div>
                     </div>
                 </div>
-                <div class="input-group has-validation mb-2">
-                    <div class="form-floating is-invalid">
-                        {{ form.last_name }}
-                        <label for="floatingInputGroup2">Apellidos</label>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="input-group has-validation mb-2">
+                            <div class="form-floating is-invalid">
+                                {{ form.last_name }}
+                                <label for="floatingInputGroup2">Primer apellido</label>
+                            </div>
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
                     </div>
-                    <div class="invalid-feedback">
+                    <div class="col-sm">
+                        <div class="input-group has-validation mb-2">
+                            <div class="form-floating is-invalid">
+                                {{ form.second_last_name }}
+                                <label for="floatingInputGroup2">Segundo apellido</label>
+                            </div>
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="input-group has-validation mb-2">
@@ -96,7 +110,7 @@ Register
                     </div>
                 </div>
                 <div class="d-grid gap-2">
-                    <input type="submit" value="Guardar registro" class="btn btn-outline-success btn-lg">
+                    <input type="submit" value="Guardar registro" class="btn btn-outline-dark btn-lg">
                 </div>
             </form>
         </div>
@@ -109,16 +123,24 @@ Register
     const inputFirstName = document.getElementById("id_first_name")
     const inputSecondName = document.getElementById("id_second_name")
     const inputLastName = document.getElementById("id_last_name")
+    const inputSecondLastName = document.getElementById("id_second_last_name")
     const inputUsername = document.getElementById("id_username")
 
     const inputUpperCase = (e)=>{
         let x = e.target
-        x.value = x.value.toUpperCase();
+
+        if(x.value.length === 1){
+            x.value = x.value.charAt(0).toUpperCase();
+        }
+        else{
+            x.value = x.value;
+        }
     }
 
     inputFirstName.addEventListener('keyup', e=> inputUpperCase(e))
     inputSecondName.addEventListener('keyup', e => inputUpperCase(e))
     inputLastName.addEventListener('keyup', e => inputUpperCase(e))
+    inputSecondLastName.addEventListener('keyup', e => inputUpperCase(e))
     inputUsername.addEventListener('keyup', e => inputUpperCase(e))
 
 </script>

@@ -1,0 +1,24 @@
+{% extends "dashboard/index.html" %}
+
+{% load static %}
+
+{% block content_2 %}
+<h1 class="h3 fw-bold">Hablanos un poco de ti</h1>
+<form method="POST" >
+    {% csrf_token %}
+    {{ form.user }}
+    <div class="mb-3">
+        <p class="h4 fw-bold">¿Cúal es tu ocupación actual?</p>
+        {{ form.occupation }}
+    </div>
+    <div class="mb-3">
+        <p class="h4 fw-bold">¿Donde realizas tu ocupación actual?</p>
+        {{ form.institution }}
+    </div>
+    <div class="mb-3">
+        <p class="h4 fw-bold">¿Cúal es tu perfil profesional?</p>
+        {{ form.profession_career }}
+    </div>
+    <input type="submit" class="btn btn-sm btn-dark mt-2" value="Guardar" >
+</form>
+{% endblock content_2 %}

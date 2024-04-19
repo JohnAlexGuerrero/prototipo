@@ -72,7 +72,7 @@ class Software(models.Model):
     title = models.CharField(("Software titulo"), max_length=150, null=False, unique=True)
     description = models.TextField(("descripción"), max_length=250, null=False)
     version = models.CharField(("version"), max_length=50, null=False)
-    license = models.PositiveSmallIntegerField(("tipo de licencia"), choices=License.choices)
+    license = models.PositiveSmallIntegerField(("tipo de licencia"), choices=License.choices, default=License.FREE_CODE)
     slug = models.SlugField()
     user = models.ForeignKey(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
     date_created = models.DateField(("Fecha de creación"), auto_now_add=False)

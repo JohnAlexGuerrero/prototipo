@@ -35,21 +35,28 @@ class SoftwareNewForm(forms.ModelForm):
         fields = ['user','title','description','version','license','date_created','type_of_work','origin_country']
         
         widgets = {
-            "user": forms.Select(attrs={'class':'border-0 bg-body-secondary form-select form-select-sm'}),
+            "user": forms.TextInput(attrs={'class':'form-control form-control-sm'}),
             "title": forms.TextInput(attrs={
                 'class':'form-control form-control-sm',
             }),
-            "description":forms.TextInput(attrs={
+            "description":forms.Textarea(attrs={
                 'class':'form-control',
-                "placeholder":'describe',
+                "placeholder":"Indique únicamente las Funciones Técnicas realizadas por el soporte lógico software (ej. Compila, almacena, genera reportes, automatiza datos, procesa datos, organiza datos, gestiona y registra, controla, produce, crea reportes, etc.)",
+                "cols":"50",
+                "rows":"3"
             }),
             "version": forms.TextInput(attrs={
                 'class':'form-control form-control-sm w-75',
                 'placeholder':'ejemplo: v1.0'
             }),
-            "license": forms.Select(attrs={'class':'form-select form-select-sm'}),
+            "license": forms.RadioSelect(),
             "type_of_work": forms.Select(attrs={'class':'form-select form-select-sm'}),
             "date_created": forms.DateInput(attrs={'class':'form-control w-100', 'type':"date"}),
             "origin_country": CountrySelectWidget()
         }
+        
+    def __init__(self, *args, **kwargs):
+        super(SoftwareNewForm, self).__init__(*args, **kwargs)
+        print(kwargs)
+        # self.fields['user'].initial = user
 

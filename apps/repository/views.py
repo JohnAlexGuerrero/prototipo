@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 
 from repository.models import Software
 from repository.models import Category
+from authentication.models import CustomUser
 
 from repository.forms import SoftwareNewForm
 from repository.forms import CategoryForm
@@ -23,6 +24,7 @@ class SoftwareCreateView(CreateView):
     template_name = "repository/new.html"
     form_class = SoftwareNewForm
     success_url = reverse_lazy('dashboard')
+
 
 class SoftwareDetailView(DetailView):
     template_name = "repository/detail.html"

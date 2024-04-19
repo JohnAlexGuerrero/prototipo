@@ -6,20 +6,29 @@
 New repository
 {% endblock title %}
 
+{% block cdn %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock cdn %}
+
+
 {% block content %}
-<div class="d-flex justify-content-center flex-column p-5" style="width:50rem;">
-    <h1 class="h4">Crea un nuevo repositorio</h1>
-    <p>Un repositorio es un espacio donde se almacena, organiza y gestiona los recursos necesarios para la documentacion de tu Software.</p>
+{% include "includes/messages.html" %}
+
+<div class="d-flex justify-content-center flex-column p-1" style="width:50rem;">
+    <h1 class="h4 fw-bold">Datos generales</h1>
+    <p></p>
     <hr>
 
     <small class="mb-3 form-text"><strong>Importante! </strong>Los campos requeridos con asterisco(*)</small>
 
     <form method="POST">
         {% csrf_token %}
+        {{user}}
+        {% comment %} <input type="text" name="user" id="id_user" value="{{user}}" style='display:block;'> {% endcomment %}
         <div class="mb-3">
-            <label for="basic-url" class="form-label m-0"><strong>Propietario</strong>* <strong class="ms-5">titúlo del software</strong>*</label>
+            <label for="basic-url" class="form-label m-0"><strong>titúlo del software</strong>*</label>
             <div class="input-group">
-                <span class="input-group-text bg-body-secondary">{{form.user}}</span>
                 {{form.title}}
             </div>
             <div class="form-text">Tu repositorio debe tener el mismo titulo de tu software.</div>
@@ -27,7 +36,7 @@ New repository
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label m-0"><strong>Descripción</strong>*</label>
             {{form.description}}
-            <div class="form-text" style="max-width: 750px;">Indique únicamente las Funciones Técnicas realizadas por el soporte lógico software (ej. Compila, almacena, genera reportes, automatiza datos, procesa datos, organiza datos, gestiona y registra, controla, produce, crea reportes, etc.</div>
+            <div class="form-text"></div>
         </div>
         <div class="mb-3">
             <label for="" class="col-form-label m-0"><strong>Versión</strong>*</label>
@@ -39,11 +48,17 @@ New repository
             </span>
         </div>
         <div class="mb-3">
-            <label for="" class="col-form-label m-0"><strong>Licencia</strong>*</label>
-            <div class="w-25">
-                {{form.license}}
+            <label for="" class="col-form-label m-0"><strong>Tipo de licencia</strong>*</label>
+            <div class="row">
+                <div class="col-sm-3 mb-3">
+                    {{form.license}}
+                </div>
+                <div class="col-sm-9">
+                    <span id="id_text_license" class="form-text fw-bold">
+                    </span> 
+                </div>
             </div>
-            <span id="passwordHelpInline" class="form-text">
+            <span class="form-text">
                 <strong>Importante! </strong>
                 La licencia de software es la autorización que otorga un autor o autores que permite el derecho a terceras personas de utilizar su creación o recurso.
                 sin que se llegue a violar los derechos de autor.
@@ -83,3 +98,29 @@ New repository
 </div>
 
 {% endblock content %}
+
+{% block javascript %}
+<script>
+    const licenseZero = document.getElementById('id_license_0')
+    const licenseOne = document.getElementById('id_license_1')
+    const licenseTwo = document.getElementById('id_license_2')
+    const textHelpLicense = document.getElementById('id_text_license')
+    const infoLicense = [
+        "El software propietario​, es el software del cual no existe una forma libre de acceso a su código fuente, el cual solo se encuentra a disposición de su desarrollador y no se permite su libre modificación, adaptación o incluso lectura por parte de terceros.",
+        "El software libre, es el software que respeta la libertad de los usuarios y la comunidad. Significa que los usuarios tienen la libertad de ejecutar, copiar, distribuir, estudiar, modificar y mejorar el software.",
+        "El software de código abierto, permite la libre distribución, modificación y uso del software. El código fuente también está disponible públicamente para que cualquier persona pueda examinarlo y mejorarlo."
+    ]
+
+    licenseZero.addEventListener('click', ()=>{
+        textHelpLicense.innerText = infoLicense[0]
+    })
+
+    licenseOne.addEventListener('click', ()=>{
+        textHelpLicense.innerText = infoLicense[1]
+    })
+
+    licenseTwo.addEventListener('click', ()=>{
+        textHelpLicense.innerText = infoLicense[2]
+    })
+</script>
+{% endblock javascript %}

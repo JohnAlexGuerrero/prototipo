@@ -18,23 +18,34 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
-class Rol(models.IntegerChoices):
-    STUDENT = 1, "Estudiante"
-    TEACHER = 2, "Profesor"
+set_semester = (
+    ("I",1),
+    ("II",2),
+    ("III",4),
+    ("V",5),
+    ("VI",6),
+    ("VII",7),
+    ("VIII",8),
+    ("IX",9),
+    ("X",10)
+)
+class Rol(models.TextChoices):
+    TEACHER = "PROFESOR", "Profesor"
+    STUDENT = "ESTUDIANTE", "Estudiante"
 
-class Institute(models.IntegerChoices):
-    CESMAG = 1, "Universidad Cesmag"
-    UDENAR = 2, "Universidad de Nariño"
-    UNIMAR = 3, "Universidad Mariana"
-    UCC = 4, "Universidad Coperativa de Colombia"
-    UNAD = 5, "Universidad Nacional Abierta y a Distancia"
-    UAN = 6, "Universidad Antonio Nariño"
-    SENA = 7, "Servicio Nacional de Aprendizaje"
+class Institute(models.TextChoices):
+    CESMAG = "CESMAG", "Universidad Cesmag"
+    UDENAR = "UDENAR", "Universidad de Nariño"
+    UNIMAR = "UNIMAR", "Universidad Mariana"
+    UCC = "UCC", "Universidad Coperativa de Colombia"
+    UNAD = "UNAD", "Universidad Nacional Abierta y a Distancia"
+    UAN = "UAN", "Universidad Antonio Nariño"
+    SENA = "SENA", "Servicio Nacional de Aprendizaje"
     
-class ProfessionCareer(models.IntegerChoices):
-    SYSTEM_INGEENIER = 1, "Ingeniero de Sistemas"
-    ELECTRONIC_INGEENIER = 2, "Ingeniero Electrónico"
-    SYSTEM_TECH = 3, "Tecnología en Sistemas"
+class ProfessionCareer(models.TextChoices):
+    SYSTEM_INGEENIER = "Ing. Sistemas", "Ingeniero de Sistemas"
+    ELECTRONIC_INGEENIER = "Ing. Electrónica", "Ingeniero Electrónico"
+    SYSTEM_TECH = "Tecnología en sistemas", "Tecnología en Sistemas"
     
 class Gender(models.IntegerChoices):
     MAN = 1, "Hombre" 
@@ -44,10 +55,8 @@ class Profile(models.Model):
     user = models.OneToOneField(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to="avatars", default='no_picture.jpg')
     gender = models.SmallIntegerField(choices=Gender.choices, blank=True, null=True)
+    phone = models.CharField(("número de teléfono"), max_length=50, blank=True, null=True)
     slug = models.SlugField()
-    occupation = models.PositiveSmallIntegerField(choices=Rol.choices, default=Rol.STUDENT)
-    institution = models.PositiveSmallIntegerField(choices=Institute.choices, blank=True, null=True)
-    profession_career = models.PositiveSmallIntegerField(choices=ProfessionCareer.choices, blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
 
@@ -65,3 +74,22 @@ class Profile(models.Model):
         if not self.slug:
             self.slug = slugify(self.user.username)
         return super().save(*args, **kwargs)
+
+class Academica(models.Model):
+    user = models.OneToOneField(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
+    university = models.CharField(("Universidad"), max_length=50, choices=Institute.choices, blank=True, null=True)
+    rol = models.CharField(("Rol"), max_length=50, choices=Rol.choices, blank=True, null=True)
+    profession = models.CharField(("Carrera profesional"), max_length=150, choices=ProfessionCareer.choices, blank=True, null=True)
+    semester = models.IntegerField(("semestre"), choices=set_semester, blank=True, null=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = ("Academica")
+        verbose_name_plural = ("Academicas")
+
+    def __str__(self):
+        return self.user.username
+
+    def get_absolute_url(self):
+        return reverse("Academica_detail", kwargs={"pk": self.pk})

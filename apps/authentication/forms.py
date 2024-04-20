@@ -1,7 +1,8 @@
 from django import forms
 
 from django.contrib.auth.forms import UserCreationForm
-from authentication.models import CustomUser, Profile
+
+from authentication.models import CustomUser, Profile, Academica
 
 class RegisterUserForm(UserCreationForm):
     email = forms.EmailField(
@@ -49,21 +50,21 @@ class RegisterUserForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['gender','avatar']
+        fields = ['gender','avatar','phone']
 
         widgets = {
             "avatar": forms.FileInput(attrs={'style':'display:none;color:red;'}),
             "gender": forms.RadioSelect(),
         }
 
-class UserOccupationForm(forms.ModelForm):
+class AcademicaForm(forms.ModelForm):
     class Meta:
-        model = Profile
-        fields = ['user','occupation','institution','profession_career']
+        model = Academica
+        fields = ['user','university','rol','profession','semester']
         
-        widgets = {
-            "user": forms.TextInput(attrs={'style':'display:none;'}),
-            "occupation": forms.RadioSelect(),
-            "institution": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
-            "profession_career": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
-        }
+        # widgets = {
+        #     "user": forms.TextInput(attrs={'style':'display:none;'}),
+        #     "occupation": forms.RadioSelect(),
+        #     "institution": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
+        #     "profession_career": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
+        # }

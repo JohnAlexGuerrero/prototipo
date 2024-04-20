@@ -8,9 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>
-    {% block title %}
-    Bootstrap demo
-    {% endblock title %}
+    {% block title %}{% endblock title %}
   </title>
 
   {% block cdn %}
@@ -28,17 +26,18 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body style="height: 100vh;overflow:scroll;">
-
+<body style="height: 100vh;">
   <div class="row">
     <div class="col-sm-3 mx-0">
       {% include "includes/sidebar.html" %}
     </div>
     <div class="col-sm-9">
-      {% include "includes/navbar.html" %}
-      
-      <div style="height: 100vh;overflow:scroll;">
-        {% block content %}{% endblock content %}
+      <div>
+        {% include "includes/navbar.html" %}
+        
+        <div style="overflow:scroll;">
+          {% block content %}{% endblock content %}
+        </div>
       </div>
     </div>
   </div>

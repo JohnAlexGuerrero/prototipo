@@ -9,9 +9,9 @@ from django.views.generic import UpdateView
 from django.views.generic import DetailView
 from django.views.generic import FormView
 
-from authentication.models import CustomUser, Profile
+from authentication.models import CustomUser, Profile, Academica
 
-from authentication.forms import RegisterUserForm, UserProfileForm, UserOccupationForm
+from authentication.forms import RegisterUserForm, UserProfileForm, AcademicaForm
 
 # Create your views here.
 class UserLoginView(TemplateView):
@@ -67,13 +67,11 @@ class ProfileView(CreateView):
     form_class = UserProfileForm
     success_url = reverse_lazy('login')
 
-
-
-class ProfileUpdateView(UpdateView):
-    model = Profile
-    template_name = "profile/edit.html"
-    form_class = UserProfileForm
-    success_url = reverse_lazy('login')
+class AcademicaCreateView(CreateView):
+    model = Academica
+    template_name = "profile/academica.html"
+    form_class = AcademicaForm
+    success_url = reverse_lazy('profile')
 
 class ProfileDetailView(DetailView):
     model = Profile
@@ -82,25 +80,10 @@ class ProfileDetailView(DetailView):
 class UserProfileView(UpdateView):
     model = Profile
     template_name = "profile/new.html"
-    fields = ['occupation','institution','profession_career','avatar','gender']
+    fields = '__all__'
     success_url = reverse_lazy('login')
     
 def user_logout_view(request):
     logout(request)
     return redirect('index')
 
-class ProfileOccupationUpdateView(UpdateView):
-    model = Profile
-    template_name = "profile/occupation.html"
-    success_url = reverse_lazy('dashboard')
-    form_class = UserOccupationForm
-
-def user_profession_view(request):
-    if request.POST == 'POST':
-        form = UserOccupationForm(request.POST)
-        if form.is_valid():
-            print(request.POST.get('user'))
-            # form.save()
-            return redirect('dashboard', user=request.POST.get('user'))
-        else:
-            return redirect('dashboard', user=request.user)

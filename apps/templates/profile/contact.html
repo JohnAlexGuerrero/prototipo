@@ -1,0 +1,18 @@
+{% extends "profile/detail.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{user}} - Edit Contact
+{% endblock title %}
+
+{% block subcontent %}
+<div class="col-sm-8">
+    <form action="" method="post" class="w-50">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Actualizar" class="btn">
+    </form>
+</div>
+
+{% endblock subcontent %}

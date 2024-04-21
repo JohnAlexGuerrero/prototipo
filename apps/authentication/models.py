@@ -78,7 +78,7 @@ class Profile(models.Model):
 class Academica(models.Model):
     user = models.OneToOneField(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
     university = models.CharField(("Universidad"), max_length=50, choices=Institute.choices, blank=True, null=True)
-    rol = models.CharField(("Rol"), max_length=50, choices=Rol.choices, blank=True, null=True)
+    rol = models.CharField(("Rol"), max_length=50, choices=Rol.choices, default=Rol.STUDENT)
     profession = models.CharField(("Carrera profesional"), max_length=150, choices=ProfessionCareer.choices, blank=True, null=True)
     semester = models.IntegerField(("semestre"), choices=set_semester, blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)

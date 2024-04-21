@@ -4,22 +4,30 @@
 
 {% block subcontent %}
 <div class="col-sm-8">
-    <form method="POST" >
+    <form method="POST" action="" class="w-50">
         {% csrf_token %}
-        {{ form.user }}
+        {% comment %} {{form.user}}
         <div class="mb-3">
-            <p class="h4 fw-bold">¿Cúal es tu ocupación actual?</p>
-            {{ form.occupation }}
+            <p class="fw-light">Seleccione la universidad a la que pertenece</p>
+            {{ form.university}}
         </div>
         <div class="mb-3">
-            <p class="h4 fw-bold">¿Donde realizas tu ocupación actual?</p>
-            {{ form.institution }}
+            <p class="fw-light">¿Cúal es tu rol actual?</p>
+            {{ form.rol }}
         </div>
         <div class="mb-3">
-            <p class="h4 fw-bold">¿Cúal es tu perfil profesional?</p>
-            {{ form.profession_career }}
+            <p class="fw-light">Seleccione su carrera profesional</p>
+            {{ form.profession }}
         </div>
-        <input type="submit" class="btn btn-sm btn-dark mt-2" value="Guardar" >
+        <div class="mb-3">
+            <p class="fw-light">Indica tu semestre</p>
+            {{ form.semester }}
+        </div> {% endcomment %}
+        {{form.as_p}}
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <input type="submit" class="btn btn-sm btn-dark mt-2" value="Guardar" >
+            <a href="{% url "profile" slug=user.username %}" class="btn btn-outline-light text-dark">Cancelar</a>
+        </div>
     </form>
 </div>
 

@@ -1,6 +1,10 @@
+from django.db.models.base import Model as Model
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 
 from django.views.generic import TemplateView
@@ -11,7 +15,12 @@ from django.views.generic import FormView
 
 from authentication.models import CustomUser, Profile, Academica
 
-from authentication.forms import RegisterUserForm, UserProfileForm, AcademicaForm
+from authentication.forms import (
+    RegisterUserForm,
+    UserProfileForm,
+    AcademicaForm,
+    ProfileContactForm,
+)
 
 # Create your views here.
 class UserLoginView(TemplateView):
@@ -71,7 +80,21 @@ class AcademicaCreateView(CreateView):
     model = Academica
     template_name = "profile/academica.html"
     form_class = AcademicaForm
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('dashboard')
+    
+    def form_valid(self, form):
+        res = form.save(commit=False)
+        print(res)
+        res.user = self.request.user
+        res.save()
+        return redirect(self.success_url)
+    
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        print(response)
+        print(form.is_valid())
+        return redirect('dashboard')
+    
 
 class ProfileDetailView(DetailView):
     model = Profile
@@ -82,6 +105,12 @@ class UserProfileView(UpdateView):
     template_name = "profile/new.html"
     fields = '__all__'
     success_url = reverse_lazy('login')
+
+class ContactUpdateView(UpdateView):
+    model = Profile
+    template_name = "profile/contact.html"
+    form_class = ProfileContactForm
+    success_url = reverse_lazy('profile')
     
 def user_logout_view(request):
     logout(request)

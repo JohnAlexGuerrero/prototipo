@@ -1,6 +1,10 @@
+from typing import Any, Mapping
 from django import forms
 
 from django.contrib.auth.forms import UserCreationForm
+from django.core.files.base import File
+from django.db.models.base import Model
+from django.forms.utils import ErrorList
 
 from authentication.models import CustomUser, Profile, Academica
 
@@ -62,9 +66,25 @@ class AcademicaForm(forms.ModelForm):
         model = Academica
         fields = ['user','university','rol','profession','semester']
         
-        # widgets = {
-        #     "user": forms.TextInput(attrs={'style':'display:none;'}),
-        #     "occupation": forms.RadioSelect(),
-        #     "institution": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
-        #     "profession_career": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
-        # }
+        widgets = {
+            "user": forms.Select(attrs={}),
+            "university": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
+            "rol": forms.RadioSelect(),
+            "profession": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
+            "semester": forms.Select(attrs={'class':'form-select form-select-sm mb-3'})
+        }
+
+class ProfileContactForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["gender","slug","phone"]
+        
+        widgets = {
+            "gender":forms.Select(attrs={'class':'form-select form-select-sm'}),
+            "slug": forms.TextInput(attrs={'class':'form-control form-control-sm'}),
+            "phone": forms.TextInput(attrs={'class':'form-control form-control-sm','placeholder':'555-5555-555'}),
+        }
+        
+    def __init__(self, *args, **kwargs):
+        super(ProfileContactForm, self).__init__(*args, **kwargs)
+

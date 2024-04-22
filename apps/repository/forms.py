@@ -1,4 +1,4 @@
-from django_countries import countries
+from django_countries.data import COUNTRIES
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
 from django import forms
@@ -8,7 +8,6 @@ from repository.models import Category
 from authentication.models import CustomUser
 
 class CategoryForm(forms.ModelForm):
-    
     class Meta:
         model = Category
         fields = ("software","type_software","type_public","type_industry","os")
@@ -35,7 +34,7 @@ class SoftwareNewForm(forms.ModelForm):
         fields = ['user','title','description','version','license','date_created','type_of_work','origin_country']
         
         widgets = {
-            "user": forms.TextInput(attrs={'class':'form-control form-control-sm'}),
+            # "user": forms.Select(attrs={'style':'display:none;'}),
             "title": forms.TextInput(attrs={
                 'class':'form-control form-control-sm',
             }),

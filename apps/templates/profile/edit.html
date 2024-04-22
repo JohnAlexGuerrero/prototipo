@@ -1,4 +1,4 @@
-{% extends "base/base-full-screen.html" %}
+{% extends "profile/detail.html" %}
 
 {% load static %}
 
@@ -17,7 +17,7 @@
             
             <div class="row">
                 <div class="col-sm-4">
-                    <label class="card rounded" style="width:10rem;border:2px dashed #cacaca;cursor:pointer;">
+                    {% comment %} <label class="card rounded" style="width:10rem;border:2px dashed #cacaca;cursor:pointer;">
                         <div class="card-body d-flex justify-content-center flex-column align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-person-bounding-box text-secondary" viewBox="0 0 16 16">
                             <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5"/>
@@ -27,39 +27,19 @@
                             <span class="h7">Agregar foto de perfil</span>
                         </div>
                         {{ form.avatar }}
-                        </div>
+                        </div> {% endcomment %}
                     </label>
                 </div>
-                <div class="col-sm">  
-                    <div> 
-                        <h1 class="h4">¿Cuál es tu Universidad?</h1>
-                        {{ form.institution }}
-                    </div>
-                    <div>
-                        <h1 class="h4">Elige tu profesión</h1>
-                        {{ form.profession_career }}
-                    </div>
-                    <h1 class="h4">¿Cuál es tu ocupación?</h1>
-                    <div class="form-check mb-3">
-                        <input type="radio" class="btn-check" name="occupation" id="id_occupation_1" autocomplete="off" checked>
-                        <label class="btn" for="option5">Profesor</label>
-                        
-                        <input type="radio" class="btn-check" name="occupation" id="id_occupation_2" autocomplete="off">
-                        <label class="btn" for="option6">Estudiante</label>
-                    </div>
-                    <h1 class="h4">sexo</h1>
-                    <div class="form-check mb-3">
-                        <input type="radio" class="btn-check" name="gender" id="id_gender_1" autocomplete="off" checked>
-                        <label class="btn" for="id_gender_1">Hombre</label>
-                        
-                        <input type="radio" class="btn-check" name="gender" id="id_gender_2" autocomplete="off">
-                        <label class="btn" for="id_gender_2">Mujer</label>
-                            
-                    </div>
+                <div class="col-sm-8">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <input type="submit" class="btn btn-sm btn-dark mt-2" value="Guardar" >
+                            <a href="{% url "profile" slug=user.username %}" class="btn btn-outline-light text-dark">Cancelar</a>
+                        </div>
+                    </form>  
                 </div>
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-outline-success btn-sm px-5 py-2">Guardar</button>
-            </div>
         </form>
     </div>
 </div>

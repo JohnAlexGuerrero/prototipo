@@ -53,6 +53,9 @@
                             {% endif %}
                         </label>
                     </div>
+                    {% comment %} <div class="mt-3 float-end">
+                        <a href="{% url "personal" slug=user.username %}" class="btn btn-outline-secondary btn-sm">Editar</a>
+                    </div> {% endcomment %}
                 </div>
             </div>
         </div>
@@ -75,8 +78,9 @@
                             </svg>
                             {% if user.profile.phone %}
                                 {{user.profile.phone}}
+                            {% else %}
+                                555-5555-555
                             {% endif %}
-                            555-5555-555
                         </label>
                     </div>
                     <div class="mt-3 float-end">

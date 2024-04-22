@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django.utils.text import slugify
 from django_countries import countries
+from ckeditor.fields import RichTextField
 
 from django.db import models
 from authentication.models import CustomUser
@@ -70,7 +71,7 @@ class Sector(models.IntegerChoices):
 
 class Software(models.Model):
     title = models.CharField(("Software titulo"), max_length=150, null=False, unique=True)
-    description = models.TextField(("descripción"), max_length=250, null=False)
+    description = RichTextField()
     version = models.CharField(("version"), max_length=50, null=False)
     license = models.PositiveSmallIntegerField(("tipo de licencia"), choices=License.choices, default=License.FREE_CODE)
     slug = models.SlugField()

@@ -24,8 +24,7 @@ New repository
 
     <form method="POST">
         {% csrf_token %}
-        {{user}}
-        {% comment %} <input type="text" name="user" id="id_user" value="{{user}}" style='display:block;'> {% endcomment %}
+        <input id="id_user" name="user" value={{user.id}} style="display:none;">
         <div class="mb-3">
             <label for="basic-url" class="form-label m-0"><strong>titúlo del software</strong>*</label>
             <div class="input-group">
@@ -89,7 +88,7 @@ New repository
             <span id="passwordHelpInline" class="form-text">
             </span>
         </div>
-
+        {{form.media}}
         <input type="submit" value="Crear repositorio" class="btn btn-outline-success">
     </form>
 

@@ -11,8 +11,17 @@
     <form action="" method="post" class="w-50">
         {% csrf_token %}
         {{form.as_p}}
-        <input type="submit" value="Actualizar" class="btn">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <input type="submit" value="Actualizar" class="btn btn-dark ">
+            <a href="{% url "profile" slug=user.username %}" class="btn btn-outline-light text-dark">Cancelar</a>
+        </div>
     </form>
 </div>
 
 {% endblock subcontent %}
+
+{% block javascript %}
+<script>
+</script>
+{% endblock javascript %}
+

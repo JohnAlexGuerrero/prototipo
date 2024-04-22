@@ -61,6 +61,13 @@ class UserProfileForm(forms.ModelForm):
             "gender": forms.RadioSelect(),
         }
 
+class CustomUserEditForm(forms.ModelForm):
+    
+    class Meta:
+        model = CustomUser
+        fields = ("username","email",)
+
+
 class AcademicaForm(forms.ModelForm):
     class Meta:
         model = Academica
@@ -77,7 +84,7 @@ class AcademicaForm(forms.ModelForm):
 class ProfileContactForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ["gender","slug","phone"]
+        fields = ["gender","phone"]
         
         widgets = {
             "gender":forms.Select(attrs={'class':'form-select form-select-sm'}),

@@ -20,6 +20,7 @@ from authentication.forms import (
     UserProfileForm,
     AcademicaForm,
     ProfileContactForm,
+    CustomUserEditForm,
 )
 
 # Create your views here.
@@ -111,7 +112,13 @@ class ContactUpdateView(UpdateView):
     template_name = "profile/contact.html"
     form_class = ProfileContactForm
     success_url = reverse_lazy('profile')
-    
+
+class CustomUserUpdateView(UpdateView):
+    model = CustomUser
+    template_name = "profile/edit.html"
+    form_class = CustomUserEditForm
+    success_url = reverse_lazy('profile')
+
 def user_logout_view(request):
     logout(request)
     return redirect('index')

@@ -23,8 +23,6 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
 class SoftwareCreateView(LoginRequiredMixin, TemplateView):
     model = Software
     template_name = "repository/new.html"
-    # form_class = SoftwareNewForm
-    # success_url = reverse_lazy('dashboard')
 
     def post(self, request):
         if request.method == 'POST':

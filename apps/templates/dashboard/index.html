@@ -6,6 +6,20 @@
 @{{user}} - Dashboard
 {% endblock title %}
 
+{% block css %}
+<style>
+    .grid-container{
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px; 
+    }
+
+
+</style>
+{% endblock css %}
+
 
 {% block content %}
     {% if user.is_authenticated %}
@@ -13,6 +27,13 @@
         <p class="h5 fw-light">¡Te damos la bienvenidad a APPNNN!</p>
 
         {% block subcontent %}
+            {% if repositories %}
+            <div class="grid-container">
+                {% for repo in repositories %}
+                    {% include "repository/card.html" with repo=repo %}
+                {% endfor %}
+            </div> 
+            {% endif %}
         <p class="h4 text-secondary mt-5">Primeros pasos</p>
         <ul class="">
             <li class="list-group-item">
@@ -42,9 +63,6 @@
 
 {% block javascript %}
 <script>
-const check = ()=>{
-    alert('ckeck')
-}
 
 </script>
 {% endblock javascript %}

@@ -13,8 +13,6 @@ New repository
 
 
 {% block content %}
-{% include "includes/messages.html" %}
-
 <div class="d-flex justify-content-center flex-column p-1" style="width:50rem;">
     <h1 class="h4 fw-bold">Datos generales</h1>
     <p></p>
@@ -35,7 +33,9 @@ New repository
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label m-0"><strong>Descripción</strong>*</label>
             {{form.description}}
-            <div class="form-text"></div>
+            <div class="form-text">
+                Indique únicamente las Funciones Técnicas realizadas por el soporte lógico software (ej. Compila, almacena, genera reportes, automatiza datos, procesa datos, organiza datos, gestiona y registra, controla, produce, crea reportes, etc.)
+            </div>
         </div>
         <div class="mb-3">
             <label for="" class="col-form-label m-0"><strong>Versión</strong>*</label>

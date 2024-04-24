@@ -81,6 +81,24 @@ class AcademicaForm(forms.ModelForm):
             "semester": forms.Select(attrs={'class':'form-select form-select-sm mb-3'})
         }
 
+class AcademicaRoleForm(forms.ModelForm):
+    class Meta:
+        model = Academica
+        fields = ['user','rol']
+
+class AcademicaUniversityForm(forms.ModelForm):
+    
+    class Meta:
+        model = Academica
+        fields = ("university","profession","semester")
+        
+        widgets = {
+            "university": forms.Select(attrs={'class':'form-select form-select-sm'}),
+            "profession": forms.Select(attrs={'class':'form-select form-select-sm'}),
+            "semester": forms.Select(attrs={'class':'form-select form-select-sm'})
+        }
+
+
 class ProfileContactForm(forms.ModelForm):
     class Meta:
         model = Profile

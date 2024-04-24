@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body w-50">
         <div class="d-flex">
-            <a href="#">
+            <a href="{% url "repository" slug=repo.slug %}">
                 {{repo.title}}
             </a>
             <p class="badge">Público</p>

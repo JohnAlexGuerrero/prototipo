@@ -19,15 +19,16 @@ class CustomUser(AbstractUser):
         return self.username
 
 set_semester = (
-    ("I",1),
-    ("II",2),
-    ("III",4),
-    ("V",5),
-    ("VI",6),
-    ("VII",7),
-    ("VIII",8),
-    ("IX",9),
-    ("X",10)
+    (1,"I"),
+    (2,"II"),
+    (3,"III"),
+    (4,"IV"),
+    (5,"V"),
+    (6,"VI"),
+    (7,"VII"),
+    (8,"VIII"),
+    (9,"IX"),
+    (10,"X")
 )
 class Rol(models.TextChoices):
     TEACHER = "PROFESOR", "Profesor"
@@ -78,7 +79,7 @@ class Profile(models.Model):
 class Academica(models.Model):
     user = models.OneToOneField(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
     university = models.CharField(("Universidad"), max_length=50, choices=Institute.choices, blank=True, null=True)
-    rol = models.CharField(("Rol"), max_length=50, choices=Rol.choices, default=Rol.STUDENT)
+    rol = models.CharField(("Rol"), max_length=50, choices=Rol.choices)
     profession = models.CharField(("Carrera profesional"), max_length=150, choices=ProfessionCareer.choices, blank=True, null=True)
     semester = models.IntegerField(("semestre"), choices=set_semester, blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
@@ -92,4 +93,4 @@ class Academica(models.Model):
         return self.user.username
 
     def get_absolute_url(self):
-        return reverse("Academica_detail", kwargs={"pk": self.pk})
+        return reverse("Academica_detail", kwargs={"slug": self.user.username})

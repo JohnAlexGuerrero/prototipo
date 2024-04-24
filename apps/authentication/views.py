@@ -13,12 +13,14 @@ from django.views.generic import UpdateView
 from django.views.generic import DetailView
 from django.views.generic import FormView
 
-from authentication.models import CustomUser, Profile, Academica
+from authentication.models import (
+    CustomUser, Profile, Academica,
+)
 
 from authentication.forms import (
     RegisterUserForm,
     UserProfileForm,
-    AcademicaForm,
+    AcademicaForm, AcademicaRoleForm, AcademicaUniversityForm,
     ProfileContactForm,
     CustomUserEditForm,
 )
@@ -35,10 +37,12 @@ class UserLoginView(TemplateView):
         if user:
             login(request, user)
             if user.is_authenticated:
-            #     return redirect("profile_new", slug=user.profile.slug)
-            # else:
-                messages.success(request, 'You have been logged in.')
-                return redirect('dashboard')
+                if user.academica.rol == "":
+                    messages.success(request, 'You have been logged in.')
+                    return redirect('role')
+                else:
+                    messages.success(request, 'You have been logged in.')
+                    return redirect('dashboard')
         else:
             messages.success(request, 'There was Error logging in, Please try again.')
             return redirect('login')
@@ -119,6 +123,55 @@ class CustomUserUpdateView(UpdateView):
     form_class = CustomUserEditForm
     success_url = reverse_lazy('profile')
 
+# define el rol(estudiante o profesor)  
+class AcademicaRoleView(LoginRequiredMixin, TemplateView):
+    template_name = "profile/role.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context["form"] = AcademicaRoleForm
+        return context
+    
+    def post(self, request):
+        if request.method == 'POST':
+            form = AcademicaRoleForm
+            form.user = request.POST.get('user')
+            form.rol = request.POST.get('rol')
+
+            if form.is_valid:
+                academica_obj = Academica.objects.get(user_id=request.user.id)
+                academica_obj.rol = request.POST.get('rol')
+                academica_obj.save()
+                return redirect('university')
+            else:
+                return redirect('role')
+
+# define la institucion de pertenecia del usuario
+class AcademicaUniveristyView(TemplateView):
+    template_name = "profile/university.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = AcademicaUniversityForm
+        return context
+    
+    def post(self, request):
+        if request.method == 'POST':
+            academica_obj = Academica.objects.get(user_id=request.user.id)
+
+            # form = AcademicaUniversityForm(request.POST)
+            if academica_obj:
+                academica_obj.university = request.POST.get('university')
+
+                if academica_obj.rol == 'ESTUDIANTE':
+                    academica_obj.semester = request.POST.get('semester')
+                academica_obj.save()
+                
+                return redirect('dashboard')
+            else:
+                return redirect('university')
+ 
 def user_logout_view(request):
     logout(request)
     return redirect('index')

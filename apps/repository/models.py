@@ -71,7 +71,7 @@ class Sector(models.IntegerChoices):
 
 class Software(models.Model):
     title = models.CharField(("Software titulo"), max_length=150, null=False, unique=True)
-    description = RichTextField()
+    description = models.CharField(("description"), max_length=150)
     version = models.CharField(("version"), max_length=50, null=False)
     license = models.PositiveSmallIntegerField(("tipo de licencia"), choices=License.choices, default=License.FREE_CODE)
     slug = models.SlugField()

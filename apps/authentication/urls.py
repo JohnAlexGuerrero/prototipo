@@ -5,15 +5,20 @@ from authentication.views import (
     user_logout_view,
     CustomUserCreateView,
     ProfileDetailView,
-    AcademicaCreateView,
+    AcademicaCreateView, AcademicaUniveristyView,
     ContactUpdateView,
-    CustomUserUpdateView
+    CustomUserUpdateView,
+    AcademicaRoleView,
 )
 
 urlpatterns = [
     path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', user_logout_view, name='logout'),
     path('register/', CustomUserCreateView.as_view(), name='signup'),
+    
+    path('role/', AcademicaRoleView.as_view(), name="role"),
+    path('university/', AcademicaUniveristyView.as_view(), name="university"),
+    
     path('<slug:slug>/info-contact/', ContactUpdateView.as_view(), name="contact"),
     path('<slug:slug>/info-personal/', CustomUserUpdateView.as_view(), name="personal"),
     # path('<slug:slug>/profile/', ProfileView.as_view(), name='profile'),

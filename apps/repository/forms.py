@@ -38,11 +38,9 @@ class SoftwareNewForm(forms.ModelForm):
             "title": forms.TextInput(attrs={
                 'class':'form-control form-control-sm',
             }),
-            "description":forms.Textarea(attrs={
+            "description":forms.TextInput(attrs={
                 'class':'form-control',
-                "placeholder":"Indique únicamente las Funciones Técnicas realizadas por el soporte lógico software (ej. Compila, almacena, genera reportes, automatiza datos, procesa datos, organiza datos, gestiona y registra, controla, produce, crea reportes, etc.)",
-                "cols":"50",
-                "rows":"3"
+                "placeholder":"",
             }),
             "version": forms.TextInput(attrs={
                 'class':'form-control form-control-sm w-75',
@@ -59,3 +57,8 @@ class SoftwareNewForm(forms.ModelForm):
         print(kwargs)
         # self.fields['user'].initial = user
 
+class DescriptionForm(forms.ModelForm):
+    
+    class Meta:
+        model = Software
+        fields = ("user","description")

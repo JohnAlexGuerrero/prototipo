@@ -1,0 +1,43 @@
+{% extends "base/base-full-screen.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{user}} - Role
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <form method="POST" class="w-50">
+        {% csrf_token %}
+        <input type="number" value={{user.id}} name="user" style="display: none;">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body" style="cursor:pointer;">
+                        <label for="" id="id_rol_1">
+                            <input type="radio" name="rol" id="id_input_rol_1" value="PROFESOR">
+                            profesor
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body" style="cursor:pointer;">
+                        <label for="" id="id_rol_2" >
+                            <input type="radio" name="rol" id="id_input_rol_2" value="ESTUDIANTE">
+                            estudiante
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- {{ form.as_p }} -->
+        <input type="submit" value="Continue">
+    </form>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}{% endblock javascript %}

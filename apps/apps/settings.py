@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'django_countries',
     'authentication',
     'repository',
-    'ckeditor',
 ]
 
 MIDDLEWARE = [

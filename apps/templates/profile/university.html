@@ -1,0 +1,41 @@
+{% extends "base/base-full-screen.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{user}} - University
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <form method="POST" class="w-50">
+        {% csrf_token %}
+        <!-- <input type="text" name="user" value={{user.id}} style="display: none;"> -->
+        <div class="mt-3">
+            <h2 class="h4 fw-bold">¿Cuál es tu Universidad?</h2>
+            {{ form.university }}
+        </div>
+        <div class="mt-3">
+            {% if user.academica.rol == 'PROFESOR' %}
+            <h2 class="h4 fw-bold">¿Cuál es tu titulo profesional?</h2>
+            {% else %}
+            <h2 class="h4 fw-bold">¿Qué estas estudiando?</h2>
+            {% endif %}
+            {{ form.profession }}
+        </div>
+        <div class="mt-3">
+            {% if user.academica.rol == 'ESTUDIANTE' %}
+            <h2 class="h4 fw-bold">¿Qué semestre estas cursando actualmente?</h2>
+            {{ form.semester }}
+            {% endif %}
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <input type="submit" class="btn btn-sm btn-dark mt-2" value="Guardar" >
+        </div>
+    </form>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}{% endblock javascript %}

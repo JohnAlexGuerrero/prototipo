@@ -9,9 +9,9 @@
 {% block subcontent %}
     <form method="POST">
         {% csrf_token %}
-        <input id="user" name="user" value={{user.id}} style="display:none;">
-        {{ form.description }}
-        {{ form.media }}
+        {% comment %} <input id="user" name="user" value={{user.id}} style="display:none;"> {% endcomment %}
+        {{ form.as_p }}
+        
         <input type="submit" value="Actualizar" class="btn btn-dark">
     </form>
 {% endblock subcontent %}

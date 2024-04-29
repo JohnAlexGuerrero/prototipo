@@ -1,0 +1,177 @@
+{% extends "base/base-full-screen.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{software}} - Licencia
+{% endblock title %}
+
+{% block css %}
+<style>
+.radio-inputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+  
+  .radio-inputs > * {
+    margin: 6px;
+  }
+  
+  .radio-input:checked + .radio-tile {
+    border-color: #2260ff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #2260ff;
+  }
+  
+  .radio-input:checked + .radio-tile:before {
+    transform: scale(1);
+    opacity: 1;
+    background-color: #2260ff;
+    border-color: #2260ff;
+  }
+  
+  .radio-input:checked + .radio-tile .radio-icon svg {
+    fill: #2260ff;
+  }
+  
+  .radio-input:checked + .radio-tile .radio-label {
+    color: #2260ff;
+  }
+  
+  .radio-input:focus + .radio-tile {
+    border-color: #2260ff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
+  }
+  
+  .radio-input:focus + .radio-tile:before {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  .radio-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    min-height: 180px;
+    border-radius: 0.5rem;
+    border: 2px solid #b5bfd9;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.15s ease;
+    cursor: pointer;
+    position: relative;
+    padding: .5rem;
+  }
+  
+  .radio-tile:before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border: 2px solid #b5bfd9;
+    background-color: #fff;
+    border-radius: 50%;
+    top: 0.25rem;
+    left: 0.25rem;
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.25s ease;
+  }
+  
+  .radio-tile:hover {
+    border-color: #2260ff;
+  }
+  
+  .radio-tile:hover:before {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  .radio-icon img {
+    width: 2rem;
+    height: 2rem;
+    fill: #494949;
+  }
+  
+  .radio-label {
+    color: #707070;
+    transition: 0.375s ease;
+    text-align: center;
+    font-size: 13px;
+  }
+  
+  .radio-input {
+    clip: rect(0 0 0 0);
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+</style>
+{% endblock css %}
+
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="w-50 d-flex flex-column justify-content-center">
+            <h1 class="h4 fw-bold text-center">
+                Tipo de Licencia de {{software}}
+            </h1>
+            <span class="text-secondary text-center">
+                El mundo del software se rige por dos tipos de licencias que definen los derechos y responsabilidades de usuarios y desarrolladores.
+            </span>
+        </div>
+
+        <div class="radio-inputs mt-5">
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" value={{software.id}} style="display: none;">
+                <div class="row">
+                        <div class="col-sm-6">
+                            <label >
+                                <input class="radio-input" type="radio" name="license" id="id_license_1">
+                                    <span class="radio-tile">
+                                        <span class="radio-icon">
+                                            <img src="{% static "images/candado.png" %}" alt="propietario">
+                                        </span>
+                                        <span class="radio-label fw-bold mt-3">Propietario</span>
+                                        <span class="radio-label text-secondary">
+                                            Desarrollado por empresas o individuos que mantienen el control exclusivo sobre el código fuente y su distribución.
+                                        </span>
+                                    </span>
+                            </label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>
+                                <input checked="" class="radio-input" type="radio" name="license" id="id_license_2">
+                                <span class="radio-tile">
+                                    <span class="radio-icon">
+                                        <img src="{% static "images/candado-abierto.png" %}" alt="propietario">
+                                    </span>
+                                    <span class="radio-label fw-bold mt-3">Libre y de Código libre</span>
+                                    <span class="radio-label">
+                                        Otorgan libertad a los usuarios para usar, modificar y distribuir el software sin restricciones.
+                                    </span>
+                            </label>
+                        </div>
+                </div>
+                <div class="d-flex gap-2 p-2 w-50">
+                    <input type="submit" class="btn btn-sm btn-dark mt-2" value="Continue" >
+                </div>
+            </form>
+        </div>
+
+    </div>
+{% endblock content %}

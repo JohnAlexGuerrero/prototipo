@@ -13,40 +13,39 @@ New repository
 
 
 {% block content %}
-<div class="d-flex justify-content-center flex-column p-1" style="width:50rem;">
-    <h1 class="h4 fw-bold">Datos generales</h1>
-    <p></p>
+<div class="p-1 w-25">
+    <h1 class="h4 fw-bold text-center">Crea un espacio de trabajo para tu software</h1>
+    <p class="text-secondary text-center">Completa los siguientes datos</p>
     <hr>
-
-    <small class="mb-3 form-text"><strong>Importante! </strong>Los campos requeridos con asterisco(*)</small>
-
+    {% comment %} <small class="mb-3 form-text"><strong>Importante! </strong>Los campos requeridos con asterisco(*)</small> {% endcomment %}
     <form method="POST">
         {% csrf_token %}
         <input id="id_user" name="user" value={{user.id}} style="display:none;">
         <div class="mb-3">
-            <label for="basic-url" class="form-label m-0"><strong>titúlo del software</strong>*</label>
+            <label for="basic-url" class="form-label m-0 fw-bold">Titúlo de tu software</label>
             <div class="input-group">
                 {{form.title}}
             </div>
-            <div class="form-text">Tu repositorio debe tener el mismo titulo de tu software.</div>
+            <div class="form-text"></div>
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label m-0"><strong>Descripción</strong>*</label>
+            <label for="" class="form-label m-0 fw-bold">¿Cuál es el objetivo de tu software?</label>
             {{form.description}}
             <div class="form-text">
-                Indique únicamente las Funciones Técnicas realizadas por el soporte lógico software (ej. Compila, almacena, genera reportes, automatiza datos, procesa datos, organiza datos, gestiona y registra, controla, produce, crea reportes, etc.)
+                Describe de manera corta la función principal de tu software.
+                (ej. Compila, almacena, genera reportes, automatiza datos, procesa datos, organiza datos, gestiona y registra, controla, produce, crea reportes, etc.)
             </div>
         </div>
-        <div class="mb-3">
-            <label for="" class="col-form-label m-0"><strong>Versión</strong>*</label>
-            <div class="w-25">
+        {% comment %} <div class="mb-3">
+            <label for="" class="col-form-label m-0 fw-bold">Versión</label>
+            <div class="w-50">
                 {{form.version}}
             </div>
             <span id="passwordHelpInline" class="form-text">
                 Indica la versión de desarrollo de tu software.
             </span>
-        </div>
-        <div class="mb-3">
+        </div> {% endcomment %}
+        {% comment %} <div class="mb-3">
             <label for="" class="col-form-label m-0"><strong>Tipo de licencia</strong>*</label>
             <div class="row">
                 <div class="col-sm-3 mb-3">
@@ -62,8 +61,8 @@ New repository
                 La licencia de software es la autorización que otorga un autor o autores que permite el derecho a terceras personas de utilizar su creación o recurso.
                 sin que se llegue a violar los derechos de autor.
             </span>
-        </div>
-        <div class="mb-3">
+        </div> {% endcomment %}
+        {% comment %} <div class="mb-3">
             <label for="" class="col-form-label m-0"><strong>Tipo de obra</strong>*</label>
             <div class="w-25">
                 {{form.type_of_work}}
@@ -71,29 +70,26 @@ New repository
             <span id="passwordHelpInline" class="form-text">
                 Obra que no ha sido divulgada con el consentimiento del autor o sus derechohabientes.
             </span>
-        </div>
-        <div class="mb-3">
-            <label for="" class="col-form-label m-0"><strong>Fecha de creación</strong>*</label>
-            <div class="w-25">
+        </div> {% endcomment %}
+        {% comment %} <div class="mb-3">
+            <label for="" class="col-form-label m-0 fw-bold">¿Cuando fue terminado tu software?</label>
+            <div class="w-50">
                 {{form.date_created}}
             </div>
             <span id="passwordHelpInline" class="form-text">
             </span>
-        </div>
-        <div class="mb-3">
-            <label for="" class="col-form-label m-0"><strong>Páis de origen</strong>*</label>
+        </div> {% endcomment %}
+        {% comment %} <div class="mb-3">
+            <label for="" class="col-form-label m-0 fw-bold">Tu software cuenta con un logo.</label>
             <div class="w-25">
-                {{form.origin_country}}
+                {{form.logo}}
             </div>
             <span id="passwordHelpInline" class="form-text">
             </span>
-        </div>
-        {{form.media}}
-        <input type="submit" value="Crear repositorio" class="btn btn-outline-success">
+        </div> {% endcomment %}
+        <input type="submit" value="Continuar" class="btn btn-outline-success">
     </form>
 
-    <small>
-    </small>
 </div>
 
 {% endblock content %}

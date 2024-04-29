@@ -18,9 +18,29 @@ from django.views.generic import DetailView
 from django.views.generic import UpdateView
 
 # Create your views here.
-class CategoryCreateView(LoginRequiredMixin, CreateView):
+class CategoryLicenseUpdateView(UpdateView):
     model = Category
-    template_name = "repository/category/new.html"
+    template_name = "repository/category_license.html"
+    fields = ['software','license']
+    success_url = reverse_lazy('dashboard')
+    
+    def get_queryset(self):
+        self.get_object
+        print(self.get_object)
+        return super().get_queryset()
+    
+    def get_object(self, *args, **kwargs):
+        return Category.objects.get(software__slug=self.kwargs['slug'])
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["software"] = Software.objects.get(slug=self.kwargs['slug'])
+        return context
+    
+
+class CategoryCreateView(LoginRequiredMixin, UpdateView):
+    model = Category
+    template_name = "repository/category.html"
     form_class = CategoryForm
     success_url = reverse_lazy('dashboard')
 
@@ -56,24 +76,15 @@ class DescriptionUpdateView(UpdateView):
     model = Software
     template_name = "repository/description.html"
     form_class = DescriptionForm
-    # success_url = reverse_lazy('repository', slug=get_object)
+    success_url = reverse_lazy('dashboard')
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["repositories"] = Software.objects.filter(user=self.request.user)
-        print(context)
-        return context
+    def get_queryset(self):
+        print('dkfjdkfkdfjkd')
+        return super().get_queryset()
     
-    def get_object(self):
-        print(self.request)
-        return self.request.user
+# class CategorizationView(TemplateView):
+#     template_name = "repository/category.html"
 
-    def success_url(self, *args, **kwargs):
-        res = redirect('dashboard')
-        return res
-    
-
-    
     
     
 

@@ -8,46 +8,94 @@
 
 {% block css %}
 <style>
-    .overflow-container{
-        background: #ffff;
-        color: black;
-        padding: 15px;
-        width: 100%;
-        height: 500px;
-        overflow: scroll;
-    }
+    
 </style>
 {% endblock css %}
 
 {% block content %}
 <div class="container">
-    <h2 class="h3 fw-bold">Introducción</h2>
-    <p>
-        Bienvenido/a a la descripción del producto de software <strong>{{software.title.capitalize}}</strong>. Esta guía tiene como objetivo proporcionar una visión general detallada de las características, funcionalidades y beneficios que ofrece nuestro software <strong>{{software.title.capitalize}}</strong>.
-        En un mundo cada vez más digitalizado, la demanda de soluciones eficientes y fiables para abordar una amplia gama de necesidades esenciales en el ámbito profesional y personal ha crecido exponencialmente. Con este fin, nuestro equipo se enorgullece en presentar <strong>{{software.title.capitalize}}</strong>.
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url "dashboard" %}">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{ software.title.capitalize }}
+              </li>
+            </ol>
+        </nav>
+    </div>
 
-    </p>
-    <p>
-        A medida que avanzamos, invitamos a los lectores a sumergirse en el mundo de <strong>{{software.title.capitalize}}</strong>, descubriendo cómo nuestra solución pueden satisfacer sus necesidades específicas y contribuir al logro de sus objetivos tanto profesionales como personales.
-    </p>
+    {% include "includes/menu.html" with slug=software.slug %}
+    
 </div>
-<div class="container">
-    <h2 class="h3 fw-bold">Descriptión del software</h2>
-    <p>
-        La herramienta QARNX desarrollada en el proyecto denominado EVALUACIÓN DE METODOS DE REDUCCIÓN DE DIMENSION PARA LA PRESERVACIÓN TOPOLOGICA DE LOS DATOS MEDIANTE METRICAS RNX, se presenta como
-        una alternativa Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae quasi voluptate repellat eos perspiciatis numquam quibusdam eligendi totam sit non officiis a expedita repudiandae mollitia soluta, amet veritatis autem maxime!
-    </p>
-    <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab perspiciatis facilis, consequuntur nulla laboriosam ipsam natus fuga fugit sed quibusdam deserunt voluptate facere, aut id magnam eos in. Ipsam, ipsum.
-    </p>
-</div>
-<div class="container">
-    <h2 class="h3 fw-bold">Proposito y objetivos</h2>
-    <p>
-        El propósito de Gestor de tareas es ayudar a los usuarios a ser más productivos y organizados. Los objetivos del producto son proporcionar una interfaz de usuario sencilla e intuitiva, una amplia gama de funciones y una experiencia de usuario fiable.
-    </p>
-    <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab perspiciatis facilis, consequuntur nulla laboriosam ipsam natus fuga fugit sed quibusdam deserunt voluptate facere, aut id magnam eos in. Ipsam, ipsum.
-    </p>
+<div class="container mt-5">
+    {% block subcontent %}
+    <div class="row">
+        <div class="col-sm">
+            <table class="table table table-borderless">
+                <tr>
+                    <th scope="col">Software</th>
+                    <td>
+                        {{ software.title }}
+                    </td>
+                </tr>    
+                <tr>
+                    <th scope="col">Tipo de programa</th>
+                    <td>
+                        {{ software.description }}
+                    </td>
+                </tr>    
+                <tr>
+                    <th scope="col">Tipo de programa</th>
+                    <td>
+                    </td>
+                </tr>    
+            </table>
+        </div>
+        <div class="col-sm">
+            <table class="table table table-borderless">
+                <tr>
+                    <th scope="col">Lanzamiento</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="col">Última version</th>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Licencia</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="col">País de origen</th>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm">
+            <table class="table table table-borderless">
+                <tr>
+                    <th scope="col">Lanzamiento</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="col">Última version</th>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Licencia</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="col">País de origen</th>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    {% endblock subcontent %}
+    <a href="{% url "description" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
 </div>
 {% endblock content %}

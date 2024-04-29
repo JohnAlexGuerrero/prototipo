@@ -8,10 +8,10 @@ from authentication.models import CustomUser
 
 # Create your models here.
 
-class License(models.IntegerChoices):
-    PROPERTY = 1, "Propietario"
-    FREE_CODE = 2, "Libre"
-    OPEN_CODE = 3, "Código Abierto"
+class License(models.TextChoices):
+    PROPERTY = "PROPIETARIO", "Software propietario"
+    # FREE_CODE = "CODIGO LIBRE", "Software libre"
+    OPEN_SOURCE = "CÓDIGO ABIERTO", "Software de Código Abierto"
 
 class TypeOfWork(models.IntegerChoices):
     UNPUBLISHED = 1, "Obra inédita"
@@ -73,12 +73,12 @@ class Software(models.Model):
     title = models.CharField(("Software titulo"), max_length=150, null=False, unique=True)
     description = models.CharField(("description"), max_length=150)
     version = models.CharField(("version"), max_length=50, null=False)
-    license = models.PositiveSmallIntegerField(("tipo de licencia"), choices=License.choices, default=License.FREE_CODE)
     slug = models.SlugField()
     user = models.ForeignKey(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
-    date_created = models.DateField(("Fecha de creación"), auto_now_add=False)
-    type_of_work = models.PositiveSmallIntegerField(("El software es"), choices=TypeOfWork.choices, default=TypeOfWork.UNPUBLISHED)
-    origin_country = models.CharField(("country"), max_length=50, default='COL')
+    date_created = models.DateField(("Fecha de creación"), auto_now_add=False, blank=True, null=True)
+    # type_of_work = models.PositiveSmallIntegerField(("El software es"), choices=TypeOfWork.choices, default=TypeOfWork.UNPUBLISHED)
+    # origin_country = models.CharField(("country"), max_length=50, null=True, blank=True)
+    logo = models.ImageField("logo", upload_to="logos/", blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
 
@@ -99,9 +99,10 @@ class Software(models.Model):
                             
 class Category(models.Model):
     software = models.OneToOneField(Software, verbose_name=("software"), on_delete=models.CASCADE)
-    type_software = models.PositiveSmallIntegerField(("Tipo de software por funcionalidad"), choices=TypeFunctionSoftware.choices, default=TypeFunctionSoftware.APPLICATION)    
-    type_public = models.PositiveSmallIntegerField(("Tipo de audiencia"), choices=TypePublic.choices, default=TypePublic.ALL_PUBLIC)
-    type_industry = models.PositiveSmallIntegerField(("sector"), choices=Sector.choices)
+    license = models.TextField(("tipo de licencia"), max_length=150, choices=License.choices, null=True, blank=True)
+    type_software = models.TextField(("Tipo de software por funcionalidad"), max_length=150,choices=TypeFunctionSoftware.choices, null=True, blank=True)    
+    type_public = models.PositiveSmallIntegerField(("Tipo de audiencia"), choices=TypePublic.choices, null=True, blank=True)
+    type_industry = models.PositiveSmallIntegerField(("sector"), choices=Sector.choices,null=True, blank=True)
     # functions = models.CharField("functions", max_length=250, choices=Sector.choices)
     os = models.CharField(("sistema operativo"), max_length=250, blank=False, null=False)
     

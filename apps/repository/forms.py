@@ -27,38 +27,43 @@ class CategoryForm(forms.ModelForm):
 
 
 class SoftwareNewForm(forms.ModelForm):
-    origin_country = CountryField().formfield()
+    # origin_country = CountryField().formfield()
     
     class Meta:
         model = Software
-        fields = ['user','title','description','version','license','date_created','type_of_work','origin_country']
+        fields = ['user','title','description']
         
         widgets = {
-            # "user": forms.Select(attrs={'style':'display:none;'}),
             "title": forms.TextInput(attrs={
                 'class':'form-control form-control-sm',
             }),
-            "description":forms.TextInput(attrs={
+            "description":forms.Textarea(attrs={
                 'class':'form-control',
                 "placeholder":"",
+                "rows":"5",
+                "cols":"10"
             }),
-            "version": forms.TextInput(attrs={
-                'class':'form-control form-control-sm w-75',
-                'placeholder':'ejemplo: v1.0'
-            }),
-            "license": forms.RadioSelect(),
-            "type_of_work": forms.Select(attrs={'class':'form-select form-select-sm'}),
-            "date_created": forms.DateInput(attrs={'class':'form-control w-100', 'type':"date"}),
-            "origin_country": CountrySelectWidget()
+            # "version": forms.TextInput(attrs={
+            #     'class':'form-control form-control-sm w-75',
+            #     'placeholder':'ejemplo: v1.0'
+            # }),
+            # "license": forms.RadioSelect(),
+            # "type_of_work": forms.Select(attrs={'class':'form-select form-select-sm'}),
+            # "date_created": forms.DateInput(attrs={'class':'form-control w-100', 'type':"date"}),
+            # # "origin_country": CountrySelectWidget()
+            # "logo": forms.FileInput(attrs={'class':'form-control form-control-sm'})
         }
         
-    def __init__(self, *args, **kwargs):
-        super(SoftwareNewForm, self).__init__(*args, **kwargs)
-        print(kwargs)
-        # self.fields['user'].initial = user
 
 class DescriptionForm(forms.ModelForm):
     
     class Meta:
         model = Software
-        fields = ("user","description")
+        fields = ("user","description","version","date_created")
+        
+        widgets = {
+            "user":forms.Select(attrs={'style':'display:none;'}),
+            "description": forms.Textarea(attrs={'class':'form-control',"rows":"4","cols":"50"}),
+            "date_created": forms.DateInput(attrs={'class':'form-control','type':'date'}),
+            "version": forms.TextInput(attrs={'class':'form-control'})
+        }

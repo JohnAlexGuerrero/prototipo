@@ -10,11 +10,12 @@ from authentication.models import CustomUser
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ("software","type_software","type_public","type_industry","os")
+        fields = ("software","type_software","tasks","type_public","type_industry")
         
         widgets = {
-            "software": forms.Select(attrs={'class':'border-0 bg-body-secondary form-select form-select-sm'}),
-            "type_software": forms.RadioSelect(attrs={'class':'form-ckeck-input'}),
+            "software":forms.Select(attrs={'style':'display:none;'}),
+            "type_software": forms.Select(attrs={'class':'form-select form-select-sm'}),
+            "tasks": forms.SelectMultiple(attrs={'class':'form-select form-select-sm'}),
             "type_public": forms.RadioSelect(attrs={'class':'form-ckeck-input'}),
             "type_industry": forms.Select(attrs={
                 'class':'form-select form-select-sm js-example-basic-single',

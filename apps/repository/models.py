@@ -13,61 +13,72 @@ class License(models.TextChoices):
     # FREE_CODE = "CODIGO LIBRE", "Software libre"
     OPEN_SOURCE = "CÓDIGO ABIERTO", "Software de Código Abierto"
 
-class TypeOfWork(models.IntegerChoices):
-    UNPUBLISHED = 1, "Obra inédita"
-    DERIVED = 2, "Obra derivada"
+class TypeOfWork(models.TextChoices):
+    OBRA_INEDITA = "Obra inédita"
+    OBRA_DERIVADA = "Obra derivada"
 
-class TypeFunctionSoftware(models.IntegerChoices):
-    APPLICATION = 1, "Software de aplicación"
-    PROGRAMMING = 2, "Software de programación"
-    SYSTEM = 3, "Software de sistema"
+class TypeFunctionSoftware(models.TextChoices):
+    PRODUCTIVITY = "Software de productividad"
+    MULTIMEDIA =  "Software de multimedia"
+    GAMES = "Juegos"
+    INTERNET = "Internet"
+    TOOLS = "Herramientas"
+    PROGRAMACION = "Herramientas de desarrollo"
+    LENGUAJES_DE_PROGRAMACION = "Lenguaje de programación"
+    DEVOPS = "Herramientas Devops"
+    BASES_DE_DATOS = "Bases de datos"
 
-class TypePublic(models.IntegerChoices):
-    ALL_PUBLIC = 1, "Apto para todo público"
-    TEENAGERS = 2, "Adolecentes"
-    ADULT = 3, "Mayores de 17 años" 
+class TypePublic(models.TextChoices):
+    APTO_PARA_TODO_PUBLICO = "Apto para todo público"
+    ADOLESCENTES = "Adolecentes"
+    MAYORES_DE_17_AÑOS = "Mayores de 17 años" 
+    
+class Task(models.TextChoices):
+    GESTION_ARCHIVOS = 'Gestión de archivos y carpetas'
+    PROCESAMIENTO_TEXTOS = 'Procesadores de texto'
+    CALCULOS_ANALISIS_DATOS = 'Cálculos y análisis de datos'
+    GESTION_BASES_DATOS = 'Gestión de bases de datos'
+    COMUNICACION_COLABORACION = 'Comunicación y colaboración'
+    REPRODUCCION_MULTIMEDIA = 'Reproducción multimedia de audio y video'
+    CREACION_CONTENIDO_MULTIMEDIA = 'Editor de contenido multimedia'
+    JUEGOS = 'Juegos'
+    NAVEGACION_WEB = 'Navegadores web'
+    NAVEGACION_WEB_MESANGERIA = 'Mensajeria instantanea'
+    GESTION_DISPOSITIVOS = 'Gestión de dispositivos'
+    AUTOMATIZACION_TAREAS = 'Automatización de tareas'
+    SEGURIDAD_INFORMATICA = 'Seguridad informática'
+    COMPRENSION_ARCHIVOS = 'Compresion de archivos'
+    GESTION_TIEMPO = 'Gestión del tiempo'
+    TRADUCCION_IDIOMAS = 'Traducción de idiomas'
+    EDUCACION_APRENDIZAJE = 'Educación y aprendizaje'
+    DISEÑO_MODELADO = 'Diseño y modelado'
+    GESTION_PROYECTOS = 'Gestión de proyectos'
+    CONTABILIDAD_FINANZAS = 'Contabilidad y finanzas'
+    GESTION_RELACIONES_CLIENTES = 'Gestión de relaciones con clientes (CRM)'
+    BUSINESS_INTELLIGENCE = 'Business Intelligence (BI)'
+    E_COMMERCE = "E-commerce"
+    MINERIA_DE_DATOS = "Mineria de datos"
 
-class Sector(models.IntegerChoices):
-    HEALTH = 1,	"Salud"
-    EDUCATION = 2,	"Educación"
-    FINANCE = 3, "Finanzas"
-# 4	Manufactura
-# 5	Retail
-# 6	Transporte y logística
-# 7	Agricultura
-# 8	Gobierno
-# 9	Telecomunicaciones
-# 10	Energía
-# 11	Recursos Humanos
-# 12	Marketing
-# 13	Legal
-# 14	Construcción
-# 15	Turismo
-# 16	Bienes Raíces
-# 17	Entretenimiento
-# 18	Deportes
-# 19	Ciencia e investigación
-# 20	Servicios Públicos
-# 1 Health
-# 2 Education
-# 3 Finance
-# 4 Manufacturing
-# 5 Retail
-# 6 Transportation and logistics
-# 7 Agriculture
-# 8 Government
-# 9 Telecommunications
-# 10 Energy
-# 11 Human Resources
-# 12 Marketing
-# 13 Legal
-# 14 Construction
-# 15 Tourism
-# 16 Real Estate
-# 17 Entertainment
-# 18 Sports
-# 19 Science and research
-# 20 Public Services
+class Sector(models.TextChoices):
+    SALUD = "Salud"
+    EDUCACION = "Educación"
+    FINANZAS_Y_ECONOMIA = "Finanzas"
+    MANUFACTURA = "Manufactura"
+    TRANSPORTE_Y_LOGISTICA = "Transporte y logística"
+    AGRICULTURA = "Agricultura"
+    GOBIERNO = "Gobierno"
+    TELECOMUNICACIONES = "Telecomunicaciones"
+    ENERGIA = "Energía"
+    RECURSOS_HUMANOS = "Recursos Humanos"
+    MARKETING = "Marketing"
+    LEGAL = "Legal"
+    CONSTRUCCION = "Construcción"
+    TURISMO = "Turismo"
+    BIENES_RAICES =	"Bienes Raíces"
+    ENTRETENIMIENTO = "Entretenimiento"
+    DEPORTES = "Deportes"
+    CIENCIA_E_INVESTIGACION = "Ciencia e investigación"
+    SERVICIOS_PUBLICOS = "Servicios Públicos"
 
 class Software(models.Model):
     title = models.CharField(("Software titulo"), max_length=150, null=False, unique=True)
@@ -76,8 +87,8 @@ class Software(models.Model):
     slug = models.SlugField()
     user = models.ForeignKey(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
     date_created = models.DateField(("Fecha de creación"), auto_now_add=False, blank=True, null=True)
-    # type_of_work = models.PositiveSmallIntegerField(("El software es"), choices=TypeOfWork.choices, default=TypeOfWork.UNPUBLISHED)
-    # origin_country = models.CharField(("country"), max_length=50, null=True, blank=True)
+    type_of_work = models.CharField(("El software es"), max_length=50, choices=TypeOfWork.choices, default=TypeOfWork.OBRA_DERIVADA)
+    origin_country = models.CharField(("nacionalidad"), max_length=50, null=True, blank=True)
     logo = models.ImageField("logo", upload_to="logos/", blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
@@ -100,10 +111,10 @@ class Software(models.Model):
 class Category(models.Model):
     software = models.OneToOneField(Software, verbose_name=("software"), on_delete=models.CASCADE)
     license = models.TextField(("tipo de licencia"), max_length=150, choices=License.choices, null=True, blank=True)
-    type_software = models.TextField(("Tipo de software por funcionalidad"), max_length=150,choices=TypeFunctionSoftware.choices, null=True, blank=True)    
-    type_public = models.PositiveSmallIntegerField(("Tipo de audiencia"), choices=TypePublic.choices, null=True, blank=True)
-    type_industry = models.PositiveSmallIntegerField(("sector"), choices=Sector.choices,null=True, blank=True)
-    # functions = models.CharField("functions", max_length=250, choices=Sector.choices)
+    type_software = models.TextField(("Tipo de software"), max_length=150,choices=TypeFunctionSoftware.choices, null=True, blank=True)
+    tasks = models.CharField(("tareas"), max_length=255, choices=Task.choices, blank=True,null=True)
+    type_public = models.CharField(("Tipo de audiencia"), max_length=100, choices=TypePublic.choices, default=TypePublic.APTO_PARA_TODO_PUBLICO)
+    type_industry = models.CharField(("sector"), max_length=100, choices=Sector.choices,null=True, blank=True)
     os = models.CharField(("sistema operativo"), max_length=250, blank=False, null=False)
     
     class Meta:

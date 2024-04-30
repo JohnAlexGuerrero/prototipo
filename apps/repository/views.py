@@ -36,13 +36,36 @@ class CategoryLicenseUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         context["software"] = Software.objects.get(slug=self.kwargs['slug'])
         return context
-    
 
-class CategoryCreateView(LoginRequiredMixin, UpdateView):
+class CategoryGeneralUpdateView(UpdateView):
     model = Category
     template_name = "repository/category.html"
     form_class = CategoryForm
     success_url = reverse_lazy('dashboard')
+    
+    def get_queryset(self):
+        self.get_object
+        print(self.get_object)
+        return super().get_queryset()
+    
+    def get_object(self, *args, **kwargs):
+        return Category.objects.get(software__slug=self.kwargs['slug'])
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["software"] = Software.objects.get(slug=self.kwargs['slug'])
+        return context
+    
+
+class CategoryDetailView(LoginRequiredMixin, DetailView):
+    model = Software
+    template_name = "repository/category_detail.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["software"] = Software.objects.get(slug=self.kwargs['slug'])
+        return context
+    
 
 class SoftwareCreateView(LoginRequiredMixin, TemplateView):
     model = Software

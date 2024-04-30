@@ -136,40 +136,40 @@
 
         <div class="radio-inputs mt-5">
             <form method="post">
-                {% csrf_token %}
-                <input type="text" value={{software.id}} style="display: none;">
-                <div class="row">
-                        <div class="col-sm-6">
-                            <label >
-                                <input class="radio-input" type="radio" name="license" id="id_license_1">
-                                    <span class="radio-tile">
-                                        <span class="radio-icon">
-                                            <img src="{% static "images/candado.png" %}" alt="propietario">
-                                        </span>
-                                        <span class="radio-label fw-bold mt-3">Propietario</span>
-                                        <span class="radio-label text-secondary">
-                                            Desarrollado por empresas o individuos que mantienen el control exclusivo sobre el código fuente y su distribución.
-                                        </span>
-                                    </span>
-                            </label>
-                        </div>
-                        <div class="col-sm-6">
-                            <label>
-                                <input checked="" class="radio-input" type="radio" name="license" id="id_license_2">
-                                <span class="radio-tile">
-                                    <span class="radio-icon">
-                                        <img src="{% static "images/candado-abierto.png" %}" alt="propietario">
-                                    </span>
-                                    <span class="radio-label fw-bold mt-3">Libre y de Código libre</span>
-                                    <span class="radio-label">
-                                        Otorgan libertad a los usuarios para usar, modificar y distribuir el software sin restricciones.
-                                    </span>
-                            </label>
-                        </div>
-                </div>
-                <div class="d-flex gap-2 p-2 w-50">
-                    <input type="submit" class="btn btn-sm btn-dark mt-2" value="Continue" >
-                </div>
+              {% csrf_token %}
+              <input type="text" value={{software.id}} style="display: none;">
+              <div class="row">
+                      <div class="col-sm-6">
+                          <label >
+                              <input class="radio-input" type="radio" name="license" id="id_license_1">
+                                  <span class="radio-tile">
+                                      <span class="radio-icon">
+                                          <img src="{% static "images/candado.png" %}" alt="propietario">
+                                      </span>
+                                      <span class="radio-label fw-bold mt-3">Propietario</span>
+                                      <span class="radio-label text-secondary">
+                                          Desarrollado por empresas o individuos que mantienen el control exclusivo sobre el código fuente y su distribución.
+                                      </span>
+                                  </span>
+                          </label>
+                      </div>
+                      <div class="col-sm-6">
+                          <label>
+                              <input checked="" class="radio-input" type="radio" name="license" id="id_license_2">
+                              <span class="radio-tile">
+                                  <span class="radio-icon">
+                                      <img src="{% static "images/candado-abierto.png" %}" alt="propietario">
+                                  </span>
+                                  <span class="radio-label fw-bold mt-3">Libre y de Código libre</span>
+                                  <span class="radio-label">
+                                      Otorgan libertad a los usuarios para usar, modificar y distribuir el software sin restricciones.
+                                  </span>
+                          </label>
+                      </div>
+              </div>
+              <div class="d-flex gap-2 p-2 w-50">
+                  <input type="submit" class="btn btn-sm btn-dark mt-2" value="Continue" >
+              </div>
             </form>
         </div>
 

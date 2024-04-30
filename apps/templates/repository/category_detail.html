@@ -1,0 +1,107 @@
+{% extends "repository/detail.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{software}} - categorización
+{% endblock title %}
+
+{% block subcontent %}
+<div class="row">
+    <div class="col-sm">
+        <table class="table table table-borderless">
+            <tr>
+                <th scope="col">Software</th>
+                <td>
+                    {{ software.title }}
+                </td>
+            </tr>    
+            <tr>
+                <th scope="col">Licencia</th>
+                <td>
+                    {% if software.category.license %}
+                        {{ software.category.license }}
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </td>
+            </tr>    
+            <tr>
+                <th scope="col">Categoria</th>
+                <td>
+                    {% if software.category.type_software %}
+                        {{ software.category.type_software }}
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </td>
+            </tr>    
+        </table>
+    </div>
+    <div class="col-sm">
+        <table class="table table table-borderless">
+            <tr>
+                <th scope="col">Pricipal función</th>
+                <td>
+                    {% if software.category.tasks %}
+                        {{ software.category.tasks }}
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Última version</th>
+                <td>
+                    {% if software.version %}
+                        {{ software.version }}
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Público</th>
+                <td>
+                    {% if software.category.public %}
+                        {{ software.category.public }}
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Sector</th>
+                <td>
+                    {% if software.category.type_industry %}
+                        {{ software.category.type_industry }}
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm">
+        <table class="table table table-borderless">
+            <tr>
+                <th scope="col">Lanzamiento</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="col">Última version</th>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Licencia</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="col">País de origen</th>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock subcontent %}

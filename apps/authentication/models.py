@@ -44,9 +44,9 @@ class Institute(models.TextChoices):
     SENA = "SENA", "Servicio Nacional de Aprendizaje"
     
 class ProfessionCareer(models.TextChoices):
-    SYSTEM_INGEENIER = "Ing. Sistemas", "Ingeniero de Sistemas"
-    ELECTRONIC_INGEENIER = "Ing. Electrónica", "Ingeniero Electrónico"
-    SYSTEM_TECH = "Tecnología en sistemas", "Tecnología en Sistemas"
+    INGENIERIA_DE_SISTEMAS = "Ingeniero de Sistemas"
+    INGENIERIA_ELECTRONICA = "Ingeniero Electrónico"
+    TECNOLOGIA_EN_SISTEMAS = "Tecnología en Sistemas"
     
 class Gender(models.IntegerChoices):
     MAN = 1, "Hombre" 

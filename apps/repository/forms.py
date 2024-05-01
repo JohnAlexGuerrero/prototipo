@@ -2,12 +2,15 @@ from django_countries.data import COUNTRIES
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
 from django import forms
+from django.forms import MultipleChoiceField
 
 from repository.models import Software
-from repository.models import Category
+from repository.models import Category, Task
 from authentication.models import CustomUser
 
 class CategoryForm(forms.ModelForm):
+    tasks =  forms.MultipleChoiceField(label='Actividades', choices=Task.choices, widget=forms.SelectMultiple(attrs={'class': 'form-select form-select-sm'}))
+    
     class Meta:
         model = Category
         fields = ("software","type_software","tasks","type_public","type_industry")
@@ -15,14 +18,9 @@ class CategoryForm(forms.ModelForm):
         widgets = {
             "software":forms.Select(attrs={'style':'display:none;'}),
             "type_software": forms.Select(attrs={'class':'form-select form-select-sm'}),
-            "tasks": forms.SelectMultiple(attrs={'class':'form-select form-select-sm'}),
             "type_public": forms.RadioSelect(attrs={'class':'form-ckeck-input'}),
             "type_industry": forms.Select(attrs={
                 'class':'form-select form-select-sm js-example-basic-single',
-            }),
-            "os": forms.Select(attrs={
-                'class':'form-control js-example-basic-single',
-                'placeholder': 'Selecciona los sistemas operativos',
             })
         }
 

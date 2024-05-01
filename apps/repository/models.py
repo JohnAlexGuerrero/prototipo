@@ -6,23 +6,20 @@ from ckeditor.fields import RichTextField
 from django.db import models
 from authentication.models import CustomUser
 
-# Create your models here.
+import re
 
-class License(models.TextChoices):
-    PROPERTY = "PROPIETARIO", "Software propietario"
-    # FREE_CODE = "CODIGO LIBRE", "Software libre"
-    OPEN_SOURCE = "CÓDIGO ABIERTO", "Software de Código Abierto"
+# Create your models here.
 
 class TypeOfWork(models.TextChoices):
     OBRA_INEDITA = "Obra inédita"
     OBRA_DERIVADA = "Obra derivada"
 
 class TypeFunctionSoftware(models.TextChoices):
-    PRODUCTIVITY = "Software de productividad"
+    PRODUCTIVIDAD = "Software de productividad"
     MULTIMEDIA =  "Software de multimedia"
-    GAMES = "Juegos"
+    JUEGOS = "Juegos"
     INTERNET = "Internet"
-    TOOLS = "Herramientas"
+    HERRAMIENTAS_Y_LIBRERIAS = "Herramientas y librerias"
     PROGRAMACION = "Herramientas de desarrollo"
     LENGUAJES_DE_PROGRAMACION = "Lenguaje de programación"
     DEVOPS = "Herramientas Devops"
@@ -31,40 +28,40 @@ class TypeFunctionSoftware(models.TextChoices):
 class TypePublic(models.TextChoices):
     APTO_PARA_TODO_PUBLICO = "Apto para todo público"
     ADOLESCENTES = "Adolecentes"
-    MAYORES_DE_17_AÑOS = "Mayores de 17 años" 
+    MAYORES_DE_17_AÑOS = "Mayores de 17 años"    
     
 class Task(models.TextChoices):
-    GESTION_ARCHIVOS = 'Gestión de archivos y carpetas'
-    PROCESAMIENTO_TEXTOS = 'Procesadores de texto'
-    CALCULOS_ANALISIS_DATOS = 'Cálculos y análisis de datos'
-    GESTION_BASES_DATOS = 'Gestión de bases de datos'
-    COMUNICACION_COLABORACION = 'Comunicación y colaboración'
-    REPRODUCCION_MULTIMEDIA = 'Reproducción multimedia de audio y video'
-    CREACION_CONTENIDO_MULTIMEDIA = 'Editor de contenido multimedia'
-    JUEGOS = 'Juegos'
-    NAVEGACION_WEB = 'Navegadores web'
-    NAVEGACION_WEB_MESANGERIA = 'Mensajeria instantanea'
-    GESTION_DISPOSITIVOS = 'Gestión de dispositivos'
-    AUTOMATIZACION_TAREAS = 'Automatización de tareas'
-    SEGURIDAD_INFORMATICA = 'Seguridad informática'
-    COMPRENSION_ARCHIVOS = 'Compresion de archivos'
-    GESTION_TIEMPO = 'Gestión del tiempo'
-    TRADUCCION_IDIOMAS = 'Traducción de idiomas'
-    EDUCACION_APRENDIZAJE = 'Educación y aprendizaje'
-    DISEÑO_MODELADO = 'Diseño y modelado'
-    GESTION_PROYECTOS = 'Gestión de proyectos'
-    CONTABILIDAD_FINANZAS = 'Contabilidad y finanzas'
-    GESTION_RELACIONES_CLIENTES = 'Gestión de relaciones con clientes (CRM)'
-    BUSINESS_INTELLIGENCE = 'Business Intelligence (BI)'
-    E_COMMERCE = "E-commerce"
-    MINERIA_DE_DATOS = "Mineria de datos"
+    # GESTION_DE_ARCHIVOS_Y_CARPETAS = 'Gestion De Archivos y carpetas'
+    # PROCESAMIENTO_DE_TEXTOS = 'Procesamiento de textos'
+    CALCULO_Y_ANALISIS_DE_DATOS = 'Calculo Y Analisis De Datos'
+    # GESTION_BASES_DATOS = 'Gestion bases de datos'
+    # COMUNICACION_COLABORACION = 'Comunicación y colaboración'
+    # REPRODUCCION_MULTIMEDIA_DE_AUDIO_Y_VIDEO = 'Reproducción multimedia de audio y video'
+    # CREACION_CONTENIDO_MULTIMEDIA = 'Creacion de contenido multimedia'
+    # JUEGOS = 'Juegos'
+    # NAVEGADORES_WEB = 'Navegadores web'
+    # MESANGERIA = 'Mensajeria'
+    # GESTION_DE_DISPOSITIVOS = 'Gestion de dispositivos'
+    # AUTOMATIZACION_DE_TAREAS = 'Automatizacion de tareas'
+    # SEGURIDAD_INFORMATICA = 'Seguridad informatica'
+    COMPRESOR_DE_ARCHIVOS = 'Compresor De Archivos'
+    # GESTION_DEL_TIEMPO = 'Gestion del tiempo'
+    # TRADUCCION_DE_IDIOMAS = 'Traduccion de idiomas'
+    # EDUCACION_Y_APRENDIZAJE = 'Educacion y aprendizaje'
+    # DISEÑO_Y_MODELADO = 'Diseño y modelado'
+    # GESTION_DE_PROYECTOS = 'Gestion de proyectos'
+    # CONTABILIDAD_Y_FINANZAS = 'Contabilidad y finanzas'
+    # GESTION_DE_RELACIONES_CON_CLIENTES_CRM = 'Gestion de relaciones con clientes CRM'
+    # BUSINESS_INTELLIGENCE_BI = 'Business Intelligence BI'
+    # E_COMMERCE = "E commerce"
+    MINERIA_DE_DATOS = "Mineria De Datos"
 
 class Sector(models.TextChoices):
     SALUD = "Salud"
     EDUCACION = "Educación"
-    FINANZAS_Y_ECONOMIA = "Finanzas"
+    FINANZAS_Y_ECONOMIA = "Finanzas y economia"
     MANUFACTURA = "Manufactura"
-    TRANSPORTE_Y_LOGISTICA = "Transporte y logística"
+    TRANSPORTE_Y_LOGISTICA = "Transporte y logistica"
     AGRICULTURA = "Agricultura"
     GOBIERNO = "Gobierno"
     TELECOMUNICACIONES = "Telecomunicaciones"
@@ -78,7 +75,7 @@ class Sector(models.TextChoices):
     ENTRETENIMIENTO = "Entretenimiento"
     DEPORTES = "Deportes"
     CIENCIA_E_INVESTIGACION = "Ciencia e investigación"
-    SERVICIOS_PUBLICOS = "Servicios Públicos"
+    SERVICIOS_PUBLICOS = "Servicios Publicos"
 
 class Software(models.Model):
     title = models.CharField(("Software titulo"), max_length=150, null=False, unique=True)
@@ -110,12 +107,13 @@ class Software(models.Model):
                             
 class Category(models.Model):
     software = models.OneToOneField(Software, verbose_name=("software"), on_delete=models.CASCADE)
-    license = models.TextField(("tipo de licencia"), max_length=150, choices=License.choices, null=True, blank=True)
-    type_software = models.TextField(("Tipo de software"), max_length=150,choices=TypeFunctionSoftware.choices, null=True, blank=True)
-    tasks = models.CharField(("tareas"), max_length=255, choices=Task.choices, blank=True,null=True)
+    license = models.CharField(("tipo de licencia"), max_length=150, null=True, blank=True)
+    type_software = models.CharField(("Tipo de software"), max_length=150,choices=TypeFunctionSoftware.choices, null=True, blank=True)
+    tasks = models.TextField(("tareas"), max_length=255, blank=True,null=True)
     type_public = models.CharField(("Tipo de audiencia"), max_length=100, choices=TypePublic.choices, default=TypePublic.APTO_PARA_TODO_PUBLICO)
     type_industry = models.CharField(("sector"), max_length=100, choices=Sector.choices,null=True, blank=True)
-    os = models.CharField(("sistema operativo"), max_length=250, blank=False, null=False)
+    os = models.CharField(("sistema operativo"), max_length=250, blank=True, null=True)
+    slug = models.SlugField()
     
     class Meta:
         verbose_name = ("Category")
@@ -126,6 +124,18 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse("Category_detail", kwargs={"pk": self.pk})
+    
+    def save(self, *args, **kwargs):
+        if self.tasks is not None:
+            self.tasks = self.tasks.strip("[]")
+            for item in self.tasks.split(','):
+                print(item)
+            print(self.tasks)
+        return super().save(*args, **kwargs)
+    
+    def get_tasks_list(self):
+        list_tasks = [x for x in self.tasks.split(',')]
+        return list_tasks
 
 class Requeriment(models.Model):
     software = models.ForeignKey(Software, verbose_name=("software"), on_delete=models.CASCADE)

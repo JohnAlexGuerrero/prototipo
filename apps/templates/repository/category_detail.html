@@ -44,7 +44,9 @@
                 <th scope="col">Pricipal función</th>
                 <td>
                     {% if software.category.tasks %}
-                        {{ software.category.tasks }}
+                        {% for task in software.category.tasks %}
+                            <small class="text-secondary">{{task}}</small>
+                        {% endfor %}
                     {% else %}
                     N/A
                     {% endif %}
@@ -83,25 +85,12 @@
         </table>
     </div>
     <div class="col-sm">
-        <table class="table table table-borderless">
-            <tr>
-                <th scope="col">Lanzamiento</th>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope="col">Última version</th>
-                <td>
-                </td>
-            </tr>
-            <tr>
-                <th scope="col">Licencia</th>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope="col">País de origen</th>
-                <td></td>
-            </tr>
-        </table>
+        <ul class="list-group">
+            {% for t in software.category.get_tasks_list %}
+            <li class="list-group-item">{{t}}</li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
+<a href="{% url "category_license" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
 {% endblock subcontent %}

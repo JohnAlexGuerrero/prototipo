@@ -6,94 +6,58 @@
 @{{user}} - Role
 {% endblock title %}
 
-{% block css %}
-<style>
-/* add this to your :root variables */
-.checkbox {
-  --light: rgba(255, 244, 244, 0.425);
-  --primary-color: #8c00ff;
-  --duration: 0.3s;
-  --ease: ease-in-out;
-}
- 
-  /* hide checkbox */
-.card-body label{
-  width: 200px;
-  height: 200px;
-  margin: 0.5rem;
-  cursor: pointer;
-  border-radius: 5px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  display: flex;
-}
-  
-  .card:hover{
-    background: var(--light);
-    -webkit-box-shadow: 10px 10px 5px 0px rgba(34, 32, 32, 0.75);
-    -moz-box-shadow: 10px 10px 5px 0px rgba(27, 26, 26, 0.75);
-    box-shadow: 10px 10px 5px 0px rgba(53, 52, 52, 0.75);
-  }
-  
-  .card-body label input {
-    height: 20px;
-    width: 20px;
-  }
-  
-  .card-body label img{
-    margin-bottom: 1rem;
-  }
-  
-</style>
-{% endblock css %}
-
 {% block content %}
-<div class="d-flex justify-content-center">
-  <div class="container p-3">
-    <form method="POST" class="w-50">
-      <h2 class="h3 fw-bold mb-3 text-center">¿Cuál es tu ocupación actual?</h2>
-
-      {% csrf_token %}
-      <input type="number" value={{user.id}} name="user" style="display: none;">
-
-      <div class="row checkbox">
-          <div class="col-sm-6">
-              <div class="card">
-                  <div class="card-body" >
-                      <label for="" id="id_rol_1" >
-                        <img src="{% static "images/teacher.png" %}" alt="teacher" width="100px">
-                        <div>
-                          <input type="radio" name="rol" id="id_input_rol_1" value="PROFESOR">
-                          <span class="h4 fw-bold">Docente</span>
-                        </div>
-                        <small class="text-secondary text-center">Trabaja de forma colaborativa en tus proyectos software.</small>
-                      </label>
-                  </div>
-              </div>
-          </div>
-          <div class="col-sm-6">
-              <div class="card">
-                  <div class="card-body">
-                      <label for="" id="id_rol_2" class="checkbox-content">
-                        <img src="{% static "images/student.png" %}" alt="student" width="100px">
-                        <div>
-                          <input type="radio" name="rol" id="id_input_rol_2" value="ESTUDIANTE">
-                          <span class="h4 fw-bold">Estudiante</span>  
-                        </div>
-                        <small class="text-secondary text-center">Gestiona todos tus proyectos software.</small>
-                      </label>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="d-grid gap-2 p-2">
-        <input type="submit" class="btn btn-sm btn-dark mt-2" value="Continue" >
-      </div>
-    </form>
+<div class="container mt-5">
+  <div class="w-50 d-flex flex-column justify-content-center">
+    <h1 class="h4 fw-bold text-center">
+      Háblanos un poco de tí
+    </h1>
+    <span class="text-secondary text-center">
+      Personalizaremos tu espacio de trabajo.
+      ¿Cuál es tu ocupación actual?
+    </span>
   </div>
-</div>
 
+  <div class="radio-inputs mt-5">
+      <form method="POST">
+        {% csrf_token %}
+        <input type="number" value={{user.id}} name="user" style="display: none;">
+        <div class="row">
+                <div class="col-sm-6">
+                    <label >
+                      <input class="radio-input"  type="radio" name="rol" id="id_input_rol_1" value="PROFESOR">
+                      <span class="radio-tile">
+                          <span class="radio-icon">
+                            <img src="{% static "images/teacher.png" %}" alt="teacher">
+                          </span>
+                          <span class="radio-label fw-bold mt-3">Docente</span>
+                          <span class="radio-label text-secondary">
+                            Gestiona todos tus proyectos software. 
+                          </span>
+                      </span>
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <label>
+                      <input class="radio-input" type="radio" name="rol" id="id_input_rol_2" value="ESTUDIANTE" checked="true">
+                      <span class="radio-tile">
+                        <span class="radio-icon">
+                          <img src="{% static "images/student.png" %}" alt="student" >
+                        </span>
+                        <span class="radio-label fw-bold mt-3">Estudiante</span>
+                        <span class="radio-label">
+                          Gestiona todos tus desarrollos de software.
+                        </span>
+                    </label>
+                </div>
+        </div>
+        <div class="d-flex gap-2 p-2 w-50">
+            <input type="submit" class="btn btn-sm btn-dark mt-2" value="Continue" >
+        </div>
+      </form>
+  </div>
+
+</div>
 {% endblock content %}
 
 {% block javascript %}

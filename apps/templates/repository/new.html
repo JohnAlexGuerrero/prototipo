@@ -17,77 +17,25 @@ New repository
     <h1 class="h4 fw-bold text-center">Crea un espacio de trabajo para tu software</h1>
     <p class="text-secondary text-center">Completa los siguientes datos</p>
     <hr>
-    {% comment %} <small class="mb-3 form-text"><strong>Importante! </strong>Los campos requeridos con asterisco(*)</small> {% endcomment %}
     <form method="POST">
         {% csrf_token %}
         <input id="id_user" name="user" value={{user.id}} style="display:none;">
         <div class="mb-3">
-            <label for="basic-url" class="form-label m-0 fw-bold">Titúlo de tu software</label>
+            <label for="basic-url" class="form-label m-0 fw-bold text-secondary">Titúlo de tu software</label>
             <div class="input-group">
                 {{form.title}}
             </div>
             <div class="form-text"></div>
         </div>
         <div class="mb-3">
-            <label for="" class="form-label m-0 fw-bold">¿Cuál es el objetivo de tu software?</label>
+            <label for="" class="form-label m-0 fw-bold text-secondary">¿Cuál es el objetivo <strong>principal</strong> de tu software?</label>
             {{form.description}}
             <div class="form-text">
-                Describe de manera corta la función principal de tu software.
-                (ej. Compila, almacena, genera reportes, automatiza datos, procesa datos, organiza datos, gestiona y registra, controla, produce, crea reportes, etc.)
+                Describe la funcion principal de tu software, ten encuenta que no debe superar los <span id="id_count" class="text-secondary fw-light">0</span>/150 caracteres. 
             </div>
+
         </div>
-        {% comment %} <div class="mb-3">
-            <label for="" class="col-form-label m-0 fw-bold">Versión</label>
-            <div class="w-50">
-                {{form.version}}
-            </div>
-            <span id="passwordHelpInline" class="form-text">
-                Indica la versión de desarrollo de tu software.
-            </span>
-        </div> {% endcomment %}
-        {% comment %} <div class="mb-3">
-            <label for="" class="col-form-label m-0"><strong>Tipo de licencia</strong>*</label>
-            <div class="row">
-                <div class="col-sm-3 mb-3">
-                    {{form.license}}
-                </div>
-                <div class="col-sm-9">
-                    <span id="id_text_license" class="form-text fw-bold">
-                    </span> 
-                </div>
-            </div>
-            <span class="form-text">
-                <strong>Importante! </strong>
-                La licencia de software es la autorización que otorga un autor o autores que permite el derecho a terceras personas de utilizar su creación o recurso.
-                sin que se llegue a violar los derechos de autor.
-            </span>
-        </div> {% endcomment %}
-        {% comment %} <div class="mb-3">
-            <label for="" class="col-form-label m-0"><strong>Tipo de obra</strong>*</label>
-            <div class="w-25">
-                {{form.type_of_work}}
-            </div>
-            <span id="passwordHelpInline" class="form-text">
-                Obra que no ha sido divulgada con el consentimiento del autor o sus derechohabientes.
-            </span>
-        </div> {% endcomment %}
-        {% comment %} <div class="mb-3">
-            <label for="" class="col-form-label m-0 fw-bold">¿Cuando fue terminado tu software?</label>
-            <div class="w-50">
-                {{form.date_created}}
-            </div>
-            <span id="passwordHelpInline" class="form-text">
-            </span>
-        </div> {% endcomment %}
-        {% comment %} <div class="mb-3">
-            <label for="" class="col-form-label m-0 fw-bold">Tu software cuenta con un logo.</label>
-            <div class="w-25">
-                {{form.logo}}
-            </div>
-            <span id="passwordHelpInline" class="form-text">
-            </span>
-        </div> {% endcomment %}
-        <input type="submit" value="Continuar" class="btn btn-outline-success">
+        <input type="submit" value="Continuar" class="btn btn-outline-dark">
     </form>
 
 </div>
@@ -96,26 +44,12 @@ New repository
 
 {% block javascript %}
 <script>
-    const licenseZero = document.getElementById('id_license_0')
-    const licenseOne = document.getElementById('id_license_1')
-    const licenseTwo = document.getElementById('id_license_2')
-    const textHelpLicense = document.getElementById('id_text_license')
-    const infoLicense = [
-        "El software propietario​, es el software del cual no existe una forma libre de acceso a su código fuente, el cual solo se encuentra a disposición de su desarrollador y no se permite su libre modificación, adaptación o incluso lectura por parte de terceros.",
-        "El software libre, es el software que respeta la libertad de los usuarios y la comunidad. Significa que los usuarios tienen la libertad de ejecutar, copiar, distribuir, estudiar, modificar y mejorar el software.",
-        "El software de código abierto, permite la libre distribución, modificación y uso del software. El código fuente también está disponible públicamente para que cualquier persona pueda examinarlo y mejorarlo."
-    ]
+    const description = document.querySelector('#id_description')
+    const count = document.querySelector('#id_count')
 
-    licenseZero.addEventListener('click', ()=>{
-        textHelpLicense.innerText = infoLicense[0]
-    })
-
-    licenseOne.addEventListener('click', ()=>{
-        textHelpLicense.innerText = infoLicense[1]
-    })
-
-    licenseTwo.addEventListener('click', ()=>{
-        textHelpLicense.innerText = infoLicense[2]
+    description.addEventListener('keyup', (e)=>{
+        let str_size = e.target.value.length
+        count.textContent = 150 - str_size
     })
 </script>
 {% endblock javascript %}

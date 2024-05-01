@@ -8,12 +8,18 @@
 
 {% block content %}
 <div class="container mt-5">
-    <form method="POST" class="w-50">
+    <div class="w-50 d-flex flex-column justify-content-center">
         <h2 class="h4 fw-bold text-center">Cuentanos acerca de tu perfil profesional</h2>
+        <span class="text-secondary text-center">
+          Personalizaremos tu espacio de trabajo.
+          ¿Cuál es tu ocupación actual?
+        </span>
+    </div>
+    <form method="POST" class="w-50">
 
         {% csrf_token %}
         <div class="mt-3">
-            <h2 class="h5 fw-light">¿Cuál es tu Universidad?</h2>
+            <h2 class="h5 fw-light">¿Cuál es tu Universidad o Institución? </h2>
             {{ form.university }}
         </div>
         <div class="mt-3">

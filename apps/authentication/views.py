@@ -160,9 +160,9 @@ class AcademicaUniveristyView(TemplateView):
         if request.method == 'POST':
             academica_obj = Academica.objects.get(user_id=request.user.id)
 
-            # form = AcademicaUniversityForm(request.POST)
             if academica_obj:
                 academica_obj.university = request.POST.get('university')
+                academica_obj.profession = request.POST.get('profession')
 
                 if academica_obj.rol == 'ESTUDIANTE':
                     academica_obj.semester = request.POST.get('semester')

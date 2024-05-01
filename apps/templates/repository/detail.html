@@ -6,12 +6,6 @@
 @{{user}}/{{software.title}}
 {% endblock title %}
 
-{% block css %}
-<style>
-    
-</style>
-{% endblock css %}
-
 {% block content %}
 <div class="container">
     <div class="container">
@@ -30,72 +24,96 @@
 </div>
 <div class="container mt-5">
     {% block subcontent %}
-    <div class="row">
-        <div class="col-sm">
-            <table class="table table table-borderless">
-                <tr>
-                    <th scope="col">Software</th>
-                    <td>
-                        {{ software.title }}
-                    </td>
-                </tr>    
-                <tr>
-                    <th scope="col">Tipo de programa</th>
-                    <td>
-                        {{ software.description }}
-                    </td>
-                </tr>    
-                <tr>
-                    <th scope="col">Tipo de programa</th>
-                    <td>
-                    </td>
-                </tr>    
-            </table>
-        </div>
-        <div class="col-sm">
-            <table class="table table table-borderless">
-                <tr>
-                    <th scope="col">Lanzamiento</th>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th scope="col">Última version</th>
-                    <td>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="col">Licencia</th>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th scope="col">País de origen</th>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
-        <div class="col-sm">
-            <table class="table table table-borderless">
-                <tr>
-                    <th scope="col">Lanzamiento</th>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th scope="col">Última version</th>
-                    <td>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="col">Licencia</th>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th scope="col">País de origen</th>
-                    <td></td>
-                </tr>
-            </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <table class="table table table-borderless">
+                    <tr>
+                        <th scope="col">Software</th>
+                        <td>
+                            {{ software.title }}
+                        </td>
+                    </tr>    
+                </table>
+            </div>
+            <div class="col-sm-8">
+                <table class="table table table-borderless">
+                    <tr>
+                        <th scope="col">Tipo de programa</th>
+                        <td>
+                            {{ software.description }}
+                        </td>
+                    </tr>    
+                </table>
+            </div>
         </div>
     </div>
-    {% endblock subcontent %}
+    <div class="container mt-2 p-3">
+        <div class="row">
+            <div class="col-sm">
+                <table class="table table table-borderless">
+                    <tr>
+                        <th scope="col">Software</th>
+                        <td>
+                            {{ software.title }}
+                        </td>
+                    </tr>    
+                    <tr>
+                        <th scope="col">Tipo de programa</th>
+                        <td>
+                            {{ software.description }}
+                        </td>
+                    </tr>    
+                    <tr>
+                        <th scope="col">Tipo de programa</th>
+                        <td>N/A</td>
+                    </tr>    
+                </table>
+            </div>
+            <div class="col-sm">
+                <table class="table table table-borderless">
+                    <tr>
+                        <th scope="col">Lanzamiento</th>
+                        <td>N/A</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Última version</th>
+                        <td>N/A</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Licencia</th>
+                        <td>N/A</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">País de origen</th>
+                        <td>N/A</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm">
+                <table class="table table table-borderless">
+                    <tr>
+                        <th scope="col">Lanzamiento</th>
+                        <td>N/A</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Última version</th>
+                        <td>N/A</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Licencia</th>
+                        <td>N/A</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">País de origen</th>
+                        <td>N/A</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <a href="{% url "description" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
+    {% endblock subcontent %}
 </div>
 {% endblock content %}

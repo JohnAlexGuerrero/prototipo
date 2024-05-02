@@ -8,6 +8,7 @@ from repository.models import Software
 from repository.models import Category, Task
 from authentication.models import CustomUser
 
+#form de category
 class CategoryForm(forms.ModelForm):
     tasks =  forms.MultipleChoiceField(label='Actividades', choices=Task.choices, widget=forms.SelectMultiple(attrs={'class': 'form-select form-select-sm'}))
     
@@ -24,9 +25,8 @@ class CategoryForm(forms.ModelForm):
             })
         }
 
-
+#form of new software
 class SoftwareNewForm(forms.ModelForm):
-    # origin_country = CountryField().formfield()
     
     class Meta:
         model = Software
@@ -49,11 +49,24 @@ class SoftwareNewForm(forms.ModelForm):
             # "license": forms.RadioSelect(),
             # "type_of_work": forms.Select(attrs={'class':'form-select form-select-sm'}),
             # "date_created": forms.DateInput(attrs={'class':'form-control w-100', 'type':"date"}),
-            # # "origin_country": CountrySelectWidget()
             # "logo": forms.FileInput(attrs={'class':'form-control form-control-sm'})
         }
-        
 
+class SoftwareVersionForm(forms.ModelForm):
+    origin_country = CountryField().formfield()
+
+    class Meta:
+        model = Software
+        fields = ["version","date_created","origin_country","type_of_work"]
+        
+        widgets = {
+            "version": forms.TextInput(attrs={'style':'display:none;'}),
+            "date_created": forms.DateInput(attrs={'class':'form-control form-control-sm', "type":'date'}),
+            "origin_country": CountrySelectWidget()
+
+        }
+       
+#
 class DescriptionForm(forms.ModelForm):
     
     class Meta:

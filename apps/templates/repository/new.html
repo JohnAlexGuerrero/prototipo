@@ -1,4 +1,4 @@
-{% extends "base/index.html" %}
+{% extends "base/base-full-screen.html" %}
 
 {% load static %}
 
@@ -13,22 +13,22 @@ New repository
 
 
 {% block content %}
-<div class="p-1 w-25">
-    <h1 class="h4 fw-bold text-center">Crea un espacio de trabajo para tu software</h1>
-    <p class="text-secondary text-center">Completa los siguientes datos</p>
+<div class="p-1 container mt-5 mb-5" style="width: 30rem;">
+    <h1 class="h4 fw-bold text-center">Mejora la comprensión de tu software con documentación completa y efectiva.</h1>
+    <p class="text-secondary text-center"></p>
     <hr>
     <form method="POST">
         {% csrf_token %}
         <input id="id_user" name="user" value={{user.id}} style="display:none;">
         <div class="mb-3">
-            <label for="basic-url" class="form-label m-0 fw-bold text-secondary">Titúlo de tu software</label>
+            <label for="basic-url" class="form-label m-0 fw-bold text-secondary">¿Cómo se llama tú software?</label>
             <div class="input-group">
                 {{form.title}}
             </div>
             <div class="form-text"></div>
         </div>
         <div class="mb-3">
-            <label for="" class="form-label m-0 fw-bold text-secondary">¿Cuál es el objetivo <strong>principal</strong> de tu software?</label>
+            <label for="" class="form-label m-0 fw-bold text-secondary">Describe el objetivo <strong>principal</strong> que cumple tu software</label>
             {{form.description}}
             <div class="form-text">
                 Describe la funcion principal de tu software, ten encuenta que no debe superar los <span id="id_count" class="text-secondary fw-light">0</span>/150 caracteres. 

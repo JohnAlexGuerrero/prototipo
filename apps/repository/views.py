@@ -7,7 +7,7 @@ from repository.models import Category
 from authentication.models import CustomUser
 
 from repository.forms import (
-    SoftwareNewForm,
+    SoftwareNewForm, SoftwareVersionForm,
     CategoryForm,
     DescriptionForm,
 )
@@ -17,7 +17,7 @@ from django.views.generic import TemplateView
 from django.views.generic import DetailView
 from django.views.generic import UpdateView
 
-# Create your views here.
+# View para ingresar la informacion sobre la licencia de software
 class CategoryLicenseUpdateView(UpdateView):
     model = Category
     template_name = "repository/category_license.html"
@@ -32,6 +32,7 @@ class CategoryLicenseUpdateView(UpdateView):
         context["software"] = Software.objects.get(slug=self.kwargs['slug'])
         return context
 
+#view para ingresar la informacion de la categorizacion del software
 class CategoryGeneralUpdateView(UpdateView):
     model = Category
     template_name = "repository/category.html"
@@ -46,7 +47,7 @@ class CategoryGeneralUpdateView(UpdateView):
         context["software"] = Software.objects.get(slug=self.kwargs['slug'])
 
         return context
-
+#
 class CategoryDetailView(LoginRequiredMixin, DetailView):
     model = Software
     template_name = "repository/category_detail.html"
@@ -56,7 +57,7 @@ class CategoryDetailView(LoginRequiredMixin, DetailView):
         context["software"] = Software.objects.get(slug=self.kwargs['slug'])
         return context
     
-
+#
 class SoftwareCreateView(LoginRequiredMixin, TemplateView):
     model = Software
     template_name = "repository/new.html"
@@ -74,7 +75,8 @@ class SoftwareCreateView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["form"] = SoftwareNewForm
         return context
-    
+
+#View para visualizar la informacion del software   
 class SoftwareDetailView(DetailView):
     template_name = "repository/detail.html"
     model = Software
@@ -84,7 +86,8 @@ class SoftwareDetailView(DetailView):
         context["software"] = Software.objects.get(slug=self.kwargs['slug'])
         context['repositories'] = Software.objects.filter(user=self.request.user)
         return context
-    
+
+#
 class DescriptionUpdateView(UpdateView):
     model = Software
     template_name = "repository/description.html"
@@ -94,8 +97,20 @@ class DescriptionUpdateView(UpdateView):
     def get_queryset(self):
         return super().get_queryset()
     
-# class CategorizationView(TemplateView):
-#     template_name = "repository/category.html"
+#View para ingresar la informacion de la version, tipo de obra(inedita o derivada) y fecha de creacion del software 
+class SoftwareUpdateView(UpdateView):
+    model = Software
+    template_name = "repository/version.html"
+    form_class = SoftwareVersionForm
+    
+    def get_success_url(self):
+        return reverse_lazy('category_license', kwargs={'slug': self.object.slug })
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["software"] = Software.objects.get(slug=self.kwargs['slug'])
+        return context
+    
 
     
     

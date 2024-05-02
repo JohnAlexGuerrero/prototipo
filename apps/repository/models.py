@@ -127,10 +127,7 @@ class Category(models.Model):
     
     def save(self, *args, **kwargs):
         if self.tasks is not None:
-            self.tasks = self.tasks.strip("[]")
-            for item in self.tasks.split(','):
-                print(item)
-            print(self.tasks)
+            self.tasks = self.tasks.strip("['/']")
         return super().save(*args, **kwargs)
     
     def get_tasks_list(self):

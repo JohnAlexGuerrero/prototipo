@@ -1,7 +1,7 @@
 from django.urls import path
 
 from repository.views import (
-    SoftwareCreateView, SoftwareDetailView,
+    SoftwareCreateView, SoftwareDetailView, SoftwareUpdateView,
     CategoryDetailView, CategoryLicenseUpdateView, CategoryGeneralUpdateView,
     DescriptionUpdateView
 )
@@ -10,6 +10,7 @@ urlpatterns = [
     path('new/', SoftwareCreateView.as_view(), name='repository_new'),
     
     path('<slug:slug>/', SoftwareDetailView.as_view(), name='repository'),
+    path('<slug:slug>/version/', SoftwareUpdateView.as_view(), name='version'),
     path('<slug:slug>/description/', DescriptionUpdateView.as_view(), name='description'),
     
     path('<slug:slug>/categorization/', CategoryDetailView.as_view(), name='categorization'),

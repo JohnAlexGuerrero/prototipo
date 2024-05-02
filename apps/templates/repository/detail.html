@@ -23,7 +23,6 @@
     
 </div>
 <div class="container mt-5">
-    {% block subcontent %}
     <div class="container">
         <div class="card shadow p-1 mb-3 rounded">
             <div class="card-body">
@@ -55,6 +54,11 @@
     </div>
 
     <a href="{% url "description" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
-    {% endblock subcontent %}
+</div>
+
+<div class="container mt-3">
+    {% include "repository/category_detail.html" with software=software %}
+    
+    <a href="{% url "description" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
 </div>
 {% endblock content %}

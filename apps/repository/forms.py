@@ -41,29 +41,35 @@ class SoftwareNewForm(forms.ModelForm):
                 "placeholder":"",
                 "rows":"5",
                 "cols":"10"
-            }),
-            # "version": forms.TextInput(attrs={
-            #     'class':'form-control form-control-sm w-75',
-            #     'placeholder':'ejemplo: v1.0'
-            # }),
-            # "license": forms.RadioSelect(),
-            # "type_of_work": forms.Select(attrs={'class':'form-select form-select-sm'}),
-            # "date_created": forms.DateInput(attrs={'class':'form-control w-100', 'type':"date"}),
-            # "logo": forms.FileInput(attrs={'class':'form-control form-control-sm'})
+            })
         }
 
+#form version of software
 class SoftwareVersionForm(forms.ModelForm):
     origin_country = CountryField().formfield()
 
     class Meta:
         model = Software
-        fields = ["version","date_created","origin_country","type_of_work"]
-        
+        fields = ["slug","version","date_created","origin_country"]
+                
         widgets = {
+            "slug": forms.TextInput(attrs={'style':'display:none;'}),
             "version": forms.TextInput(attrs={'style':'display:none;'}),
             "date_created": forms.DateInput(attrs={'class':'form-control form-control-sm', "type":'date'}),
-            "origin_country": CountrySelectWidget()
+            "origin_country": CountrySelectWidget(),
+        }
 
+
+#origin work of software
+class SoftwareOriginForm(forms.ModelForm):
+
+    class Meta:
+        model = Software
+        fields = ["slug","type_of_work"]
+
+        widgets = {
+            "slug": forms.TextInput(attrs={'style':'display:none;'}),
+            "type_of_work": forms.RadioSelect(attrs={}),
         }
        
 #

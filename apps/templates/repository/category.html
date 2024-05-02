@@ -14,7 +14,7 @@
 {% block content %}
     <div class="container mt-5 w-50">
         <form method="POST">
-            <h1 class="h3 fw-bold text-center">Háblanos un poco de {{software}}</h1>
+            <h1 class="h3 fw-bold text-center">Háblanos un poco más de {{software}}</h1>
             <span class="text-secondary text-center">Con la siguiente información se falicitará la busqueda y selección de Software adecuado para cada necesidad específica.</span>
             {% csrf_token %}
             {{form.software}}

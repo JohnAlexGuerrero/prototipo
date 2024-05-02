@@ -1,96 +1,61 @@
-{% extends "repository/detail.html" %}
-
-{% load static %}
-
-{% block title %}
-@{{software}} - categorización
-{% endblock title %}
-
-{% block subcontent %}
-<div class="row">
-    <div class="col-sm">
-        <table class="table table table-borderless">
-            <tr>
-                <th scope="col">Software</th>
-                <td>
-                    {{ software.title }}
-                </td>
-            </tr>    
-            <tr>
-                <th scope="col">Licencia</th>
-                <td>
-                    {% if software.category.license %}
-                        {{ software.category.license }}
-                    {% else %}
-                    N/A
-                    {% endif %}
-                </td>
-            </tr>    
-            <tr>
-                <th scope="col">Categoria</th>
-                <td>
-                    {% if software.category.type_software %}
-                        {{ software.category.type_software }}
-                    {% else %}
-                    N/A
-                    {% endif %}
-                </td>
-            </tr>    
-        </table>
-    </div>
-    <div class="col-sm">
-        <table class="table table table-borderless">
-            <tr>
-                <th scope="col">Pricipal función</th>
-                <td>
-                    {% if software.category.tasks %}
-                        {% for task in software.category.tasks %}
-                            <small class="text-secondary">{{task}}</small>
-                        {% endfor %}
-                    {% else %}
-                    N/A
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th scope="col">Última version</th>
-                <td>
-                    {% if software.version %}
-                        {{ software.version }}
-                    {% else %}
-                    N/A
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th scope="col">Público</th>
-                <td>
-                    {% if software.category.public %}
-                        {{ software.category.public }}
-                    {% else %}
-                    N/A
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th scope="col">Sector</th>
-                <td>
-                    {% if software.category.type_industry %}
-                        {{ software.category.type_industry }}
-                    {% else %}
-                    N/A
-                    {% endif %}
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="col-sm">
-        <ul class="list-group">
-            {% for t in software.category.get_tasks_list %}
-            <li class="list-group-item">{{t}}</li>
-            {% endfor %}
-        </ul>
+<div class="card shadow p-1 mb-3 rounded">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <table class="table table table-borderless">
+                    <tr>
+                        <th scope="col">Categoria</th>
+                        <td>
+                            {{ software.category.type_software }}
+                        </td>
+                    </tr>    
+                    <tr>
+                        <th scope="col">Funciones principales</th>
+                        <td>
+                            <ul class="list-group">
+                                {% for t in software.category.get_tasks_list %}
+                                <li class="list-group-item">{{t}}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>       
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <table class="table table table-borderless">
+                    <tr>
+                        <th scope="col">Tipo de Licencia</th>
+                        <td>
+                            {{ software.category.license }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Sector impacto</th>
+                        <td>
+                            {{ software.category.type_industry }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Público</th>
+                        <td>
+                            {{ software.category.type_public }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Version actual</th>
+                        <td>
+                            {{ software.version }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Fecha de lanzamiento</th>
+                        <td>
+                            {{ software.date_created }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
-<a href="{% url "category_license" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
-{% endblock subcontent %}
+

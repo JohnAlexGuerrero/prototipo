@@ -1,0 +1,60 @@
+{% extends "base/base-full-screen.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{software}} - Origin
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="w-50 d-flex flex-column justify-content-center">
+        <h1 class="h4 fw-bold text-center">
+            Cuál es el modo de trabajo de {{software}}
+        </h1>
+        <span class="text-secondary text-center">
+            El mundo del software se rige por dos tipos de licencias que definen los derechos y responsabilidades de usuarios y desarrolladores.
+        </span>
+    </div>
+
+    <div class="radio-inputs mt-5">
+        <form method="POST">
+          {% csrf_token %}
+            {{ form.slug }}
+          <div class="row">
+                  <div class="col-sm-6">
+                      <label >
+                        <input class="radio-input" type="radio" name="type_of_work" id="id_type_of_work_1" value="Software Inedito">
+                        <span class="radio-tile">
+                            <span class="radio-icon">
+                                <img src="{% static "images/inedito.png" %}" alt="inedito">
+                            </span>
+                            <span class="radio-label fw-bold mt-3">Software inédito</span>
+                            <span class="radio-label text-secondary">
+                                Es un software creado desde cero, sin basarse en código fuente preexistente.                            
+                            </span>
+                        </span>
+                      </label>
+                  </div>
+                  <div class="col-sm-6">
+                    <label>
+                        <input checked="true" class="radio-input" type="radio" name="type_of_work" id="id_type_of_work_2" value="Software Derivado">
+                        <span class="radio-tile">
+                        <span class="radio-icon">
+                            <img src="{% static "images/derivado.png" %}" alt="derivado">
+                        </span>
+                        <span class="radio-label fw-bold mt-3">Software Derivado</span>
+                        <span class="radio-label">
+                            Creado a partir de un código fuente preexistente, que ha sido modificado o extendido para cumplir con nuevos requisitos o funcionalidades.                          
+                        </span>
+                    </label>
+                  </div>
+          </div>
+          <div class="d-flex gap-2 p-2 w-50">
+              <input type="submit" class="btn btn-sm btn-dark mt-2" value="Continue" >
+          </div>
+        </form>
+    </div>
+
+</div>
+{% endblock content %}

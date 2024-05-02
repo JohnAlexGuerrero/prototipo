@@ -11,8 +11,8 @@ import re
 # Create your models here.
 
 class TypeOfWork(models.TextChoices):
-    OBRA_INEDITA = "Obra inédita"
-    OBRA_DERIVADA = "Obra derivada"
+    SOFTWARE_INEDITO = "Software Inedito"
+    SOFTWARE_DERIVADO = "Software Derivado"
 
 class TypeFunctionSoftware(models.TextChoices):
     PRODUCTIVIDAD = "Software de productividad"
@@ -31,29 +31,28 @@ class TypePublic(models.TextChoices):
     MAYORES_DE_17_AÑOS = "Mayores de 17 años"    
     
 class Task(models.TextChoices):
-    # GESTION_DE_ARCHIVOS_Y_CARPETAS = 'Gestion De Archivos y carpetas'
-    # PROCESAMIENTO_DE_TEXTOS = 'Procesamiento de textos'
+    GESTION_DE_ARCHIVOS_Y_CARPETAS = 'Gestion De Archivos y carpetas'
+    PROCESAMIENTO_DE_TEXTOS = 'Procesamiento De Textos'
     CALCULO_Y_ANALISIS_DE_DATOS = 'Calculo Y Analisis De Datos'
-    # GESTION_BASES_DATOS = 'Gestion bases de datos'
-    # COMUNICACION_COLABORACION = 'Comunicación y colaboración'
-    # REPRODUCCION_MULTIMEDIA_DE_AUDIO_Y_VIDEO = 'Reproducción multimedia de audio y video'
-    # CREACION_CONTENIDO_MULTIMEDIA = 'Creacion de contenido multimedia'
-    # JUEGOS = 'Juegos'
-    # NAVEGADORES_WEB = 'Navegadores web'
-    # MESANGERIA = 'Mensajeria'
-    # GESTION_DE_DISPOSITIVOS = 'Gestion de dispositivos'
-    # AUTOMATIZACION_DE_TAREAS = 'Automatizacion de tareas'
-    # SEGURIDAD_INFORMATICA = 'Seguridad informatica'
+    GESTION_BASES_DATOS = 'Gestion Bases De Datos'
+    REPRODUCCION_MULTIMEDIA_DE_AUDIO_Y_VIDEO = 'Reproducción Multimedia De Audio Y Video'
+    CREACION_DE_CONTENIDO_MULTIMEDIA = 'Creacion De Contenido Multimedia'
+    JUEGOS = 'Juegos'
+    NAVEGADORES_WEB = 'Navegadores Web'
+    MESANGERIA = 'Mensajeria'
+    GESTION_DE_DISPOSITIVOS = 'Gestion De Dispositivos'
+    AUTOMATIZACION_DE_TAREAS = 'Automatizacion De Tareas'
+    SEGURIDAD_INFORMATICA = 'Seguridad Informatica'
     COMPRESOR_DE_ARCHIVOS = 'Compresor De Archivos'
-    # GESTION_DEL_TIEMPO = 'Gestion del tiempo'
-    # TRADUCCION_DE_IDIOMAS = 'Traduccion de idiomas'
-    # EDUCACION_Y_APRENDIZAJE = 'Educacion y aprendizaje'
-    # DISEÑO_Y_MODELADO = 'Diseño y modelado'
-    # GESTION_DE_PROYECTOS = 'Gestion de proyectos'
-    # CONTABILIDAD_Y_FINANZAS = 'Contabilidad y finanzas'
-    # GESTION_DE_RELACIONES_CON_CLIENTES_CRM = 'Gestion de relaciones con clientes CRM'
-    # BUSINESS_INTELLIGENCE_BI = 'Business Intelligence BI'
-    # E_COMMERCE = "E commerce"
+    GESTION_DEL_TIEMPO = 'Gestion Del Tiempo'
+    TRADUCCION_DE_IDIOMAS = 'Traduccion De Idiomas'
+    EDUCACION_Y_APRENDIZAJE = 'Educacion Y Aprendizaje'
+    DISEÑO_Y_MODELADO = 'Diseño Y Modelado'
+    GESTION_DE_PROYECTOS = 'Gestion De Proyectos'
+    CONTABILIDAD_Y_FINANZAS = 'Contabilidad Y Finanzas'
+    GESTION_DE_RELACIONES_CON_CLIENTES_CRM = 'Gestion De Relaciones Con Clientes CRM'
+    BUSINESS_INTELLIGENCE_BI = 'Business Intelligence BI'
+    E_COMMERCE = "E commerce"
     MINERIA_DE_DATOS = "Mineria De Datos"
 
 class Sector(models.TextChoices):
@@ -84,7 +83,7 @@ class Software(models.Model):
     slug = models.SlugField()
     user = models.ForeignKey(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
     date_created = models.DateField(("Fecha de creación"), auto_now_add=False, blank=True, null=True)
-    type_of_work = models.CharField(("El software es"), max_length=50, choices=TypeOfWork.choices, default=TypeOfWork.OBRA_DERIVADA)
+    type_of_work = models.CharField(("El software es"), max_length=50, choices=TypeOfWork.choices, default=TypeOfWork.SOFTWARE_DERIVADO)
     origin_country = models.CharField(("nacionalidad"), max_length=50, null=True, blank=True)
     logo = models.ImageField("logo", upload_to="logos/", blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)

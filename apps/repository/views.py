@@ -7,7 +7,7 @@ from repository.models import Category
 from authentication.models import CustomUser
 
 from repository.forms import (
-    SoftwareNewForm, SoftwareVersionForm,
+    SoftwareNewForm, SoftwareVersionForm,SoftwareOriginForm,
     CategoryForm,
     DescriptionForm,
 )
@@ -40,7 +40,7 @@ class CategoryGeneralUpdateView(UpdateView):
     
     def get_success_url(self):
         print(self.object)
-        return reverse_lazy('categorization', kwargs={'slug': self.object.slug })
+        return reverse_lazy('repository', kwargs={'slug': self.object.slug })
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -104,14 +104,29 @@ class SoftwareUpdateView(UpdateView):
     form_class = SoftwareVersionForm
     
     def get_success_url(self):
-        return reverse_lazy('category_license', kwargs={'slug': self.object.slug })
+        return reverse_lazy('type_work', kwargs={'slug': self.object.slug })
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["software"] = Software.objects.get(slug=self.kwargs['slug'])
         return context
     
+#view para ingresar la informacion de la originalidad de la obra
+class SoftwareOriginUpdateView(UpdateView):
+    model = Software
+    template_name = "repository/origin.html"
+    form_class = SoftwareOriginForm
+    
+    def get_success_url(self):
+        return reverse_lazy('category_license', kwargs={'slug': self.object.slug })
 
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["software"] = Software.objects.get(slug=self.kwargs['slug'])
+        form = SoftwareOriginForm(self.request.POST)
+        print(form)
+        print(self.request.POST)
+        return context
     
 

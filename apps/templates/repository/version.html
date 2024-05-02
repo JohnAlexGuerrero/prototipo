@@ -115,28 +115,6 @@
     border: 1px solid var(--tomato);
     }
     
-    /*-----close button------*/
-    
-    .close {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    background-color: var(--night-rider);
-    color: var(--ch-white);
-    height: 30px;
-    width: 30px;
-    display: grid;
-    place-items: center;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: .5s ease;
-    }
-    
-    .close:hover {
-    background-color: var(--tomato);
-    color: var(--white);
-    }
 </style>
 {% endblock css %}
 
@@ -152,13 +130,14 @@
         <p class="text-secondary">mayor.menor.parche</p>
 
         <div class="input-fields">
-          <input maxlength="1" type="tel" value="1" id="id_major">
-          <input maxlength="1" type="tel" value="0" id="id_minor">
-          <input maxlength="1" type="tel" value="0" id="id_patch">
+          <input maxlength="1" type="tel" id="id_major">
+          <input maxlength="1" type="tel" id="id_minor">
+          <input maxlength="1" type="tel" id="id_patch">
         </div>
         <span class="text-secondary text-center fw-light p-2" style="font-size: 0.9rem;" id="id_text_help"></span>
-        <form method="post" class="d-flex justify-content-center flex-column">
+        <form method="POST" class="d-flex justify-content-center flex-column">
             {% csrf_token %}
+            {{ form.slug }}
             {{ form.version }}
             <div class="p-4">
                 <label for="exampleFormControlInput1" class="form-label">Fecha de lanzamiento</label>
@@ -168,15 +147,11 @@
                 <label for="exampleFormControlInput1" class="form-label">País de creación</label>
                 {{ form.origin_country }}
             </div>
-              
             <div class="d-flex gap-2 p-2 w-50">
                 <input type="submit" class="btn btn-sm btn-dark mt-2" value="Continue" >
             </div>
         </form>
     </div>
-    
-
-
 </div>
 {% endblock content %}
 
@@ -188,8 +163,20 @@
     const minor = document.querySelector('#id_minor')
     const patch = document.querySelector('#id_patch')
 
-    version.value = '1.0.0'
+    if (version.value.length == 0){
+        version.value = '0.0.0'
+        major.textContent = "0"
+        minor.textContent = "0"
+        patch.textContent = "0"
+        textHelp.textContent = 'Se requiere versión de tu software.'
+    }else{
+        major.textContent = version.value[0]
+        minor.textContent = version.value[2]
+        patch.textContent = version.value[4]
+        textHelp.textContent = 'Version actual.'
+    }
 
+    
     major.addEventListener('keyup', (e)=>{
         version.value = e.target.value + '.' + version.value[2] + '.' + version.value[4]
         textHelp.textContent = 'Los cambios de tipo principal en la versión están relacionados con cambios de API incompatibles.'

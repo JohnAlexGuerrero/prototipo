@@ -19,50 +19,45 @@
         </nav>
     </div>
 
-    {% include "includes/menu.html" with software=software %}
-    
-</div>
-<div class="container mt-5">
-    <div class="container">
-        <div class="card shadow p-1 mb-3 rounded">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <table class="table table-borderless">
-                            <tr>
-                                <th scope="col">Software</th>
-                                <td>
-                                    {{ software.title }}
-                                </td>
-                            </tr>    
-                        </table>
+    <div class="row">
+        <div class="col-sm 3">
+            {% include "includes/menu.html" with software=software %}
+        </div>
+        <div class="col-sm-9">
+            <div class="card shadow">
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th scope="col">Software</th>
+                            <td>
+                                {{ software.title }}
+                            </td>
+                        </tr>    
+                    </table>
+                    <table class="table table table-borderless">
+                        <tr>
+                            <th scope="col">Descripción</th>
+                            <td>
+                                {{ software.description }}
+                            </td>
+                        </tr>    
+                    </table>
+                    
+                    {% if software.category.type_software %}
+                    <div class="container mt-3">
+                        {% include "repository/category_detail.html" with software=software %}
+                        
+                        <a href="{% url "description" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
                     </div>
-                    <div class="col-sm-8">
-                        <table class="table table table-borderless">
-                            <tr>
-                                <th scope="col">Descripción</th>
-                                <td>
-                                    {{ software.description }}
-                                </td>
-                            </tr>    
-                        </table>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
-
     </div>
 
-    <a href="{% url "description" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
+    
 </div>
 
-{% if software.category.type_software %}
-<div class="container mt-3">
-    {% include "repository/category_detail.html" with software=software %}
-    
-    <a href="{% url "description" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
-</div>
-{% endif %}
 
 <div class="container mt-3">
     {% include "repository/requeriments.html" with requeriments=software.get_requeriments %}

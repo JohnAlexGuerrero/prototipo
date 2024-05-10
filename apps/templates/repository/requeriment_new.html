@@ -7,9 +7,19 @@
 {% endblock title %}
 
 {% block content %}
+<div class="mt-2">
+    <div class="position-relative">
+        <a class="position-absolute" href={% url "index" %}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg h2 fw-bold  text-dark" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
+        </a>
+    </div>
+</div>
+
 <div class="p-1 container mt-5 mb-5" style="width: 30rem;">
-    <h1 class="h4 fw-bold text-center">¿Cómo funciona {{software}}?.</h1>
-    <p class="text-secondary text-center">Una documentación clara de las caracteristicas funcionales facilita la comprensión del sistema.</p>
+    <h1 class="h2 fw-bold text-center">¿Cómo funciona {{software}}?.</h1>
+    <p class="h4 text-secondary text-center">Una documentación clara de las caracteristicas funcionales facilita la comprensión del sistema.</p>
     <hr>
     <form method='POST'>
         {% csrf_token %}
@@ -26,7 +36,7 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Version</label>
-            {{ form.version }}
+            <input type="text" value={{software.version}} name="version" id="id_version" class="form-control form-control-sm shadow w-25">
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
         

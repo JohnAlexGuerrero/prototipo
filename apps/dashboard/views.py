@@ -5,8 +5,9 @@ from django.views.generic import TemplateView
 
 from repository.models import Software
 from authentication.models import CustomUser
-
+from home.models import App
 from authentication.forms import AcademicaForm
+
 
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "dashboard/index.html"
@@ -15,4 +16,5 @@ class HomeView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["repositories"] = Software.objects.filter(user=self.request.user)
         context['form'] = AcademicaForm
+        context['app'] = App.objects.first()
         return context

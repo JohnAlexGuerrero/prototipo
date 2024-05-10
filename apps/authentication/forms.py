@@ -8,43 +8,44 @@ from django.forms.utils import ErrorList
 
 from authentication.models import CustomUser, Profile, Academica
 
+#formulario para el registro de un nuevo usuario
 class RegisterUserForm(UserCreationForm):
     email = forms.EmailField(
         label="Email",
-        widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Enter email'})
+        widget=forms.EmailInput(attrs={'class':'form-control shadow', 'placeholder':'Enter email'})
     )
     username = forms.CharField(
         label="username",
         max_length=100,
-        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter username'})
+        widget=forms.TextInput(attrs={'class':'form-control shadow', 'placeholder':'Enter username'})
     )
     password1 = forms.CharField(
         label="password",
-        widget=forms.PasswordInput(attrs={'class':'form-control','type':'password'})
+        widget=forms.PasswordInput(attrs={'class':'form-control shadow','type':'password'})
     )
     password2 = forms.CharField(
         label="Comfirmation password",
-        widget=forms.PasswordInput(attrs={'class':'form-control','type':'password'})
+        widget=forms.PasswordInput(attrs={'class':'form-control shadow','type':'password'})
     )
     first_name = forms.CharField(
         label="Primer nombre",
         max_length=50,
-        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter your name'})
+        widget=forms.TextInput(attrs={'class':'form-control shadow', 'placeholder':'Enter your name'})
     )
     second_name = forms.CharField(
         label="Segundo nombre",
         max_length=50,
-        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter your second name'})
+        widget=forms.TextInput(attrs={'class':'form-control shadow', 'placeholder':'Enter your second name'})
     )
     last_name = forms.CharField(
         label="Primer apellido",
         max_length=150,
-        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter your last_name'})
+        widget=forms.TextInput(attrs={'class':'form-control shadow', 'placeholder':'Enter your last_name'})
     )
     second_last_name = forms.CharField(
         label="Segundo apellido",
         max_length=150,
-        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter your last_name'})
+        widget=forms.TextInput(attrs={'class':'form-control shadow', 'placeholder':'Enter your last_name'})
     )
     
     class Meta:

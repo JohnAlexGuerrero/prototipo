@@ -13,6 +13,8 @@ from django.views.generic import UpdateView
 from django.views.generic import DetailView
 from django.views.generic import FormView
 
+from home.models import App
+
 from authentication.models import (
     CustomUser, Profile, Academica,
 )
@@ -73,6 +75,7 @@ class CustomUserCreateView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = RegisterUserForm
+        context["app"] = App.objects.first()
         return context
 
 class ProfileView(CreateView):

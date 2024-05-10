@@ -1,73 +1,65 @@
-<div class="card shadow p-1 mb-3 rounded">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-sm-6">
-                <table class="table table table-borderless">
-                    <tr>
-                        <th scope="col">Categoria</th>
-                        <td>
-                            {{ software.category.type_software }}
-                        </td>
-                    </tr>    
-                    <tr>
-                        <th scope="col">Tareas Principales</th>
-                        <td>
-                            <ul class="list-group">
-                                {% for t in software.category.get_tasks_list %}
-                                <li class="list-group-item">{{t}}</li>
-                                {% endfor %}
-                            </ul>
-                        </td>
-                    </tr>   
-                    <tr>
-                        <th scope="col">Tipo de software</th>
-                        <td>
-                            {{ software.type_of_work }}
-                        </td>
-                    </tr>      
-                </table>
-            </div>
-            <div class="col-sm-6">
-                <table class="table table table-borderless">
-                    <tr>
-                        <th scope="col">Tipo de Licencia</th>
-                        <td>
-                            {{ software.category.license }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="col">Sector Impacto</th>
-                        <td>
-                            {{ software.category.type_industry }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="col">Público</th>
-                        <td>
-                            {{ software.category.type_public }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="col">Version actual</th>
-                        <td>
-                            {{ software.version }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="col">Fecha de lanzamiento</th>
-                        <td>
-                            {{ software.date_created }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="col">Desarrollado en</th>
-                        <td>
-                            {{ software.origin_country }}LOMBIA
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
+<div class="p-2">
+    <table class="table table table-borderless">
+        <tr>
+            <th scope="col">Categoria</th>
+            <td>
+                {{ software.category.type_software }}
+            </td>
+        </tr>    
+        <tr>
+            <th scope="col">Tareas Principales</th>
+            <td>
+                <ul class="list-group">
+                    {% for t in software.category.get_tasks_list %}
+                    <li class="list-group-item">{{t}}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>   
+        <tr>
+            <th scope="col">Tipo de software</th>
+            <td>
+                {{ software.type_of_work }}
+            </td>
+        </tr>      
+    </table>
+    <table class="table table table-borderless">
+        <tr>
+            <th scope="col">Tipo de Licencia</th>
+            <td>
+                {{ software.category.license }}
+            </td>
+        </tr>
+        <tr>
+            <th scope="col">Sector Impacto</th>
+            <td>
+                {{ software.category.type_industry }}
+            </td>
+        </tr>
+        <tr>
+            <th scope="col">Público</th>
+            <td>
+                {{ software.category.type_public }}
+            </td>
+        </tr>
+        <tr>
+            <th scope="col">Version actual</th>
+            <td>
+                {{ software.version }}
+            </td>
+        </tr>
+        <tr>
+            <th scope="col">Fecha de lanzamiento</th>
+            <td>
+                {{ software.date_created }}
+            </td>
+        </tr>
+        <tr>
+            <th scope="col">Desarrollado en</th>
+            <td>
+                {{ software.origin_country }}LOMBIA
+            </td>
+        </tr>
+    </table>
 </div>
 

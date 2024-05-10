@@ -1,0 +1,21 @@
+
+<div id="id_canvas">
+    canvas
+</div>
+
+<script>
+    var canvas = new fabric.Canvas('id_canvas', {
+        width: window.innerWidth,
+        heigth: window.innerHeight
+    })
+
+    var rect = new fabric.rect({
+        left: 100,
+        top: 100,
+        fill: "red",
+        width: 50,
+        heigth: 50,
+    })
+
+    canvas.add(rect)
+</script>

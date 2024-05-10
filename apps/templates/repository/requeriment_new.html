@@ -1,0 +1,36 @@
+{% extends "base/base-full-screen.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{software}} - New requeriment
+{% endblock title %}
+
+{% block content %}
+<div class="p-1 container mt-5 mb-5" style="width: 30rem;">
+    <h1 class="h4 fw-bold text-center">¿Cómo funciona {{software}}?.</h1>
+    <p class="text-secondary text-center">Una documentación clara de las caracteristicas funcionales facilita la comprensión del sistema.</p>
+    <hr>
+    <form method='POST'>
+        {% csrf_token %}
+        {{ form.software }}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Nombre de la interfaz</label>
+            {{ form.name }}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Describe brevemente la interfaz</label>
+            {{ form.description }}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Version</label>
+            {{ form.version }}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        
+        <input type="submit" class="btn btn-success" value="Guardar">
+    </form>
+</div>
+{% endblock content %}

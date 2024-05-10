@@ -19,7 +19,7 @@
         </nav>
     </div>
 
-    {% include "includes/menu.html" with slug=software.slug %}
+    {% include "includes/menu.html" with software=software %}
     
 </div>
 <div class="container mt-5">
@@ -56,9 +56,16 @@
     <a href="{% url "description" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
 </div>
 
+{% if software.category.type_software %}
 <div class="container mt-3">
     {% include "repository/category_detail.html" with software=software %}
     
     <a href="{% url "description" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
 </div>
+{% endif %}
+
+<div class="container mt-3">
+    {% include "repository/requeriments.html" with requeriments=software.get_requeriments %}
+</div>
+
 {% endblock content %}

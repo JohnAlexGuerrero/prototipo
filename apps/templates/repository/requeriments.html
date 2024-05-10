@@ -1,0 +1,288 @@
+
+<div class="card shadow p-1 rounded">
+  <div class="card-body">
+    {% if requeriments %}
+    <table class="table">
+      <a href="" class="btn btn-outline-warning">Agregar requerimiento</a>
+  
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Titulo</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Version</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in requeriments %}
+        <tr>
+          <th scope="row">{{ r.id }}</th>
+          <td>{{ r.name }}</td>
+          <td>{{ r.description }}</td>
+          <td>{{ r.version }}</td>
+          <td></td>
+        </tr>
+        {% endfor %}
+        
+      </tbody>
+    </table>
+    {% else %}
+      <p>Aun no tenemos los requerimientos de tu {{software}}</p>
+      <a href="" class="btn btn-outline-warning">Agregar requerimiento</a>
+  
+    {% endif %}
+    
+  </div>
+</div>
+{% comment %} 
+<div class="container mt-3">
+  <div class="card">
+    <div class=" p-3">
+      <input type="text" class="form-control p-3 h1 text-dark fw-bold" value="Titúlo De Interfaz" name="title" id="id_title" required>
+      <hr>
+      <div class="mt-2">
+        <label for="">descripcion</label>
+        <textarea name="" id="" class=" form-control form-control-sm p-2"></textarea>
+      </div>
+      <div class="mt-1">
+        <input type="file" name="img" id="id_file_img">
+      </div>
+    </div>
+    <div class="card-header">
+      <div class="p-3">
+        <canvas id="id_canvas" class="border" width="750" height="300"></canvas>
+        <img src="my_image.png" id="id_image">
+      </div>
+
+      <div class="p-2">
+        <h3>Elementos de interfaz</h3>
+        <div>
+          <label for="">
+            <button id="id_button_a" class="btn btn-outline-dark">A:</button>
+          </label>
+          <input type="text">
+          <input type="color" name="color" id="id_color_a">
+        </div>
+        <div>
+          <label for="">B:</label>
+          <input type="text">
+        </div>
+    
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+<button id="descargarBtn">Descargar imagen</button> {% endcomment %}
+
+<script>
+/*
+  const fileImage = document.querySelector('#id_file_img')
+  const imageScreen = document.querySelector('#id_image')
+
+  const buttonA = document.querySelector('#id_button_a')
+  const colorA = document.querySelector('#id_color_a')
+
+  var canvas = new fabric.Canvas('id_canvas');
+
+  fileImage.addEventListener('change', e =>{
+    if(e.target.files[0]){
+      console.log(e.target.files[0])
+      const reader = new FileReader()
+      reader.onload = e =>{
+        //imageScreen.src = e.target.result
+        canvas.setBackgroundImage(e.target.result, canvas.renderAll.bind(canvas))
+      }
+      reader.readAsDataURL(e.target.files[0])
+
+    }
+  })
+
+  const addTextLabel = text =>{
+    let textLabel = new fabric.Text(text, {
+      fontSize:20,
+      fill:'purple'
+    })
+
+    let rect = new fabric.Rect({
+      width:100,
+      height:40,
+      left:1,
+      top:1,
+      fill:'',
+      stroke:'purple',
+      opacity:0.6
+    })
+
+    //textLabel.left = event.offsetX
+    //textLabel.top = event.offsetY
+
+    canvas.add(textLabel)
+    canvas.add(rect)
+  }
+
+  buttonA.addEventListener('click', function(event){
+    addTextLabel('A')
+  });
+
+  //obtener el color del componente A
+  const changeColorComponent = (e)=>{
+  }
+
+  //cambiar color al evento change
+  colorA.addEventListener('change', function(e){
+    buttonA.style.backgroundColor = e.target.value
+    buttonA.style.color = 'white'
+    console.log(e.target.value)
+
+  })
+
+  function handleMouseMove(event) {
+    // Get the mouse position relative to the canvas
+    mouseX = event.offsetX;
+    mouseY = event.offsetY;
+    console.log(mouseX)
+    console.log(mouseY)
+    
+  }
+
+    //
+    let herramientaSeleccionada = 'lapiz'; // Herramienta por defecto
+
+    // Crear opciones del menú contextual
+    const opcionesMenu = {
+      lapiz: 'Dibujar a mano alzada',
+      linea: 'Dibujar línea recta',
+      rectangulo: 'Dibujar rectángulo',
+      circulo: 'Dibujar círculo',
+      borrar: 'Borrar'
+    };
+
+    // Crear y mostrar el menú contextual
+    canvas.addEventListener('contextmenu', mostrarMenuContextual);
+
+    function mostrarMenuContextual(evento) {
+      evento.preventDefault(); // Evitar el menú contextual del navegador
+
+      const menu = document.createElement('div');
+      menu.id = 'menuContextual';
+      menu.style.position = 'absolute';
+      menu.style.left = evento.offsetX + 'px';
+      menu.style.top = evento.offsetY + 'px';
+
+      for (const herramienta in opcionesMenu) {
+        const opcion = document.createElement('button');
+        opcion.textContent = opcionesMenu[herramienta];
+        opcion.onclick = () => seleccionarHerramienta(herramienta);
+        menu.appendChild(opcion);
+      }
+
+      document.body.appendChild(menu);
+
+      // Ocultar el menú al hacer clic fuera de él
+      document.addEventListener('click', (e) => {
+        if (e.target !== menu && e.target !== menu.childNodes) {
+          menu.remove();
+        }
+      });
+    }
+
+    // Función para seleccionar la herramienta de dibujo
+    function seleccionarHerramienta(herramienta) {
+      herramientaSeleccionada = herramienta;
+      if(herramientaSeleccionada == 'rectangulo'){
+        dibujarRectangulo()
+
+      }else if(herramientaSeleccionada == 'circulo'){
+        dibujarCirculo()
+      }
+    }
+
+    // Implementar la funcionalidad de dibujo para cada herramienta (no se muestra aquí por brevedad)
+    function dibujarLapiz() {
+      // ...
+    }
+
+    function dibujarLinea() {
+      // ...
+    }
+
+    function dibujarRectangulo() {
+      // ...
+      // Establece el modo de composición a "lighter"
+      ctx.globalCompositeOperation = 'darken';
+
+      // Dibuja el rectángulo rojo con borde negro
+      //ctx.fillStyle = 'red';
+      ctx.strokeStyle = 'black';
+      ctx.fillRect(mouseX, mouseY, 100, 50);
+      
+      // Display the coordinates in the console
+      console.log(`Mouse X: ${mouseX}, Mouse Y: ${mouseY}`);
+
+      // Restaura el modo de composición anterior
+      ctx.globalCompositeOperation = modoAnterior;
+    }
+
+    function dibujarCirculo() {
+      // ...
+      // Set circle properties
+      const circleRadius = 20; // Adjust as needed
+      const circleX = mouseX;
+      const circleY = mouseY;
+
+      // Draw the circle
+      ctx.beginPath();
+      ctx.arc(circleX, circleY, circleRadius, 0, 2 * Math.PI);
+    
+      // Set stroke color for the circle
+      ctx.stroke();
+
+      // Set font and text color
+      ctx.font = '20px Arial';
+      ctx.fillStyle = 'blue'; // Adjust as needed
+  
+
+      // Calculate letter position
+      const letterX = circleX - ctx.measureText('A').width / 2; // Center the letter
+      const letterY = circleY + ctx.measureText('A').actualBoundingBoxAscent; // Adjust for font ascent
+
+      //Draw the letter
+      ctx.fillText('A', letterX, letterY);
+
+      console.log(mouseX, mouseY)
+
+        // Draw the "A"
+      //ctx.fillText('A', mouseX, mouseY);
+    }
+
+    function borrar() {
+      // ...
+    }
+
+    //descarga
+    // Obtener el botón de descarga
+    const descargarBtn = document.getElementById('descargarBtn');
+
+    // Agregar evento de clic al botón
+    descargarBtn.addEventListener('click', descargarImagen);
+
+    function descargarImagen() {
+      // Convertir el canvas a una imagen
+      const dataURL = canvas.toDataURL('image/png');
+
+      // Crear un enlace para descargar la imagen
+      const link = document.createElement('a');
+      link.href = dataURL;
+      link.download = 'imagen-canvas.png'; // Nombre del archivo descargado
+
+      // Simular un clic en el enlace para descargar la imagen
+      link.click();
+    }
+*/
+    
+
+</script>

@@ -28,9 +28,9 @@ New repository
             <div class="form-text"></div>
         </div>
         <div class="mb-3">
-            <label for="" class="form-label m-0 fw-bold text-secondary">Describe el objetivo <strong>principal</strong> que cumple tu software</label>
+            <label for="" class="form-label m-0 fw-bold text-secondary">Describe brevemente la principal función que cumple <strong id="id_text"></strong></label>
             {{form.description}}
-            <div class="form-text">
+            <div class="form-text" >
                 Describe la funcion principal de tu software, ten encuenta que no debe superar los <span id="id_count" class="text-secondary fw-light">0</span>/150 caracteres. 
             </div>
 
@@ -46,6 +46,16 @@ New repository
 <script>
     const description = document.querySelector('#id_description')
     const count = document.querySelector('#id_count')
+    const title = document.querySelector('#id_title')
+    const text  = document.querySelector("#id_text")
+
+    const textUpper = (e) => {
+        e.target.value = e.target.value.toUpperCase()
+        text.textContent = e.target.value
+        description.value = e.target.value
+    }
+
+    title.addEventListener('keyup', textUpper)
 
     description.addEventListener('keyup', (e)=>{
         let str_size = e.target.value.length

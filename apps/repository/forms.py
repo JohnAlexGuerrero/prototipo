@@ -1,10 +1,11 @@
 from django_countries.data import COUNTRIES
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
+
 from django import forms
 from django.forms import MultipleChoiceField
 
-from repository.models import Software
+from repository.models import Software, Requeriment
 from repository.models import Category, Task
 from authentication.models import CustomUser
 
@@ -84,4 +85,17 @@ class DescriptionForm(forms.ModelForm):
             "description": forms.Textarea(attrs={'class':'form-control',"rows":"4","cols":"50"}),
             "date_created": forms.DateInput(attrs={'class':'form-control','type':'date'}),
             "version": forms.TextInput(attrs={'class':'form-control'})
+        }
+
+# form requeriment
+class RequerimentForm(forms.ModelForm):
+    
+    class Meta:
+        model = Requeriment
+        fields = ("software","name","description","version")
+        
+        widgets = {
+            "software":forms.Select(attrs={'style':'display:none;'}),
+            "name": forms.TextInput(attrs={'class':'form-control form-control-sm p-2'}),
+            "description": forms.Textarea(attrs={'class':'form-control form-control-sm'}),
         }

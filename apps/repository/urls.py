@@ -3,6 +3,7 @@ from django.urls import path
 from repository.views import (
     SoftwareCreateView, SoftwareDetailView, SoftwareUpdateView, SoftwareOriginUpdateView,
     CategoryDetailView, CategoryLicenseUpdateView, CategoryGeneralUpdateView,
+    SoftwareRequerimentsView, RequerimentNewView,
     DescriptionUpdateView
 )
 
@@ -17,6 +18,9 @@ urlpatterns = [
     path('<slug:slug>/categorization/', CategoryDetailView.as_view(), name='categorization'),
     path('<slug:slug>/license/', CategoryLicenseUpdateView.as_view(), name='category_license'),
     path('<slug:slug>/general/', CategoryGeneralUpdateView.as_view(), name='category_general'),
+    
+    path('<slug:slug>/requeriments/', SoftwareRequerimentsView.as_view(), name='requeriments'),
+    path('<slug:slug>/requeriment/new', RequerimentNewView.as_view(), name='requeriment_new'),
     
     # path('<slug:slug>/categoria/', CategoryCreateView.as_view(), name='categorization'),
 ]

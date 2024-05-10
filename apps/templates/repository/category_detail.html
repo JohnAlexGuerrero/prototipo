@@ -10,7 +10,7 @@
                         </td>
                     </tr>    
                     <tr>
-                        <th scope="col">Funciones principales</th>
+                        <th scope="col">Tareas Principales</th>
                         <td>
                             <ul class="list-group">
                                 {% for t in software.category.get_tasks_list %}
@@ -18,7 +18,13 @@
                                 {% endfor %}
                             </ul>
                         </td>
-                    </tr>       
+                    </tr>   
+                    <tr>
+                        <th scope="col">Tipo de software</th>
+                        <td>
+                            {{ software.type_of_work }}
+                        </td>
+                    </tr>      
                 </table>
             </div>
             <div class="col-sm-6">
@@ -30,7 +36,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th scope="col">Sector impacto</th>
+                        <th scope="col">Sector Impacto</th>
                         <td>
                             {{ software.category.type_industry }}
                         </td>
@@ -51,6 +57,12 @@
                         <th scope="col">Fecha de lanzamiento</th>
                         <td>
                             {{ software.date_created }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Desarrollado en</th>
+                        <td>
+                            {{ software.origin_country }}LOMBIA
                         </td>
                     </tr>
                 </table>

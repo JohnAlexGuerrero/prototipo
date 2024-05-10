@@ -15,45 +15,65 @@ class TypeOfWork(models.TextChoices):
     SOFTWARE_DERIVADO = "Software Derivado"
 
 class TypeFunctionSoftware(models.TextChoices):
-    PRODUCTIVIDAD = "Software de productividad"
-    MULTIMEDIA =  "Software de multimedia"
-    JUEGOS = "Juegos"
-    INTERNET = "Internet"
-    HERRAMIENTAS_Y_LIBRERIAS = "Herramientas y librerias"
-    PROGRAMACION = "Herramientas de desarrollo"
-    LENGUAJES_DE_PROGRAMACION = "Lenguaje de programación"
-    DEVOPS = "Herramientas Devops"
-    BASES_DE_DATOS = "Bases de datos"
+    PRODUCTIVIDAD = " El software de productividad ayuda a los usuarios a realizar tareas comunes de manera más eficiente."
+    CREATIVIDAD =  "El software de creatividad ayuda a los usuarios a crear contenido multimedia, como imágenes, videos y música."
+    COMUNICACION = "El software de comunicación ayuda a los usuarios a comunicarse con otros."
+    NEGOCIOS = "El software empresarial ayuda a las empresas a realizar sus operaciones."
+    PROGRAMACION = "El software de programación ayuda a los desarrolladores a crear distintas aplicaciones."
+    ENTRETENIMIENTO = "El software de entretenimiento ayuda a los usuarios a relajarse y divertirse."
+    EDUCACION = "El software educativo ayuda a los usuarios a aprender cosas nuevas."
+    BIENESTAR_Y_SALUD = "El software de bienestar se enfoca en el cuidado de la salud de los usuarios."
 
 class TypePublic(models.TextChoices):
     APTO_PARA_TODO_PUBLICO = "Apto para todo público"
     ADOLESCENTES = "Adolecentes"
     MAYORES_DE_17_AÑOS = "Mayores de 17 años"    
+    PUBLICO_ESPECIFICO = "Publico Especifico"    
     
 class Task(models.TextChoices):
-    GESTION_DE_ARCHIVOS_Y_CARPETAS = 'Gestion De Archivos y carpetas'
-    PROCESAMIENTO_DE_TEXTOS = 'Procesamiento De Textos'
-    CALCULO_Y_ANALISIS_DE_DATOS = 'Calculo Y Analisis De Datos'
-    GESTION_BASES_DATOS = 'Gestion Bases De Datos'
-    REPRODUCCION_MULTIMEDIA_DE_AUDIO_Y_VIDEO = 'Reproducción Multimedia De Audio Y Video'
-    CREACION_DE_CONTENIDO_MULTIMEDIA = 'Creacion De Contenido Multimedia'
-    JUEGOS = 'Juegos'
-    NAVEGADORES_WEB = 'Navegadores Web'
-    MESANGERIA = 'Mensajeria'
-    GESTION_DE_DISPOSITIVOS = 'Gestion De Dispositivos'
-    AUTOMATIZACION_DE_TAREAS = 'Automatizacion De Tareas'
-    SEGURIDAD_INFORMATICA = 'Seguridad Informatica'
-    COMPRESOR_DE_ARCHIVOS = 'Compresor De Archivos'
-    GESTION_DEL_TIEMPO = 'Gestion Del Tiempo'
-    TRADUCCION_DE_IDIOMAS = 'Traduccion De Idiomas'
-    EDUCACION_Y_APRENDIZAJE = 'Educacion Y Aprendizaje'
-    DISEÑO_Y_MODELADO = 'Diseño Y Modelado'
-    GESTION_DE_PROYECTOS = 'Gestion De Proyectos'
-    CONTABILIDAD_Y_FINANZAS = 'Contabilidad Y Finanzas'
-    GESTION_DE_RELACIONES_CON_CLIENTES_CRM = 'Gestion De Relaciones Con Clientes CRM'
+    ANTHIVIRUS = 'Anthivirus'
     BUSINESS_INTELLIGENCE_BI = 'Business Intelligence BI'
+    CUIDADO_DE_MASCOTAS = 'Cuidado De Mascotas'
+    CALCULO_Y_ANALISIS_DE_DATOS = 'Calculo Y Analisis De Datos'
+    CORREO_ELECTRONICO = 'Correo Electronico'
+    CREACION_DE_CONTENIDO_MULTIMEDIA = 'Creacion De Contenido Multimedia'
+    CALENDARIOS = 'Calendarios'
+    COMPRESOR_DE_ARCHIVOS = 'Compresor De Archivos'
+    CURSOS_EN_LINEA = 'Cursos En Linea'
+    CONTABILIDAD_Y_FINANZAS = 'Contabilidad Y Finanzas'
+    DISEÑO_GRAFICO = 'Diseño Grafico'
+    DISEÑO_Y_MODELADO = 'Diseño Y Modelado'
+    EDUCACION_Y_APRENDIZAJE = 'Educacion Y Aprendizaje'
+    EDITORES_DE_IMAGENES = 'Editores De Imagenes'
     E_COMMERCE = "E commerce"
-    MINERIA_DE_DATOS = "Mineria De Datos"
+    EDITORES_DE_VIDEO = 'Editores De Video'
+    GESTION_BASES_DATOS = 'Gestion Bases De Datos'
+    GESTION_DE_ARCHIVOS_Y_CARPETAS = 'Gestion De Archivos y carpetas'
+    GESTION_DE_DISPOSITIVOS = 'Gestion De Dispositivos'
+    GESTION_DE_TAREAS = 'Gestion De Tareas'
+    HOJAS_DE_CALCULO = 'Hojas De Calculo'
+    GESTION_DE_RELACIONES_CON_CLIENTES_CRM = 'Gestion De Relaciones Con Clientes CRM'
+    GESTION_DEL_TIEMPO = 'Gestion Del Tiempo'
+    GESTION_DE_PROYECTOS = 'Gestion De Proyectos'
+    HERRAMIENTAS_EDUCATIVAS = 'Herramientas Educativas'
+    HERRAMIENTAS_DE_MINERIA_DE_DATOS = "Herramientas De Mineria De Datos"
+    HERRAMIENTAS_DE_INTELIGENCIA_ARTIFICIAL = "Herramientas De Inteligencia Artificial"
+    JUEGOS = 'Juegos'
+    LIBROS_ELECTRONICOS = 'Libros Electronicos'
+    MESANGERIA_INSTANTANEA = 'Mensajeria Instantanea'
+    NOTAS = 'Notas'
+    NAVEGADORES_WEB = 'Navegadores Web'
+    PRESENTACIONES = 'Presentaciones'
+    PROCESAMIENTO_DE_TEXTOS = 'Procesamiento De Textos'
+    REDES_SOCIALES = 'Redes Sociales'
+    REPRODUCCION_MULTIMEDIA_DE_AUDIO_Y_VIDEO = 'Reproducción Multimedia De Audio Y Video'
+    SOFTWARE_DE_MUSICA = 'Software_De_Musica'
+    SERVICIOS_DE_TRANSMISION = 'Servicios De Transmision'
+    SOFTWARE_DE_IDIOMAS = 'Software De Idiomas'
+    SALUD_Y_CUIDADO_PERSONAL = 'Salud Y Cuidado Personal'
+    SEGURIDAD_INFORMATICA = 'Seguridad Informatica'
+    TRADUCCION_DE_IDIOMAS = 'Traduccion De Idiomas'
+    VIDEOLLAMADAS = 'Videollamadas'
 
 class Sector(models.TextChoices):
     SALUD = "Salud"
@@ -103,6 +123,9 @@ class Software(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
+    
+    def get_requeriments(self):
+        return Requeriment.objects.all().filter(software_id=self.id)
                             
 class Category(models.Model):
     software = models.OneToOneField(Software, verbose_name=("software"), on_delete=models.CASCADE)
@@ -135,12 +158,11 @@ class Category(models.Model):
 
 class Requeriment(models.Model):
     software = models.ForeignKey(Software, verbose_name=("software"), on_delete=models.CASCADE)
+    name = models.CharField('titulo', max_length=50,null=False,blank=False)
     description = models.TextField(("descripción"), null=True, blank=True)
     version = models.CharField(("versión"), max_length=50, null=False)
-    priority = models.PositiveBigIntegerField(("prioridad"), max_length=50, choices=[(1,"Alta"),(2,"Media"),(3,"Baja")])
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
-    
 
     class Meta:
         verbose_name = ("Requeriment")
@@ -151,6 +173,7 @@ class Requeriment(models.Model):
 
     def get_absolute_url(self):
         return reverse("Requeriments_detail", kwargs={"pk": self.pk})
+    
 
 class Funtionality(models.Model):
     requeriment = models.ForeignKey(Requeriment, verbose_name=("requeriment"), on_delete=models.CASCADE)

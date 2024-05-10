@@ -4,12 +4,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from repository.models import Software
 from repository.models import Category
+from repository.models import Requeriment
 from authentication.models import CustomUser
 
 from repository.forms import (
     SoftwareNewForm, SoftwareVersionForm,SoftwareOriginForm,
     CategoryForm,
-    DescriptionForm,
+    DescriptionForm, RequerimentForm
 )
 
 from django.views.generic import CreateView
@@ -39,7 +40,6 @@ class CategoryGeneralUpdateView(UpdateView):
     form_class = CategoryForm
     
     def get_success_url(self):
-        print(self.object)
         return reverse_lazy('repository', kwargs={'slug': self.object.slug })
     
     def get_context_data(self, **kwargs):
@@ -124,9 +124,28 @@ class SoftwareOriginUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["software"] = Software.objects.get(slug=self.kwargs['slug'])
-        form = SoftwareOriginForm(self.request.POST)
-        print(form)
-        print(self.request.POST)
         return context
-    
 
+
+#view para agregar los requerimientos de un producto software
+class SoftwareRequerimentsView(TemplateView):
+    template_name = "repository/requeriments.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['requeriments'] = Requeriment.objects.filter(software__slug=self.kwargs['slug'])
+        context["software"] = Software.objects.get(slug=self.kwargs['slug'])
+        return context
+
+class RequerimentNewView(CreateView):
+    model = Requeriment
+    form_class = RequerimentForm
+    template_name = 'repository/requeriment_new.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('repository', kwargs={'slug': self.object.software.slug })
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["software"] = Software.objects.get(slug=self.kwargs['slug'])
+        return context

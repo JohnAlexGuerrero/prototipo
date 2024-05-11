@@ -1,3 +1,5 @@
+from django.db.models.base import Model as Model
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -17,6 +19,7 @@ from repository.forms import (
 from django.views.generic import CreateView
 from django.views.generic import TemplateView
 from django.views.generic import DetailView
+from django.views.generic import DeleteView
 from django.views.generic import UpdateView
 
 # View para ingresar la informacion sobre la licencia de software
@@ -155,3 +158,19 @@ class RequerimentNewView(CreateView):
 class ArquitectureCreateView(CreateView):
     model = Arquitect
     template_name = "repository/arquitecture/new.html"
+
+
+#Eliminar un repositorio
+class SoftwareDeleteView(DeleteView):
+    model = Software
+    fields = ("id",)
+    template_name = "repository/delete.html"
+    success_url = reverse_lazy('dashboard')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["software"] = Software.objects.get(slug=self.kwargs['slug'])
+        return context
+    
+    
+    

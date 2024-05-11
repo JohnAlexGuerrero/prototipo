@@ -99,3 +99,4 @@ class RequerimentForm(forms.ModelForm):
             "name": forms.TextInput(attrs={'class':'form-control form-control-sm p-2 shadow'}),
             "description": forms.Textarea(attrs={'class':'form-control form-control-sm shadow'}),
         }
+

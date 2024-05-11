@@ -24,31 +24,46 @@
             {% include "includes/menu.html" with software=software %}
         </div>
         <div class="col-sm-9">
-            <div class="card shadow">
+            <div class="card shadow" style="height: 500px; overflow-y: scroll;">
                 <div class="card-body">
-                    <table class="table table-borderless">
-                        <tr>
-                            <th scope="col">Software</th>
-                            <td>
-                                {{ software.title }}
-                            </td>
-                        </tr>    
-                    </table>
-                    <table class="table table table-borderless">
-                        <tr>
-                            <th scope="col">Descripción</th>
-                            <td>
-                                {{ software.description }}
-                            </td>
-                        </tr>    
-                    </table>
-                    
-                    {% if software.category.type_software %}
-                    <div class="container mt-3">
-                        {% include "repository/category_detail.html" with software=software %}
-                        
-                        <a href="{% url "description" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
+                    <h1 class="h4 fw-bold text-start mb-3 mt-3 text-primary">Manual de Usuario: {{software}}</h1>
+                    <hr>
+                    <div id="id_section_content" class="mt-4 mb-3 p-2">
+                        <h1 class="fw-bold h5">Contenido</h1>
+                        <ul>
+                            <li>Sección 1: Descripción del Software <strong class="text-primary">{{software}}</strong> </li>
+                            <li>Sección 2: Categorización del software</li>
+                            <li>Sección 3: Funcionalidades claves del software</li>
+                            <li>Sección 4: Arquitectura del software</li>
+                            <li>Sección 5: Instalación y configuración</li>
+                            <li>Sección 6: Autores</li>
+                            <li>Sección 7: Solución de problemas</li>
+                            <li>Sección 8: Glosario</li>
+                            <li>Sección 9: Anexos</li>
+                        </ul>
                     </div>
+                    <div id="id_section_description" class="mb-3 p-2">
+                        <h1 class="fw-bold h4">Sección 1: Descripción del software</h1>
+                        <p>{{software.description}}</p>
+                    </div>
+
+                    <div id="id_section_category" class="mb-3 p-2">
+                        <h1 class="fw-bold h4">Sección 2: Categorización de software</h1>
+
+                        {% if software.category.type_software %}
+                        <div class="container mt-3">
+                            {% include "repository/category_detail.html" with software=software %}
+                            
+                            <a href="{% url "description" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
+                        </div>
+                        {% else %}
+                        
+                        {% endif %}
+                    </div>
+                    
+
+                    {% if software.get_requeriments %}
+                        {% include "repository/requeriments.html" with requeriments=software.get_requeriments %}
                     {% endif %}
                 </div>
             </div>
@@ -58,9 +73,5 @@
     
 </div>
 
-
-<div class="container mt-3">
-    {% include "repository/requeriments.html" with requeriments=software.get_requeriments %}
-</div>
 
 {% endblock content %}

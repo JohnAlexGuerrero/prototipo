@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from repository.models import Software
 from repository.models import Category
 from repository.models import Requeriment
+from repository.models import Arquitect
 from authentication.models import CustomUser
 
 from repository.forms import (
@@ -149,3 +150,8 @@ class RequerimentNewView(CreateView):
         context = super().get_context_data(**kwargs)
         context["software"] = Software.objects.get(slug=self.kwargs['slug'])
         return context
+    
+#view para definir la arquitectura
+class ArquitectureCreateView(CreateView):
+    model = Arquitect
+    template_name = "repository/arquitecture/new.html"

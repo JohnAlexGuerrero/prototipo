@@ -1,0 +1,15 @@
+{% extends "base/index.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{software}} - Set Arquitecture
+{% endblock title %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    
+</form>
+{% endblock content %}

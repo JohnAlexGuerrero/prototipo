@@ -38,10 +38,10 @@ New repository
             <div class="form-text"></div>
         </div>
         <div class="mb-3">
-            <label for="" class="h5 form-label m-0 fw-light text-secondary">Describe brevemente la principal función que cumple <strong id="id_text"></strong></label>
+            <label for="" class="h5 form-label m-0 fw-light text-secondary">Descripción del software: <strong id="id_text"></strong></label>
             {{form.description}}
             <div class="form-text" >
-                Describe la funcion principal de tu software, ten encuenta que no debe superar los <span id="id_count" class="text-secondary fw-light">0</span>/150 caracteres. 
+                Describe brevemente el objetivo principal de tu software, ten encuenta que no debe superar los <span id="id_count" class="text-secondary fw-light">0</span>/500 caracteres. 
             </div>
 
         </div>
@@ -64,14 +64,13 @@ New repository
     const textUpper = (e) => {
         e.target.value = e.target.value.toUpperCase()
         text.textContent = e.target.value
-        description.value = e.target.value
     }
 
     title.addEventListener('keyup', textUpper)
 
     description.addEventListener('keyup', (e)=>{
         let str_size = e.target.value.length
-        count.textContent = 150 - str_size
+        count.textContent = 500 - str_size
     })
 </script>
 {% endblock javascript %}

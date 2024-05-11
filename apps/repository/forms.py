@@ -35,12 +35,12 @@ class SoftwareNewForm(forms.ModelForm):
         
         widgets = {
             "title": forms.TextInput(attrs={
-                'class':'form-control form-control-sm',
+                'class':'form-control form-control-sm shadow',
             }),
             "description":forms.Textarea(attrs={
-                'class':'form-control',
+                'class':'form-control shadow form-control-sm',
                 "placeholder":"",
-                "rows":"5",
+                "rows":"8",
                 "cols":"10"
             })
         }
@@ -96,6 +96,6 @@ class RequerimentForm(forms.ModelForm):
         
         widgets = {
             "software":forms.Select(attrs={'style':'display:none;'}),
-            "name": forms.TextInput(attrs={'class':'form-control form-control-sm p-2'}),
-            "description": forms.Textarea(attrs={'class':'form-control form-control-sm'}),
+            "name": forms.TextInput(attrs={'class':'form-control form-control-sm p-2 shadow'}),
+            "description": forms.Textarea(attrs={'class':'form-control form-control-sm shadow'}),
         }

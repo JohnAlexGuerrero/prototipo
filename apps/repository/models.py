@@ -98,7 +98,7 @@ class Sector(models.TextChoices):
 
 class Software(models.Model):
     title = models.CharField(("Software titulo"), max_length=150, null=False, unique=True)
-    description = models.CharField(("description"), max_length=150)
+    description = models.TextField(("description"))
     version = models.CharField(("version"), max_length=50, null=False)
     slug = models.SlugField()
     user = models.ForeignKey(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
@@ -156,6 +156,7 @@ class Category(models.Model):
         list_tasks = [x for x in self.tasks.split(',')]
         return list_tasks
 
+#requerimientos de sistema
 class Requeriment(models.Model):
     software = models.ForeignKey(Software, verbose_name=("software"), on_delete=models.CASCADE)
     name = models.CharField('titulo', max_length=50,null=False,blank=False)
@@ -188,4 +189,22 @@ class Funtionality(models.Model):
 
     def get_absolute_url(self):
         return reverse("Funtionality_detail", kwargs={"pk": self.pk})
+
+#arquitectura de sistema
+class Arquitect(models.Model):
+    software = models.OneToOneField(Software, verbose_name=("software"), on_delete=models.CASCADE)
+    name = models.CharField(("nombre"), max_length=50, unique=True)
+    description = models.CharField(("descripcion"), max_length=250, null=False)
+    image = models.ImageField(("Imagen"), upload_to="images/", blank=True, null=True)
+    created_at = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = ("Arquitect")
+        verbose_name_plural = ("Arquitects")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("Arquitect_detail", kwargs={"pk": self.pk})
 

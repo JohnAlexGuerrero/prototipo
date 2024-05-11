@@ -4,7 +4,7 @@ from repository.views import (
     SoftwareCreateView, SoftwareDetailView, SoftwareUpdateView, SoftwareOriginUpdateView,
     CategoryDetailView, CategoryLicenseUpdateView, CategoryGeneralUpdateView,
     SoftwareRequerimentsView, RequerimentNewView,
-    DescriptionUpdateView
+    DescriptionUpdateView, ArquitectureCreateView
 )
 
 urlpatterns = [
@@ -22,5 +22,5 @@ urlpatterns = [
     path('<slug:slug>/requeriments/', SoftwareRequerimentsView.as_view(), name='requeriments'),
     path('<slug:slug>/requeriment/new', RequerimentNewView.as_view(), name='requeriment_new'),
     
-    # path('<slug:slug>/categoria/', CategoryCreateView.as_view(), name='categorization'),
+    path('<slug:slug>/arquitecture/', ArquitectureCreateView.as_view(), name='arquitecture_new'),
 ]

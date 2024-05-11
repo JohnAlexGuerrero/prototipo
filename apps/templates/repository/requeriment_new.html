@@ -23,7 +23,7 @@
     <hr>
     <form method='POST'>
         {% csrf_token %}
-        {{ form.software }}
+        <input type="text" value={{software.id}} style="display: none;" name="software">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Nombre de la interfaz</label>
             {{ form.name }}

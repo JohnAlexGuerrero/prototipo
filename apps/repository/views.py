@@ -15,6 +15,7 @@ from repository.forms import (
     CategoryForm,
     DescriptionForm, RequerimentForm
 )
+from home.models import App
 
 from django.views.generic import CreateView
 from django.views.generic import TemplateView
@@ -89,6 +90,7 @@ class SoftwareDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["software"] = Software.objects.get(slug=self.kwargs['slug'])
         context['repositories'] = Software.objects.filter(user=self.request.user)
+        context['app'] = App.objects.first()
         return context
 
 #
@@ -171,6 +173,21 @@ class SoftwareDeleteView(DeleteView):
         context = super().get_context_data(**kwargs)
         context["software"] = Software.objects.get(slug=self.kwargs['slug'])
         return context
+
+#view para actualizar el logo del software
+class SoftwareLogoUpdateView(UpdateView):
+    model = Software
+    fields = ("logo",)
+    template_name = "repository/logo.html"
+    success_url = reverse_lazy('dashboard')
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["software"] = Software.objects.get(slug=self.kwargs['slug'])
+        context["app"] = App.objects.first()
+        print(self.request.POST)
+        return context
+    
+
     
     

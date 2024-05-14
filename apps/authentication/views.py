@@ -18,6 +18,7 @@ from home.models import App
 from authentication.models import (
     CustomUser, Profile, Academica,
 )
+from home.models import App
 
 from authentication.forms import (
     RegisterUserForm,
@@ -31,6 +32,11 @@ from authentication.forms import (
 class UserLoginView(TemplateView):
     template_name = "authentication/login.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["app"] = App.objects.first()
+        return context
+    
     def post(self, request):
         email = request.POST.get('email', None)
         password = request.POST.get('password', None)

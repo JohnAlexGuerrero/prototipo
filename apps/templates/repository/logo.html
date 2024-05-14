@@ -1,0 +1,89 @@
+{% extends "base/base-full-screen.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{software}} - Logo Software
+{% endblock title %}
+
+{% block content %}
+<div class="mt-2">
+    <div class="position-relative">
+        <a class="position-absolute" href={% url "repository"  slug=software.slug %}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg h2 fw-bold  text-dark" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
+        </a>
+    </div>
+</div>
+
+<div class="p-1 container mt-5 mb-5" style="width: 30rem;">
+    <h1 class="h2 fw-bold text-center">Definamos el Logo de {{software}}.</h1>
+    <p class="h4 text-secondary text-center">Un logo bien diseñado puede tener un impacto significativo en el éxito de un programa.</p>
+    <hr>
+    <div class="">
+        <form method='POST' enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="container-upload"> 
+                <div class="header"> 
+                    <img 
+                        src={% if software.logo  %} {{software.logo}} {% else %} {% static "images/upload_icon.png" %} {% endif %}  
+                        alt={% if software.logo  %} {{software.title}} {% else %} "" {% endif %}  
+                        height="150px";
+                        width="150px";                        
+                        id="id_img"
+                    >
+                    <p>Carga Tú Logo!</p>
+                </div> 
+                <label for="id_logo" class="footer"> 
+                    <svg fill="#000000" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M15.331 6H8.5v20h15V14.154h-8.169z"></path><path d="M18.153 6h-.009v5.342H23.5v-.002z"></path></g></svg> 
+                    <p id="id_text_file">No hay un archivo</p> 
+                </label> 
+                <input id="id_logo" type="file" name="logo" accept="image/*" style="display: none;"> 
+            </div>
+            <div class="d-flex justify-content-between " style="width:300px;">
+                <input type="submit" class="btn btn-success mt-3" value="Guardar">
+                <button type="button" id="id_delete_file" class="btn d-flex mt-3 btn-sm align-items-center" onclick="deleteFile()">
+                    <svg viewBox="0 0 24 24" fill="none" width="16" heigth="16" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5.16565 10.1534C5.07629 8.99181 5.99473 8 7.15975 8H16.8402C18.0053 8 18.9237 8.9918 18.8344 10.1534L18.142 19.1534C18.0619 20.1954 17.193 21 16.1479 21H7.85206C6.80699 21 5.93811 20.1954 5.85795 19.1534L5.16565 10.1534Z" stroke="#000000" stroke-width="2"></path> <path d="M19.5 5H4.5" stroke="#000000" stroke-width="2" stroke-linecap="round"></path> <path d="M10 3C10 2.44772 10.4477 2 11 2H13C13.5523 2 14 2.44772 14 3V5H10V3Z" stroke="#000000" stroke-width="2"></path> </g></svg>
+                    Descartar
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+<script>
+    const file = document.querySelector("#id_logo")
+    const textFile = document.querySelector("#id_text_file")
+    const img = document.querySelector('#id_img')
+    const deleteBtn = document.querySelector("#id_delete_file")
+
+    deleteBtn.disabled = true;
+    
+    const selectedFile = e =>{
+        textFile.textContent = e.target.files[0].name
+        if(e.target.files[0]){
+            deleteBtn.disabled = false;
+            const reader = new FileReader()
+            reader.onload = (e)=>{
+                img.src = e.target.result
+            }
+            reader.readAsDataURL(e.target.files[0])
+        }
+    }
+
+    const deleteFile = ()=>{
+        img.src = ''
+        textFile.textContent = "No hay un archivo"
+    }
+
+    file.addEventListener('change', e => selectedFile(e))
+
+
+</script>
+{% endblock javascript %}

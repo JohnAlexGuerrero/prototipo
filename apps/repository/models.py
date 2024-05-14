@@ -3,6 +3,10 @@ from django.utils.text import slugify
 from django_countries import countries
 from ckeditor.fields import RichTextField
 
+from io import BytesIO
+from PIL import Image
+from django.core.files import File
+
 from django.db import models
 from authentication.models import CustomUser
 
@@ -15,8 +19,8 @@ class TypeOfWork(models.TextChoices):
     SOFTWARE_DERIVADO = "Software Derivado"
 
 class TypeFunctionSoftware(models.TextChoices):
-    PRODUCTIVIDAD = " El software de productividad ayuda a los usuarios a realizar tareas comunes de manera más eficiente."
-    CREATIVIDAD =  "El software de creatividad ayuda a los usuarios a crear contenido multimedia, como imágenes, videos y música."
+    PRODUCTIVIDAD = "Software de productividad ayuda a los usuarios a realizar tareas comunes de manera más eficiente."
+    CREATIVIDAD =  "Software de creatividad ayuda a los usuarios a crear contenido multimedia, como imágenes, videos y música."
     COMUNICACION = "El software de comunicación ayuda a los usuarios a comunicarse con otros."
     NEGOCIOS = "El software empresarial ayuda a las empresas a realizar sus operaciones."
     PROGRAMACION = "El software de programación ayuda a los desarrolladores a crear distintas aplicaciones."
@@ -105,7 +109,8 @@ class Software(models.Model):
     date_created = models.DateField(("Fecha de creación"), auto_now_add=False, blank=True, null=True)
     type_of_work = models.CharField(("El software es"), max_length=50, choices=TypeOfWork.choices, default=TypeOfWork.SOFTWARE_DERIVADO)
     origin_country = models.CharField(("nacionalidad"), max_length=50, null=True, blank=True)
-    logo = models.ImageField("logo", upload_to="logos/", blank=True, null=True)
+    logo = models.ImageField(upload_to='uploads', blank=True, null=True)
+    thumbnail = models.ImageField(upload_to='uploads', blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
 
@@ -126,6 +131,23 @@ class Software(models.Model):
     
     def get_requeriments(self):
         return Requeriment.objects.all().filter(software_id=self.id)
+    
+    def get_logo(self):
+        if self.logo:
+            return 'http://127.0.0.1:8000' + self.logo.url
+        return ''
+    
+    def get_thumbnail(self):
+        if self.thumbnail:
+            return 'http://127.0.0.1:8000' + self.thumbnail.url
+        else:
+            if self.logo:
+                self.thumbnail = self.make_thumbnail(self.logo)
+                self.save()
+
+                return 'http://127.0.0.1:8000' + self.thumbnail.url
+            else:
+                return ''
                             
 class Category(models.Model):
     software = models.OneToOneField(Software, verbose_name=("software"), on_delete=models.CASCADE)

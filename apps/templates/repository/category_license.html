@@ -8,54 +8,63 @@
 
 
 {% block content %}
-    <div class="container mt-5">
-        <div class="w-50 d-flex flex-column justify-content-center">
-            <h1 class="h4 fw-bold text-center">
-                Tipo de Licencia de {{software}}
-            </h1>
-            <span class="text-secondary text-center">
-                La elección entre software propietario y software libre/código abierto depende de las necesidades específicas del usuario. Estas licencias definen los derechos y responsabilidades de usuarios y desarrolladores.
-            </span>
-        </div>
-
-        <div class="radio-inputs mt-5">
-            <form method="POST">
-              {% csrf_token %}
-              <input type="text" value={{software.id}} style="display: none;" name="software">
-              <div class="row">
-                      <div class="col-sm-6">
-                          <label >
-                            <input class="radio-input" type="radio" name="license" id="id_license_1" value="propietario">
-                            <span class="radio-tile">
-                                <span class="radio-icon">
-                                  <img src="{% static "images/candado.png" %}" alt="propietario">
-                                </span>
-                                <span class="radio-label fw-bold mt-3">Propietario</span>
-                                <span class="radio-label text-secondary">
-                                  Desarrollado por empresas o individuos que mantienen el control exclusivo sobre el código fuente y su distribución.
-                                </span>
-                            </span>
-                          </label>
-                      </div>
-                      <div class="col-sm-6">
-                          <label>
-                              <input checked="true" class="radio-input" type="radio" name="license" id="id_license_2" value="codigo libre">
-                              <span class="radio-tile">
-                              <span class="radio-icon">
-                                  <img src="{% static "images/candado-abierto.png" %}" alt="codigo libre">
-                              </span>
-                              <span class="radio-label fw-bold mt-3">Libre y de Código libre</span>
-                              <span class="radio-label">
-                                Otorgan libertad a los usuarios para usar, modificar y distribuir el software sin restricciones.
-                              </span>
-                          </label>
-                      </div>
-              </div>
-              <div class="d-flex gap-2 p-2 w-50">
-                  <input type="submit" class="btn btn-sm btn-dark mt-2" value="Continue" >
-              </div>
-            </form>
-        </div>
-
+<div class="mt-2">
+    <div class="position-relative">
+        <a class="position-absolute" href={% url "repository" slug=software.slug %}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg h2 fw-bold  text-dark" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
+        </a>
     </div>
+</div>
+<div class="d-flex justify-content-center mt-5 flex-column">
+    <div class="d-flex flex-column p-2">
+        <h1 class="h4 fw-bold text-center">
+            Tipo de Licencia de {{software}}
+        </h1>
+        <span class="text-secondary text-center">
+            La elección entre software propietario y software libre/código abierto depende de las necesidades específicas del usuario. Estas licencias definen los derechos y responsabilidades de usuarios y desarrolladores.
+        </span>
+    </div>
+
+    <div class="radio-inputs mt-5">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" value={{software.id}} style="display: none;" name="software">
+            <div class="row">
+                    <div class="col-sm-6">
+                        <label >
+                        <input class="radio-input" type="radio" name="license" id="id_license_1" value="propietario">
+                        <span class="radio-tile">
+                            <span class="radio-icon">
+                                <img src="{% static "images/candado.png" %}" alt="propietario">
+                            </span>
+                            <span class="radio-label fw-bold mt-3">Propietario</span>
+                            <span class="radio-label text-secondary">
+                                Desarrollado por empresas o individuos que mantienen el control exclusivo sobre el código fuente y su distribución.
+                            </span>
+                        </span>
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>
+                            <input checked="true" class="radio-input" type="radio" name="license" id="id_license_2" value="codigo libre">
+                            <span class="radio-tile">
+                            <span class="radio-icon">
+                                <img src="{% static "images/candado-abierto.png" %}" alt="codigo libre">
+                            </span>
+                            <span class="radio-label fw-bold mt-3">Libre y de Código libre</span>
+                            <span class="radio-label">
+                            Otorgan libertad a los usuarios para usar, modificar y distribuir el software sin restricciones.
+                            </span>
+                        </label>
+                    </div>
+            </div>
+            <div class="d-flex gap-2 p-2 w-50">
+                <input type="submit" class="btn btn-sm btn-dark mt-2" value="Continue" >
+            </div>
+        </form>
+    </div>
+
+</div>
 {% endblock content %}

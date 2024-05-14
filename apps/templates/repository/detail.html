@@ -24,47 +24,151 @@
             {% include "includes/menu.html" with software=software %}
         </div>
         <div class="col-sm-9">
-            <div class="card shadow" style="height: 500px; overflow-y: scroll;">
+            <div class="card shadow">
                 <div class="card-body">
                     <h1 class="h4 fw-bold text-start mb-3 mt-3 text-primary">Manual de Usuario: {{software}}</h1>
                     <hr>
-                    <div id="id_section_content" class="mt-4 mb-3 p-2">
-                        <h1 class="fw-bold h5">Contenido</h1>
-                        <ul>
-                            <li>Sección 1: Descripción del Software <strong class="text-primary">{{software}}</strong> </li>
-                            <li>Sección 2: Categorización del software</li>
-                            <li>Sección 3: Funcionalidades claves del software</li>
-                            <li>Sección 4: Arquitectura del software</li>
-                            <li>Sección 5: Instalación y configuración</li>
-                            <li>Sección 6: Autores</li>
-                            <li>Sección 7: Solución de problemas</li>
-                            <li>Sección 8: Glosario</li>
-                            <li>Sección 9: Anexos</li>
-                        </ul>
-                    </div>
-                    <div id="id_section_description" class="mb-3 p-2">
-                        <h1 class="fw-bold h4">Sección 1: Descripción del software</h1>
-                        <p>{{software.description}}</p>
-                    </div>
+                    <div  style="height: 500px; overflow-y: scroll;">
 
-                    <div id="id_section_category" class="mb-3 p-2">
-                        <h1 class="fw-bold h4">Sección 2: Categorización de software</h1>
-
-                        {% if software.category.type_software %}
-                        <div class="container mt-3">
-                            {% include "repository/category_detail.html" with software=software %}
-                            
-                            <a href="{% url "description" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Editar</a>
+                        <div id="id_section_content" class="mt-4 mb-3 p-2">
+                            <h1 class="fw-bold h5">Contenido</h1>
+                            <ul>
+                                <li>
+                                    <a href="#section-description" class="text-decoration-none">
+                                        Sección 1: Descripción del Software <strong class="text-primary">{{software}}</strong> 
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#section-category" class="text-decoration-none">
+                                        Sección 2: Categorización del software
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#section-requeriments" class="text-decoration-none">
+                                        Sección 3: Funcionalidades claves del software
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#id_section_arquitecture" class="text-decoration-none">
+                                        Sección 4: Arquitectura del software
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#id_section_installation" class="text-decoration-none">
+                                        Sección 5: Instalación y configuración
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#id_section_authors" class="text-decoration-none">
+                                        Sección 6: Autores
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#id_section_problems" class="text-decoration-none">
+                                        Sección 7: Solución de problemas
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#id_section_glosary" class="text-decoration-none">
+                                        Sección 8: Glosario
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#id_section_anexos" class="text-decoration-none">
+                                        Sección 9: Anexos
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                        {% else %}
+                        <div id="section-description" class="mb-3 p-2">
+                            <h1 class="fw-bold h4">Sección 1: Descripción del software</h1>
+                            <p>{{software.description}}</p>
+                        </div>
                         
-                        {% endif %}
+                        <div id="section-category" class="mb-3 p-2">
+                            <div class="d-flex justify-content-between">
+                                <h1 class="fw-bold h4">Sección 2: Categorización de software</h1>
+                                <a class="icon-link text-decoration-none p-2" href="{% url "version" slug=software.slug %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                                    </svg>
+                                    Editar                                
+                                </a>
+                            </div>
+                            
+                            {% if software.category.type_software %}
+                            <div class="container mt-3">
+                                {% include "repository/category_detail.html" with software=software %}                                
+                            </div>
+                            {% else %}
+                            
+                            {% endif %}
+                        </div>
+                        
+                        <div id="section-requeriments" class="mb-3 p-2">
+                            <div class="d-flex justify-content-between">
+                                <h1 class="fw-bold h4">Sección 3: Funcionales claves del software</h1>
+                                <a class="icon-link text-decoration-none p-2" href="{% url "requeriment_new" slug=software.slug %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                                    </svg>
+                                    Editar                                
+                                </a>
+                            </div>
+                            
+                            {% if software.get_requeriments %}
+                            {% include "repository/requeriments.html" with requeriments=software.get_requeriments %}
+                            {% endif %}
+                        </div>
+                        
+                        <div id="id_section_arquitecture" class="mb-3 p-2">
+                            <h1 class="fw-bold h4">Sección 4: Arquitectura del software</h1>
+                            
+                            {% if software.get_requeriments %}
+                            {% include "repository/requeriments.html" with requeriments=software.get_requeriments %}
+                            {% endif %}
+                        </div>
+                        
+                        <div id="id_section_installation" class="mb-3 p-2">
+                            <h1 class="fw-bold h4">Sección 5: Instalación y Configuración</h1>
+                            
+                            {% if software.get_requeriments %}
+                            {% include "repository/requeriments.html" with requeriments=software.get_requeriments %}
+                            {% endif %}
+                        </div>
+                        
+                        <div id="id_section_requeriments" class="mb-3 p-2">
+                            <h1 class="fw-bold h4">Sección 6: Autores</h1>
+                            
+                            {% if software.get_requeriments %}
+                            {% include "repository/requeriments.html" with requeriments=software.get_requeriments %}
+                            {% endif %}
+                        </div>
+                        
+                        <div id="id_section_requeriments" class="mb-3 p-2">
+                            <h1 class="fw-bold h4">Sección 7: Solución de problemas</h1>
+                            
+                            {% if software.get_requeriments %}
+                            {% include "repository/requeriments.html" with requeriments=software.get_requeriments %}
+                            {% endif %}
+                        </div>
+                        
+                        <div id="id_section_requeriments" class="mb-3 p-2">
+                            <h1 class="fw-bold h4">Sección 8: Glosario</h1>
+                            
+                            {% if software.get_requeriments %}
+                            {% include "repository/requeriments.html" with requeriments=software.get_requeriments %}
+                            {% endif %}
+                        </div>
+                        
+                        <div id="id_section_requeriments" class="mb-3 p-2">
+                            <h1 class="fw-bold h4">Sección 9: Anexos</h1>
+                            
+                            {% if software.get_requeriments %}
+                            {% include "repository/requeriments.html" with requeriments=software.get_requeriments %}
+                            {% endif %}
+                        </div>
                     </div>
-                    
-
-                    {% if software.get_requeriments %}
-                        {% include "repository/requeriments.html" with requeriments=software.get_requeriments %}
-                    {% endif %}
                 </div>
             </div>
         </div>

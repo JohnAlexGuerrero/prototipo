@@ -7,12 +7,22 @@
 {% endblock title %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="w-50 d-flex flex-column justify-content-center">
-        <h1 class="h4 fw-bold text-center">
+<div class="mt-2">
+    <div class="position-relative">
+        <a class="position-absolute" href={% url "repository" slug=software.slug %}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg h2 fw-bold  text-dark" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
+        </a>
+    </div>
+</div>
+
+<div class=" mt-5 ">
+    <div class="text-center d-flex justify-content-center flex-column">
+        <h1 class="h4 fw-bold">
             Bajo que terminos se desarrollo {{software}}
         </h1>
-        <span class="text-secondary text-center">
+        <span class="text-secondary p-2" >
             Un desarrollador puede crear un software a partir de la creación de nuevos algoritmos o la modificación de algoritmos ya existentes. En ambos casos el código fuente esta protegido por derechos de autor.
         </span>
     </div>

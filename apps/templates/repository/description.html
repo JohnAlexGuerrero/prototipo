@@ -1,17 +1,54 @@
-{% extends "repository/detail.html" %}
+{% extends "base/base-full-screen.html" %}
 
 {% load static %}
 
 {% block title %}
-@{{user}} - Edit description
+@{{user}} - Caracterización
 {% endblock title %}
 
-{% block subcontent %}
-    <form method="POST">
-        {% csrf_token %}
-        {% comment %} <input id="user" name="user" value={{user.id}} style="display:none;"> {% endcomment %}
-        {{ form.as_p }}
-        
-        <input type="submit" value="Actualizar" class="btn btn-dark">
-    </form>
-{% endblock subcontent %}
+{% block content %}
+
+<div class="p-1 container mt-5 mb-5" style="width:36rem;">
+    <div class="text-center">
+        <h2 class="text-title">DocuSoft</h2>
+    </div>
+    <h1 class="h2 fw-bold text-center mt-3">Paso 10:</h1>
+    <h1 class="h4 fw-bold text-center mt-2">¿Cómo describirias el objetivo y el uso de tu software?</h1>
+
+    <div class="d-flex flex-column">
+        <form method='POST'>
+            {% csrf_token %}            
+            <div class="p-1 container mt-3 mb-2" >
+                <div class="mb-3">
+                    {{ form.description }}
+                    <div id="emailHelp" class="form-text">
+                        Nota: La descripción, aquí arriba, ayudará a los usuarios a comprender el manejo y el porque de la funciones.           
+                    </div>
+                    <div id="descriptionHelp" class="form-text text-end">0/350</div>
+
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between ">
+                <input type="submit" class="btn btn-dark mt-3" value="Continue">
+            </div>
+        </form>
+
+    </div>
+</div>
+  
+{% endblock content %}
+
+{% block javascript %}
+<script>
+    const description = document.querySelector('#id_description')
+    const textHelpDescription = document.querySelector("#descriptionHelp")
+    
+
+    description.addEventListener('keyup', e=> textCount(textHelpDescription, 350, e))
+
+
+
+
+</script>
+{% endblock javascript %}

@@ -1,0 +1,52 @@
+{% extends "base/base-full-screen.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{software}} - Autores
+{% endblock title %}
+
+{% block content %}
+
+{% if software.get_authors %}
+<div class="mt-2">
+</div>
+{% endif %}
+
+<div class="p-1 container mt-5 mb-5" style="width:40rem;">
+    <div class="text-center">
+        <h2 class="text-title">DocuSoft</h2>
+    </div>
+    <h1 class="h2 fw-bold text-center mt-3">Paso 9:</h1>
+    <p class="text-secondary text-center">El reconocimiento a la actividad creadora del autor está íntimamente relacionado con el derecho de autor.</p>
+
+    <div class="d-flex flex-column">
+        <table class="table borderless shadow p-3">
+            <thead>
+              <tr>
+                <th class="fw-light text-secondary">Doc</th>
+                <th class="fw-light text-secondary">Nombre</th>
+                <th class="fw-light text-secondary">Email</th>
+                <th class="fw-light text-secondary"></th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for author in object_list %}
+                <tr>
+                  <th>{{author.type_ID}}-{{author.num_ID}}</th>
+                  <td>{{author.full_name}}</td>
+                  <td>{{author.email}}</td>
+                  <td>
+                    <a href="{% url "delete_author" slug=software.slug pk=author.id %}">Eliminar</a>
+                  </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="container mt-2 d-flex justify-content-between">
+            <a href="{% url "authors" slug=software.slug %}" class="btn btn-sm btn-outline-dark">Agregar</a>
+            <a href="{% url "description" slug=software.slug %}" class="btn btn-sm btn-dark">Continue</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

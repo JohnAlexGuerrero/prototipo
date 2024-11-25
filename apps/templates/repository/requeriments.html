@@ -1,40 +1,31 @@
 
 <div class="card p-1 rounded">
   <div class="card-body">
-    {% if requeriments %}
-    <table class="table">
-      <a href="" class="btn btn-outline-warning">Agregar requerimiento</a>
-  
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Titulo</th>
-          <th scope="col">Descripcion</th>
-          <th scope="col">Version</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for r in requeriments %}
-        <tr>
-          <th scope="row">{{ r.id }}</th>
-          <td>{{ r.name }}</td>
-          <td>{{ r.description }}</td>
-          <td>{{ r.version }}</td>
-          <td></td>
-        </tr>
-        {% endfor %}
-        
-      </tbody>
-    </table>
-    {% else %}
-      <p>Aun no tenemos los requerimientos de tu {{software}}</p>
-      <a href="" class="btn btn-outline-warning">Agregar requerimiento</a>
-  
-    {% endif %}
-    
+    <div class="d-flex justify-content-between">
+      <h1 class="h4 fw-bold text-start">3.1. {{requeriment.name}}</h1>
+      <a class="icon-link text-decoration-none p-2" href="{% url 'requeriment_edit' software_slug=software.slug %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+          <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+        </svg>
+        Editar                                
+      </a>
+  </div>
+  <span class="text-secondary">Figura N.1: {{requeriment.name}}</span>
+  <div class="p-3 border" style="background-color: #BBBB; height:300px">
+    {% comment %} <img src="{% static "" %}" class="img-fluid" alt="..."> {% endcomment %}
+  </div>
+  <span class="text-secondary">Fuente Propia</span>
+    <ul>
+      <li>a: boton de ingreso a sistema.</li>
+      <li>b: boton de ingreso a sistema.</li>
+    </ul>
+    <div>
+      <h3 class="h3">Descripcion de interfaz</h3>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores enim perferendis sit vel error iusto? Illum et debitis ipsa doloribus reprehenderit ipsum cupiditate, harum, unde, consectetur delectus repudiandae ipsam quis.</p>
+    </div>
   </div>
 </div>
+
 {% comment %} 
 <div class="container mt-3">
   <div class="card">

@@ -1,0 +1,110 @@
+{% extends "base/base-full-screen.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{software}} - Plataforma
+{% endblock title %}
+
+{% block content %}
+<div class="mt-2">
+    {% if software.installation.platform %}
+    <div class="position-relative">
+        <a class="position-absolute" href={% url "repository" slug=software.slug %}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                class="bi bi-x-lg h2 fw-bold  text-dark" viewBox="0 0 16 16">
+                <path
+                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+            </svg>
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<div class="p-1 container mt-5 mb-5" style="width: 30rem;">
+    <div class="text-center">
+        <h2 class="text-title">DocuSoft</h2>
+    </div>
+    <div class="d-flex justify-content-center flex-column">
+        <div class="d-flex flex-column p-2">
+            <h1 class="h4 fw-bold text-center">
+                Paso 7:
+            </h1>
+            <span class="text-secondary text-center">
+                ¿Que plataforma tecnológica, requiere tu sistema para funcionar?.
+            </span>
+        </div>
+
+        <div class="radio-inputs mt-2">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" value={{software.id}} style="display: none;" name="software">
+                <div class="row mb-3">
+                    <div class="col-sm-6">
+                        <label>
+                            <input class="radio-input" type="radio" name="platform" id="id_platform_1" value="movil">
+                            <span class="radio-tile">
+                                <span class="radio-icon">
+                                    <img src="{% static "images/icons8-dispositivo-50.png" %}" alt="movil">
+                                </span>
+                                <span class="radio-label fw-bold mt-3">Móvil</span>
+                                <span class="radio-label text-secondary">
+                                    Desarrollado para funcionar en determinados dispositivos de hardware o de software
+                                    compatibles.
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>
+                            <input class="radio-input" type="radio" name="platform" id="id_platform_2" value="web">
+                            <span class="radio-tile">
+                                <span class="radio-icon">
+                                    <img src="{% static "images/icons8-web-50.png" %}" alt="web">
+                                </span>
+                                <span class="radio-label fw-bold mt-3">Web</span>
+                                <span class="radio-label">
+                                    Desarrollado para funcionar a través de un servidor web, sin necesidad de tener una aplicación en el escritorio.
+                                </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <label>
+                            <input class="radio-input" type="radio" name="platform" id="id_platform_3" value="escritorio">
+                            <span class="radio-tile">
+                                <span class="radio-icon">
+                                    <img src="{% static "images/icons8-mi-computadora-48.png" %}" alt="escritorio">
+                                </span>
+                                <span class="radio-label fw-bold mt-3">Escritorio</span>
+                                <span class="radio-label">
+                                    Desarrollado para que sea instalado en el ordenador o sistema de almacenamiento.
+                                </span>
+                            </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>
+                            <input checked="true" class="radio-input" type="radio" name="platform" id="id_platform_4" value="iot">
+                            <span class="radio-tile">
+                                <span class="radio-icon">
+                                    <img src="{% static "images/icons8-iot-64.png" %}" alt="iot">
+                                </span>
+                                <span class="radio-label fw-bold mt-3">IoT</span>
+                                <span class="radio-label">
+                                    conjunto de servicios y software que integra los datos recibidos de varios dispositivos de IoT
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center gap-2 p-2">
+                    <input type="submit" class="btn btn-sm btn-dark" value="Continue">
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

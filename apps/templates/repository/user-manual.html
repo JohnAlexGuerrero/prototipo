@@ -1,0 +1,36 @@
+{% extends "base/base-full-screen.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{software}} - Manual de Usuario
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card w-75">
+        <div class="card-body p-5">
+            <h1 class="h1 p-2 text-end">Manual de Usuario</h1>
+            <hr>
+            <div class="d-flex flex-column float-end">
+                {% if software.logo %}
+                <div class="rouded border">
+                    <img src={{software.get_logo}} class="img-thumbnail borderless" alt={{software.slug}}>
+                </div>
+                {% endif %}
+                
+                <div class="mt-5 d-flex flex-column">
+                    <p class="text-end">Autores:</p>
+                    <p class="text-end">
+                        John Alexander Guerrero
+                        Alex Basante
+                    </p>
+                    <div class="mt-5">
+                        <p class="text-end">{{software.date_created}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

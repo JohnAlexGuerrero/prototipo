@@ -8,6 +8,7 @@
 
 {% block content %}
 <div class="mt-2">
+    {% if software.origin %}
     <div class="position-relative">
         <a class="position-absolute" href={% url "repository" slug=software.slug %}>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg h2 fw-bold  text-dark" viewBox="0 0 16 16">
@@ -15,56 +16,63 @@
             </svg>
         </a>
     </div>
+    {% endif %}
 </div>
 
-<div class=" mt-5 ">
-    <div class="text-center d-flex justify-content-center flex-column">
-        <h1 class="h4 fw-bold">
-            Bajo que terminos se desarrollo {{software}}
+<div class="p-1 container mt-5 mb-5" style="width: 30rem;">
+
+    <div class="text-center mt-3">
+        <h2 class="text-title">DocuSoft</h2>
+    </div>
+
+    <div class="d-flex justify-content-center mt-3 flex-column">
+        <h1 class="h4 fw-bold text-center">
+            Paso 4:
         </h1>
-        <span class="text-secondary p-2" >
-            Un desarrollador puede crear un software a partir de la creación de nuevos algoritmos o la modificación de algoritmos ya existentes. En ambos casos el código fuente esta protegido por derechos de autor.
-        </span>
-    </div>
+        <p class="text-secondary p-2 text-center" >
+            Define el origen de tu aplicativo, Tu software surge de la creación de nuevos algoritmos y/o la modificación de algoritmos ya existentes. En ambos casos el código fuente esta protegido por derechos de autor.
+        </p>
 
-    <div class="radio-inputs mt-5">
-        <form method="POST">
-          {% csrf_token %}
-            {{ form.slug }}
-          <div class="row">
-                  <div class="col-sm-6">
-                      <label >
-                        <input class="radio-input" type="radio" name="type_of_work" id="id_type_of_work_1" value="Software Inedito">
-                        <span class="radio-tile">
+
+        <div class="radio-inputs mt-2">
+            <form method="POST">
+            {% csrf_token %}
+                {{ form.slug }}
+            <div class="row">
+                    <div class="col-sm-6">
+                        <label >
+                            <input class="radio-input" type="radio" name="type_of_work" id="id_type_of_work_1" value="Software Inedito">
+                            <span class="radio-tile">
+                                <span class="radio-icon">
+                                    <img src="{% static "images/inedito.png" %}" alt="inedito">
+                                </span>
+                                <span class="radio-label fw-bold mt-3">Software inédito</span>
+                                <span class="radio-label text-secondary">
+                                    Es un software creado desde cero, sin basarse en código fuente preexistente.                            
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>
+                            <input checked="true" class="radio-input" type="radio" name="type_of_work" id="id_type_of_work_2" value="Software Derivado">
+                            <span class="radio-tile">
                             <span class="radio-icon">
-                                <img src="{% static "images/inedito.png" %}" alt="inedito">
+                                <img src="{% static "images/derivado.png" %}" alt="derivado">
                             </span>
-                            <span class="radio-label fw-bold mt-3">Software inédito</span>
-                            <span class="radio-label text-secondary">
-                                Es un software creado desde cero, sin basarse en código fuente preexistente.                            
+                            <span class="radio-label fw-bold mt-3">Software Derivado</span>
+                            <span class="radio-label">
+                                Creado a partir de un código fuente preexistente, que ha sido modificado o extendido para cumplir con nuevos requisitos o funcionalidades.                          
                             </span>
-                        </span>
-                      </label>
-                  </div>
-                  <div class="col-sm-6">
-                    <label>
-                        <input checked="true" class="radio-input" type="radio" name="type_of_work" id="id_type_of_work_2" value="Software Derivado">
-                        <span class="radio-tile">
-                        <span class="radio-icon">
-                            <img src="{% static "images/derivado.png" %}" alt="derivado">
-                        </span>
-                        <span class="radio-label fw-bold mt-3">Software Derivado</span>
-                        <span class="radio-label">
-                            Creado a partir de un código fuente preexistente, que ha sido modificado o extendido para cumplir con nuevos requisitos o funcionalidades.                          
-                        </span>
-                    </label>
-                  </div>
-          </div>
-          <div class="d-flex gap-2 p-2 w-50">
-              <input type="submit" class="btn btn-sm btn-dark mt-2" value="Continue" >
-          </div>
-        </form>
-    </div>
+                        </label>
+                    </div>
+            </div>
+            <div class="d-flex gap-2 p-2 w-50">
+                <input type="submit" class="btn btn-sm btn-dark mt-2" value="Continue" >
+            </div>
+            </form>
+        </div>
 
+    </div>
 </div>
 {% endblock content %}

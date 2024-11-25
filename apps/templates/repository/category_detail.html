@@ -1,18 +1,15 @@
-<div class="p-2">
+<div class="p-2 w-50">
     <table class="table table table-borderless">
         <tr>
-            <th scope="col">Tipo</th>
+            <th scope="col">Categoria</th>
             <td>
                 {{ software.category.type_software }}
             </td>
         </tr>    
         <tr>
-            <th scope="col">Tareas Principales</th>
+            <th scope="col">Acciones Principales</th>
             <td>
                 <ul class="list-group">
-                    {% for t in software.category.get_tasks_list %}
-                    <li class="list-group-item">{{t}}</li>
-                    {% endfor %}
                 </ul>
             </td>
         </tr>   
@@ -29,7 +26,7 @@
             </td>
         </tr>
         <tr>
-            <th scope="col">Sector Impacto</th>
+            <th scope="col">Sector</th>
             <td>
                 {{ software.category.type_industry }}
             </td>

@@ -6,7 +6,7 @@ from django.core.files.base import File
 from django.db.models.base import Model
 from django.forms.utils import ErrorList
 
-from authentication.models import CustomUser, Profile, Academica
+from authentication.models import Profile
 
 #formulario para el registro de un nuevo usuario
 class RegisterUserForm(UserCreationForm):
@@ -49,55 +49,55 @@ class RegisterUserForm(UserCreationForm):
     )
     
     class Meta:
-        model = CustomUser
+        model = Profile
         fields = ['email','username','password1','password2','first_name','second_name','last_name','second_last_name']
 
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['gender','avatar','phone']
+# class UserProfileForm(forms.ModelForm):
+#     class Meta:
+#         model = Profile
+#         fields = ['gender','avatar','phone']
 
-        widgets = {
-            "avatar": forms.FileInput(attrs={'style':'display:none;color:red;'}),
-            "gender": forms.RadioSelect(),
-        }
+#         widgets = {
+#             "avatar": forms.FileInput(attrs={'style':'display:none;color:red;'}),
+#             "gender": forms.RadioSelect(),
+#         }
 
-class CustomUserEditForm(forms.ModelForm):
+# class CustomUserEditForm(forms.ModelForm):
     
-    class Meta:
-        model = CustomUser
-        fields = ("username","email",)
+#     class Meta:
+#         model = CustomUser
+#         fields = ("username","email",)
 
 
-class AcademicaForm(forms.ModelForm):
-    class Meta:
-        model = Academica
-        fields = ['user','university','rol','profession','semester']
+# class AcademicaForm(forms.ModelForm):
+#     class Meta:
+#         model = Academica
+#         fields = ['user','university','rol','profession','semester']
         
-        widgets = {
-            "user": forms.Select(attrs={}),
-            "university": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
-            "rol": forms.RadioSelect(),
-            "profession": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
-            "semester": forms.Select(attrs={'class':'form-select form-select-sm mb-3'})
-        }
+#         widgets = {
+#             "user": forms.Select(attrs={}),
+#             "university": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
+#             "rol": forms.RadioSelect(),
+#             "profession": forms.Select(attrs={'class':'form-select form-select-sm mb-3'}),
+#             "semester": forms.Select(attrs={'class':'form-select form-select-sm mb-3'})
+#         }
 
-class AcademicaRoleForm(forms.ModelForm):
-    class Meta:
-        model = Academica
-        fields = ['user','rol']
+# class AcademicaRoleForm(forms.ModelForm):
+#     class Meta:
+#         model = Academica
+#         fields = ['user','rol']
 
-class AcademicaUniversityForm(forms.ModelForm):
+# class AcademicaUniversityForm(forms.ModelForm):
     
-    class Meta:
-        model = Academica
-        fields = ("university","profession","semester")
+#     class Meta:
+#         model = Academica
+#         fields = ("university","profession","semester")
         
-        widgets = {
-            "university": forms.Select(attrs={'class':'form-select form-select-sm'}),
-            "profession": forms.Select(attrs={'class':'form-select form-select-sm'}),
-            "semester": forms.Select(attrs={'class':'form-select form-select-sm'})
-        }
+#         widgets = {
+#             "university": forms.Select(attrs={'class':'form-select form-select-sm shadow'}),
+#             "profession": forms.Select(attrs={'class':'form-select form-select-sm shadow'}),
+#             "semester": forms.Select(attrs={'class':'form-select form-select-sm shadow'})
+#         }
 
 
 class ProfileContactForm(forms.ModelForm):

@@ -1,0 +1,81 @@
+{% extends "base/base-full-screen.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{software}} - Requerimientos hardware
+{% endblock title %}
+
+{% block content %}
+{% if software.os %}
+<div class="mt-2">
+    {% if software.installation.os %}
+    <div class="position-relative">
+        <a class="position-absolute" href={% url "repository"  slug=software.slug %}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg h2 fw-bold  text-dark" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+<div class="p-1 container mt-5 mb-5" style="width: 30rem;">
+    <div class="text-center">
+        <h2 class="text-title">DocuSoft</h2>
+    </div>
+    <h1 class="h2 fw-bold text-center mt-3">Paso 8:</h1>
+    <p class="text-secondary text-center">Definamos las características mínimas que debe tener el hardware de la computadora o dispositivo para poder instalar y ejecutar la aplicación.</p>
+
+    <div class="d-flex flex-column">
+        <label for=""  class="h4 form-label mb-3 fw-bold text-secondary text-center">Requerimientos Hardware para instalar {{software}}</label>
+
+        <form method='POST'>
+            {% csrf_token %}
+            <input type="text" value={{software.id}} style="display: none;" name="software" required>
+            <div id="carouselExampleFade" class="carousel slide carousel-fade">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control shadow" id="floatingInput" name="os" required>
+                            <label for="floatingInput">Sistema Operativo</label>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" name="procesador">
+                            <label for="floatingInput">Procesador</label>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" name="storage" required>
+                            <label for="floatingInput">Almacenamiento Minimo</label>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" name="ram" required>
+                            <label for="floatingInput">Memoria RAM</label>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <input type="submit" class="btn btn-dark mt-3" value="Guardar">
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+        <div class="d-flex justify-content-between ">
+            {% comment %} <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+              <span class="btn btn-outline-dark">Atras</span>
+            </button> {% endcomment %}
+            <button class="btn btn-outlibe-dark" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+              <span>Continue</span>
+            </button>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

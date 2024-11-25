@@ -8,9 +8,6 @@ from authentication.models import Profile
 # Register your models here.
 admin.site.unregister(Group)
 
-@admin.register(get_user_model())
-class CustomUserAdmin(UserAdmin):
-    pass
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):

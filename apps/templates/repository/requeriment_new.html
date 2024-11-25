@@ -6,8 +6,14 @@
 @{{software}} - New requeriment
 {% endblock title %}
 
+{% block cnd %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js" integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock cnd %}
+
 {% block content %}
+{% if software.authors.count >= 0 %}
 <div class="mt-2">
+    {% if software.installation.os %}
     <div class="position-relative">
         <a class="position-absolute" href={% url "repository"  slug=software.slug %}>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg h2 fw-bold  text-dark" viewBox="0 0 16 16">
@@ -15,32 +21,67 @@
             </svg>
         </a>
     </div>
+    {% endif %}
 </div>
+{% endif %}
 
-<div class="p-1 container mt-5 mb-5" style="width: 30rem;">
-    <h1 class="h2 fw-bold text-center">¿Cómo funciona {{software}}?.</h1>
-    <p class="h4 text-secondary text-center">Una documentación clara de las caracteristicas funcionales facilita la comprensión del sistema.</p>
-    <hr>
-    <form method='POST'>
-        {% csrf_token %}
-        <input type="text" value={{software.id}} style="display: none;" name="software">
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Nombre de la interfaz</label>
-            {{ form.name }}
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Describe brevemente la interfaz</label>
-            {{ form.description }}
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Version</label>
-            <input type="text" value={{software.version}} name="version" id="id_version" class="form-control form-control-sm shadow w-25">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        
-        <input type="submit" class="btn btn-success" value="Guardar">
-    </form>
+<div class="p-1 container mt-5 mb-5" style="width:36rem;">
+    <div class="text-center">
+        <img src={{app.get_logo}} alt={{app.name}} width="150px" height="50px">
+    </div>
+    <h1 class="h2 fw-bold text-center mt-3">Paso 11:</h1>
+    <h1 class="h3 fw-bold text-center">Características funcionales de {{software}}.</h1>
+
+    <div class="d-flex flex-column">
+        <form method='POST' enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" value={{software.id}} style="display: none;" name="software" required>
+            
+            <div class="p-1 container mt-3 mb-5" >
+            <div class="mb-3">
+                {{ form.name }}
+                <div id="emailHelp" class="form-text">
+                    Nota: La elección de los titulos para las vistas de la aplicación debe ser descriptiva, utilizando un lenguaje claro y sencillo que sea fácil de entender.           
+                </div>
+            </div>
+            <div class="container p-2 mt-3">
+                {% include "includes/canvas.html" %}
+            </div>
+            <div class="form-floating mb-3">
+                <!-- <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea> -->
+                {{ form.description }}
+                <label for="id_description" class="fw-bold">Describe brevemente la interfaz</label>
+                <div id="descriptionHelp" class="form-text">0/350</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"></label>
+            </div>
+    
+            <input type="text" value={{software.version}} name="version" id="id_version" style="display:none;">
+
+            <div class="d-flex justify-content-between ">
+                <input type="submit" class="btn btn-dark mt-3" value="Guardar">
+            </div>
+        </form>
+
+    </div>
 </div>
+  
 {% endblock content %}
+
+{% block javascript %}
+<script>
+    const title = document.querySelector('#id_name')
+    const description = document.querySelector('#id_description')
+    const btnSelect = document.querySelector("#id_btn_select")
+    const textHelpDescription = document.querySelector("#descriptionHelp")
+    
+    title.addEventListener('keyup', e=> inputUpperCase(e))
+
+    description.addEventListener('keyup', e=> textCount(textHelpDescription, 350, e))
+
+
+
+
+</script>
+{% endblock javascript %}

@@ -12,7 +12,7 @@
     font-family: Helvetica, sans-serif;
     padding: 25px;
     display: flex;
-    max-width: 420px;
+    max-width: 500px;
     flex-direction: column;
     align-items: center;
     overflow: hidden;
@@ -120,6 +120,7 @@
 
 {% block content %}
 <div class="mt-2">
+    {% if software.version == 'null' %}
     <div class="position-relative">
         <a class="position-absolute" href={% url "repository" slug=software.slug %}>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg h2 fw-bold  text-dark" viewBox="0 0 16 16">
@@ -127,13 +128,19 @@
             </svg>
         </a>
     </div>
+    {% endif %}
 </div>
-<div class="d-flex justify-content-center mt-5">
+
+<div class="text-center">
+    <h2 class="text-title">DocuSoft</h2>
+</div>
+
+<div class="d-flex justify-content-center">
     <div class="form">
         <div class="info">
-            <span class="title">Version semantico</span>
+            <span class="h2 fw-bold text-center ">Paso 3:</span>
             <span class="text-secondary text-center">
-                En el desarrollo de software, indicar la versión implica registrar y administrar los cambios realizados en el código fuente a lo largo del tiempo.
+                Define la versión inicial de tu aplicación, para gestionar los cambios de manera organizada, facilitando la corrección de errores y la implementación de nuevas funciones, en el código fuente.
             </span>
         </div>
         <p class="text-secondary">mayor.menor.parche</p>
@@ -148,14 +155,15 @@
             {% csrf_token %}
             {{ form.slug }}
             {{ form.version }}
-            <div class="p-4">
-                <label for="exampleFormControlInput1" class="form-label">Fecha de lanzamiento</label>
+            <div class="p-2">
+                <label for="exampleFormControlInput1" class="h3 fw-bold text-center mt-3">Fecha de lanzamiento</label>
                 {{ form.date_created }}
             </div>
             <div class="mb-3 p-2">
-                <label for="exampleFormControlInput1" class="form-label">País de creación</label>
+                <label for="exampleFormControlInput1" class="h3 fw-bold text-center mt-3">País de creación</label>
                 {{ form.origin_country }}
             </div>
+    
             <div class="d-flex gap-2 p-2 w-50">
                 <input type="submit" class="btn btn-sm btn-dark mt-2" value="Continue" >
             </div>

@@ -1,21 +1,46 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "css/upload.css" %}">
 
-<div id="id_canvas">
-    canvas
+<div class="mb-3">
+    <div id="imgContainer" class="container position-relative" style="background-color: rgb(184, 185, 182);width:100%;height:300px;background-color: rgba(12, 66, 243, 0.075);">
+        <div class="d-flex justify-content-center">
+            <div class="p-1" >
+                <img 
+                    src="{% static "images/upload_icon.png" %}" 
+                    id="id_image"
+                    alt="image description" 
+                    class="align-middle mt-5"
+                    name="image"
+                >
+            </div>
+        </div>
+        <label for="id_file" class="position-absolute top-0 end-0" style="width:32px; height:32px;cursor:pointer;background-color: rgba(15, 66, 243, 0.075);"> 
+            <svg fill="#000000" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M15.331 6H8.5v20h15V14.154h-8.169z"></path><path d="M18.153 6h-.009v5.342H23.5v-.002z"></path></g></svg> 
+        </label> 
+        <input id="id_file" type="file" name="image" accept="image/*" style="display: none;"> 
+        <div class="position-absolute bottom-0 d-flex justify-content-between w-100 align-middle">
+            <p id="id_text_file" class="">Coloca una imagen</p> 
+            <button type="button" id="id_delete_file" class="btn d-flex btn-sm align-items-center px-4"  disabled={% if True %} "false" {% else %} "true" {% endif %}>
+                <svg viewBox="0 0 24 24" fill="none" width="16" heigth="16" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5.16565 10.1534C5.07629 8.99181 5.99473 8 7.15975 8H16.8402C18.0053 8 18.9237 8.9918 18.8344 10.1534L18.142 19.1534C18.0619 20.1954 17.193 21 16.1479 21H7.85206C6.80699 21 5.93811 20.1954 5.85795 19.1534L5.16565 10.1534Z" stroke="#000000" stroke-width="2"></path> <path d="M19.5 5H4.5" stroke="#000000" stroke-width="2" stroke-linecap="round"></path> <path d="M10 3C10 2.44772 10.4477 2 11 2H13C13.5523 2 14 2.44772 14 3V5H10V3Z" stroke="#000000" stroke-width="2"></path> </g></svg>
+                Descartar
+            </button>
+        </div>
+    </div>
 </div>
 
 <script>
-    var canvas = new fabric.Canvas('id_canvas', {
-        width: window.innerWidth,
-        heigth: window.innerHeight
+    var imgElement = document.querySelector('#id_image');
+    var fileImgElement = document.querySelector('#id_file');
+    const textFile = document.querySelector("#id_text_file")
+    const deleteBtn = document.querySelector("#id_delete_file")
+    const imgContainer = document.querySelector('#imgContainer')
+
+    fileImgElement.addEventListener('change', e=> {
+        selectedFile(imgElement, textFile, e)
+        resizeImageToFitContainer(imgElement, imgContainer)
     })
 
-    var rect = new fabric.rect({
-        left: 100,
-        top: 100,
-        fill: "red",
-        width: 50,
-        heigth: 50,
-    })
+    deleteBtn.addEventListener('click', e => deleteFile(imgElement, textFile))
 
-    canvas.add(rect)
+
 </script>

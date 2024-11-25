@@ -1,0 +1,78 @@
+{% extends "base/base-full-screen.html" %}
+
+{% load static %}
+
+{% block title %}
+@{{software}} - Solicitud Certificado Derechos de Autor
+{% endblock title %}
+
+{% block content %}
+<div class="mt-2">
+    <div class="position-relative">
+        <a class="position-absolute" href={% url "repository" slug=software.slug %}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg h2 fw-bold  text-dark" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
+        </a>
+    </div>
+</div>
+<div class="d-flex justify-content-center mt-5 flex-column">
+    <div class="d-flex flex-column p-2">
+        <h1 class="h4 fw-bold text-center">
+            Registro Nacional De Derecho De Autor
+        </h1>
+        <span class="text-secondary text-center">
+            El derecho de autor es la normativa que se encarga de proteger la obras literarias, artísticas, cientificas y de soporte lógico (Software).
+        </span>
+    </div>
+
+    <div class="radio-inputs mt-5">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" value={{software.id}} style="display: none;" name="software">
+            <div class="w-100 d-flex p-2 mb-3">
+                <label class="switch mx-2">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <label for="" class="text-center p-2">¿Desea registrar {{software}} ante la Dirección Nacional De Derechos de Autor?</label>
+            </div>
+            <p class="fw-bold text-start">De un software se pueden registrar cualquiera de los siguientes 3 títulos:</p>
+            <div class="w-100 d-flex p-2 mb-3">
+                <label class="switch mx-2">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <label for="" class="text-center p-2">Documentación completa de {{software}}</label>
+            </div>
+            <div class="w-100 d-flex p-2 mb-3">
+                <label class="switch mx-2">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <label for="" class="text-center p-2">Código Fuente de {{software}}</label>
+            </div>
+            <div class="w-100 d-flex p-2 mb-3">
+                <label class="switch mx-2">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <label for="" class="text-center p-2">Manual de Usuario {{software}}</label>
+            </div>
+            <p class="fw-bold text-start">La solicitud de inscripción de {{software}} se puede hacer de forma personal o a través de un representante.</p>
+            <div class="w-100 d-flex p-2 mb-3">
+                <label class="switch mx-2">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <label for="" class="text-center p-2">¿Desea que {{app.name}} te represente?</label>
+            </div>
+            <div class="d-flex gap-2 p-2 w-50">
+                <input type="submit" class="btn btn-sm btn-dark mt-2" value="Guardar" >
+            </div>
+
+        </form>
+    </div>
+
+</div>
+{% endblock content %}

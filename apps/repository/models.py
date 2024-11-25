@@ -8,11 +8,13 @@ from PIL import Image
 from django.core.files import File
 
 from django.db import models
-from authentication.models import CustomUser
+from authentication.models import Profile
 
 import re
 
 # Create your models here.
+
+
 
 class TypeOfWork(models.TextChoices):
     SOFTWARE_INEDITO = "Software Inedito"
@@ -32,7 +34,6 @@ class TypePublic(models.TextChoices):
     APTO_PARA_TODO_PUBLICO = "Apto para todo público"
     ADOLESCENTES = "Adolecentes"
     MAYORES_DE_17_AÑOS = "Mayores de 17 años"    
-    PUBLICO_ESPECIFICO = "Publico Especifico"    
     
 class Task(models.TextChoices):
     ANTHIVIRUS = 'Anthivirus'
@@ -41,10 +42,12 @@ class Task(models.TextChoices):
     CALCULO_Y_ANALISIS_DE_DATOS = 'Calculo Y Analisis De Datos'
     CORREO_ELECTRONICO = 'Correo Electronico'
     CREACION_DE_CONTENIDO_MULTIMEDIA = 'Creacion De Contenido Multimedia'
+    CREACION_DE_DOCUMENTOS = 'Creacion De Documentos'
     CALENDARIOS = 'Calendarios'
     COMPRESOR_DE_ARCHIVOS = 'Compresor De Archivos'
     CURSOS_EN_LINEA = 'Cursos En Linea'
     CONTABILIDAD_Y_FINANZAS = 'Contabilidad Y Finanzas'
+    DESARROLLO_DE_SOFTWARE = 'Desarrollo De Software'
     DISEÑO_GRAFICO = 'Diseño Grafico'
     DISEÑO_Y_MODELADO = 'Diseño Y Modelado'
     EDUCACION_Y_APRENDIZAJE = 'Educacion Y Aprendizaje'
@@ -99,13 +102,19 @@ class Sector(models.TextChoices):
     DEPORTES = "Deportes"
     CIENCIA_E_INVESTIGACION = "Ciencia e investigación"
     SERVICIOS_PUBLICOS = "Servicios Publicos"
+    SOFTWARE = "Desarrollo de Software"
+
+class TypePublicLevel(models.TextChoices):
+    PRINCIPIANTE = "Usuarios con poco o ningún conocimiento previo sobre el software o el tipo de tecnología relacionada."
+    INTERMEDIO = "Usuarios con conocimiento básico del software o la tecnología relacionada y puede realizar tareas básicas."
+    EXPERTO = "Usuarios con conocimiento profundo del software o la tecnología relacionada y puede realizar tareas complejas."
 
 class Software(models.Model):
     title = models.CharField(("Software titulo"), max_length=150, null=False, unique=True)
-    description = models.TextField(("description"))
+    description = models.TextField(("description"), blank=True, null=True)
     version = models.CharField(("version"), max_length=50, null=False)
     slug = models.SlugField()
-    user = models.ForeignKey(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, verbose_name=("user"), on_delete=models.CASCADE)
     date_created = models.DateField(("Fecha de creación"), auto_now_add=False, blank=True, null=True)
     type_of_work = models.CharField(("El software es"), max_length=50, choices=TypeOfWork.choices, default=TypeOfWork.SOFTWARE_DERIVADO)
     origin_country = models.CharField(("nacionalidad"), max_length=50, null=True, blank=True)
@@ -120,6 +129,9 @@ class Software(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def get_authors(self):
+        return Author.objects.filter(software__slug=self.slug)
 
     def get_absolute_url(self):
         return reverse("Software_detail", kwargs={"slug": self.slug})
@@ -148,6 +160,18 @@ class Software(models.Model):
                 return 'http://127.0.0.1:8000' + self.thumbnail.url
             else:
                 return ''
+    
+    def make_thumbnail(self, image, size=(300, 200)):
+        img = Image.open(image)
+        img.convert('RGB')
+        img.thumbnail(size)
+
+        thumb_io = BytesIO()
+        img.save(thumb_io, 'JPEG', quality=85)
+
+        thumbnail = File(thumb_io, name=image.name)
+
+        return thumbnail
                             
 class Category(models.Model):
     software = models.OneToOneField(Software, verbose_name=("software"), on_delete=models.CASCADE)
@@ -155,8 +179,8 @@ class Category(models.Model):
     type_software = models.CharField(("Tipo de software"), max_length=150,choices=TypeFunctionSoftware.choices, null=True, blank=True)
     tasks = models.TextField(("tareas"), max_length=255, blank=True,null=True)
     type_public = models.CharField(("Tipo de audiencia"), max_length=100, choices=TypePublic.choices, default=TypePublic.APTO_PARA_TODO_PUBLICO)
-    type_industry = models.CharField(("sector"), max_length=100, choices=Sector.choices,null=True, blank=True)
-    os = models.CharField(("sistema operativo"), max_length=250, blank=True, null=True)
+    level_public = models.CharField(("Nivel de conocimiento"), max_length=200, choices=TypePublicLevel.choices, default=TypePublicLevel.PRINCIPIANTE)
+    type_industry = models.CharField(("sector"), max_length=200, choices=Sector.choices,null=True, blank=True)
     slug = models.SlugField()
     
     class Meta:
@@ -183,6 +207,9 @@ class Requeriment(models.Model):
     software = models.ForeignKey(Software, verbose_name=("software"), on_delete=models.CASCADE)
     name = models.CharField('titulo', max_length=50,null=False,blank=False)
     description = models.TextField(("descripción"), null=True, blank=True)
+    slug = models.SlugField()
+    image = models.ImageField(("uploads"), blank=True, null=True)
+    thumbnail = models.ImageField(("uploads"), blank=True, null=True)
     version = models.CharField(("versión"), max_length=50, null=False)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
@@ -195,9 +222,43 @@ class Requeriment(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("Requeriments_detail", kwargs={"pk": self.pk})
+        return reverse("requeriment_edit", kwargs={"software_slug": self.software.slug, "requeriment_slug": self.slug})
     
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
+    
+    def get_image(self):
+        if self.image:
+            return 'http://127.0.0.1:8000' + self.image.url
+        return ''
+    
+    def get_thumbnail(self):
+        if self.thumbnail:
+            return 'http://127.0.0.1:8000' + self.thumbnail.url
+        else:
+            if self.image:
+                self.thumbnail = self.make_thumbnail(self.image)
+                self.save()
 
+                return 'http://127.0.0.1:8000' + self.thumbnail.url
+            else:
+                return ''
+    
+    def make_thumbnail(self, image, size=(300, 200)):
+        img = Image.open(image)
+        img.convert('RGB')
+        img.thumbnail(size)
+
+        thumb_io = BytesIO()
+        img.save(thumb_io, 'JPEG', quality=85)
+
+        thumbnail = File(thumb_io, name=image.name)
+
+        return thumbnail
+          
+    
 class Funtionality(models.Model):
     requeriment = models.ForeignKey(Requeriment, verbose_name=("requeriment"), on_delete=models.CASCADE)
     description = models.CharField(("description"), max_length=150, null=False)
@@ -230,3 +291,65 @@ class Arquitect(models.Model):
     def get_absolute_url(self):
         return reverse("Arquitect_detail", kwargs={"pk": self.pk})
 
+#model installation
+class Installation(models.Model):
+    software = models.ForeignKey(Software, verbose_name=("software"), on_delete=models.CASCADE)
+    platform = models.CharField(("plataforma"), max_length=150)
+    os = models.CharField(("sistema operativo"), max_length=250, blank=True, null=True)
+    procesador = models.CharField(("sistema operativo"), max_length=250, blank=True, null=True)
+    ram = models.CharField(("sistema operativo"), max_length=250, blank=True, null=True)
+    storage = models.CharField(("siste"), max_length=250, blank=True, null=True)
+    screen = models.CharField(("resolución de pantalla"), max_length=50, blank=True, null=True)
+
+    class Meta:
+        verbose_name = ("Installation")
+        verbose_name_plural = ("Installations")
+
+    def __str__(self):
+        return self.software.title
+
+    def get_absolute_url(self):
+        return reverse("Installation_detail", kwargs={"pk": self.pk})
+
+#model solicitar certificado de derecho de autor
+class CopyrightCertificate(models.Model):
+    software = models.ForeignKey(Software, verbose_name=("software"), on_delete=models.CASCADE)
+    
+
+    class Meta:
+        verbose_name = ("CopyrightCertificate")
+        verbose_name_plural = ("CopyrightCertificates")
+
+    def __str__(self):
+        return self.software
+
+    def get_absolute_url(self):
+        return reverse("CopyrightCertificate_detail", kwargs={"pk": self.pk})
+
+
+# model para la entidad author
+class Author(models.Model):
+    software = models.ForeignKey(Software, verbose_name=("software"), on_delete=models.CASCADE)
+    first_name = models.CharField(("Primer Nombre"), max_length=150, null=False, blank=False)
+    second_name = models.CharField(("Segundo Nombre"), max_length=150, null=True, blank=True)
+    last_name = models.CharField(("Apellidos"), max_length=150, null=False, blank=False)
+    type_ID = models.CharField(("Tipo de Documento"), max_length=50, null=False, blank=False)
+    num_ID = models.CharField(("Numero de Documento"), max_length=50, null=False, blank=False)
+    born_date = models.DateField(("Fecha de Nacimiento"), auto_now=False, blank=True, null=True)
+    nacionality = models.CharField(("Nacionalidad"), max_length=50, default='COLOMBIA')
+    address = models.CharField(("Direccion"), max_length=150, blank=True, null=True)
+    email = models.EmailField(("Email"), max_length=254, blank=False, null=False)
+    phone = models.CharField(("Telefono"), max_length=50, blank=True, null=True)
+
+    class Meta:
+        verbose_name = ("Author")
+        verbose_name_plural = ("Authors")
+
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+    
+    def __str__(self):
+        return self.first_name
+
+    def get_absolute_url(self):
+        return reverse("Author_detail", kwargs={"pk": self.pk})
